@@ -1,15 +1,11 @@
 @extends('layouts.html-layout')
 
-@section('title', 'Main')
+@section('title', 'Kitchen')
 @section('content')
 
-    <h1>Hola</h1>
+    <h1>Kitchen</h1>
 
     <style>
 
     </style>
 @endsection
-
-
-
-
