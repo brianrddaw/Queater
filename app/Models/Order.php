@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pedido extends Model
+class Order extends Model
 {
-    protected $fillable = ['estado'];
+    protected $fillable = ['state'];
 
     // Relación con la tabla linea_pedido
     public function orderLine()
