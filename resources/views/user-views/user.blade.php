@@ -3,10 +3,13 @@
 @section('title', 'User')
 @section('content')
 
-    <h1>User</h1>
+    @extends('user-views.components.header')
+    <h1>hola</h1>
 
     <style>
-
+        h1 {
+            color: red
+        }
     </style>
 @endsection
 
