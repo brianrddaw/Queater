@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ProductController;
 // MAIN ROUTES
 
 
@@ -19,3 +19,9 @@ Route::get('/kitchen', function () {
 Route::get('/dashboard', function () {
     return view('dashboard-views.dashboard');
 })->name('dashboard.main');
+
+
+Route::get('/prueba', [ProductController::class, 'getProducts'])->name('prueba');
+
+//Comprar producto
+Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProducto'])->name('comprar.producto');
