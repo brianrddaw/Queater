@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\EatHereController;
 
 // MAIN ROUTES
@@ -26,3 +28,14 @@ Route::get('/kitchen', function () {
 Route::get('/dashboard', function () {
     return view('dashboard-views.dashboard');
 })->name('dashboard.main');
+
+
+
+//PRUEBA PARA PODER VER Y GESTIONAR PRODUCTOS.
+Route::get('/prueba', [ProductController::class, 'getProducts'])->name('prueba');
+
+//Comprar producto
+Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProducto'])->name('comprar.producto');
+
+
+Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');

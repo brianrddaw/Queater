@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade'); //Identificador del pedido
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade'); //Identificador del producto
             $table->integer('quantity'); //Cantidad del producto
-            $table->float('price'); //Precio del producto
             $table->boolean('state')->default(true); //Estado de la linea de pedido false = pendiente, true = entregado
             $table->timestamps(); //Fecha de la linea de pedido
         });
