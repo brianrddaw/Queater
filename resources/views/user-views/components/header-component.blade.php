@@ -32,10 +32,18 @@
         // Añade un evento de clic al botón SVG
         iconoContraer.addEventListener('click', function() {
             expandible.style.transform = 'translateX(0%)';
+            setTimeout(() => {
+                expandible.style.display = 'none';
+
+            }, 450);
         });
 
         iconoExpandir.addEventListener('click', function() {
-            expandible.style.transform = 'translatex(-100%)';
+            expandible.style.display = 'grid';
+            setTimeout(() => {
+                expandible.style.transform = 'translatex(-100%)';
+
+            }, 10);
         });
     });
 
