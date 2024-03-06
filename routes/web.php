@@ -12,6 +12,8 @@ use App\Http\Controllers\EatHereController;
 // USER ROUTES
 
 Route::get('/', [UserController::class, 'index'])->name('user.main');
+
+
 Route::get('/eat-here', [EatHereController::class, 'index'])->name('eat-here.main');
 
 

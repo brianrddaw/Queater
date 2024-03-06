@@ -1,8 +1,8 @@
-<header class="grid grid-cols-4 justify-items-center items-center  bg-stone-800 p-2 ">
-    <img src="{{ asset('imgs/logo.png') }}" alt="" class="w-16 mr-auto">
-    <h1 class="text-white col-span-2">{{ $restaurantName }}</h1>
-    <nav class="flex flex-col items-center text-white ml-auto mr-2 border-2 border-red-500 rounded ">
-        <svg  id="icono-expandir" class="cursor-pointer w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+<header class="grid grid-cols-4 justify-items-center items-center  bg-stone-800 p-4 rounded-b-lg">
+    <img src="{{ asset('imgs/logo.webp') }}" alt="" class="w-10 mr-auto">
+    <h1 class="text-white col-span-2 font-bold">{{ $restaurantName }}</h1>
+    <nav class="flex flex-col items-center text-white ml-auto mr-2 "">
+        <svg  id="icono-expandir" class="cursor-pointer w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
             <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
         </svg>
         <div id="expandible" class="grid grid-rows-12  bg-stone-800 w-[25vw] h-[100vh] absolute top-0 left-full transition-transform duration-500 transform translate-x-[0%] p-2">

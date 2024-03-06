@@ -3,10 +3,93 @@
 @section('title', 'User')
 @section('content')
 
-    <x-header-component  restaurantName="Queater"/>
+    <x-header-component />
 
-    <main class="flex w-full h-[calc(100vh-3.25rem)] place-content-center items-center border-2 border-red-700">
-        <x-product-card-component />
+    <main  class="eat-here-main">
+        {{-- <button class="border-2 border-red-500" onclick="makeOrder()">Comer</button> --}}
+
+        @foreach ( $products as $product )
+            @if ($product->availability)
+            <x-product-card-component
+
+                name='{{ $product->name }}'
+                description='{{ $product->description }}'
+                price='{{ $product->price }}'
+                id='{{ $product->id }}'
+
+            />
+            @endif
+
+        @endforeach
     </main>
 
 @endsection
+
+<style>
+
+    .eat-here-main{
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 3rem
+    }
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js">
+</script>
+
+
+<script>
+    var order = {};
+
+    function addToOrder(id)
+    {
+        // let orderLine = {
+        //     id: id,
+        //     quantity: 1
+        // };
+
+        if(order[id])
+        {
+            order[id].quantity++;
+        }
+        else
+        {
+            order[id] = {
+                id: id,
+                quantity: 1
+            };
+        }
+        console.log(order);
+        console.log(id);
+    }
+
+    function makeOrder()
+    {
+        // Obtener el token CSRF desde la etiqueta meta
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Configurar la solicitud AJAX con el token CSRF
+        $.ajax({
+            url: '{{ route('make.order') }}',
+            method: 'POST',
+            data: {
+                user_id: 1,
+                products: order
+            },
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response)
+            {
+                console.log(response);
+            },
+            error: function(xhr, status, error)
+            {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+</script>

@@ -13,7 +13,7 @@ class headerComponent extends Component
      */
     public function __construct(
 
-        public string $restaurantName = 'nombre_restaurante',
+        public string $restaurantName = 'QUEATER',
 
     )
     {}
