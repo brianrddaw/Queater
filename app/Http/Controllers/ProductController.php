@@ -21,4 +21,5 @@ class ProductController extends Controller
         $product->save();
         return redirect()->route('prueba');
     }
+    
 }
