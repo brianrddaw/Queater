@@ -1,6 +1,6 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[93vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-950 z-10 grid grid-rows-12 p-4 rounded-t-3xl text-orange-100">
+<div id="cart" class="user-cart fixed bottom-0 top-[94vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-950 z-10 grid grid-rows-12 p-4 pt-0 rounded-t-3xl text-orange-100">
 
-    <div class="grid grid-cols-3 justify-items-center border-2 border-blue-700 w-full h-fit ">
+    <div class="grid grid-cols-3 justify-items-center items-center  w-full  h-[6vh]">
 
         <p class=" font-bold text-md">{{ $price }}</p>
 
@@ -13,7 +13,7 @@
         </svg>
 
     </div>
-    <div class="flex flex-col gap-2 row-span-11 h-full border-2 border-blue-700">
+    <div class="flex flex-col gap-3 row-span-11 h-full ">
         <x-cart-product-card-component />
         <x-cart-product-card-component />
         <x-cart-product-card-component />
