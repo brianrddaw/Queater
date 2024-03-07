@@ -12,7 +12,7 @@ use App\Http\Controllers\UserController;
 
 // USER ROUTES
 
-Route::get('/', [UserController::class, 'index'])->name('user.main');
+Route::get('/', [MainUserController::class, 'index'])->name('user.main');
 
 
 Route::get('/eat-here', [EatHereController::class, 'index'])->name('eat-here.main');
@@ -64,3 +64,19 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 
 //Ruta para el logout.
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+
+//////////////////////////
+//                      //
+//         Session      //
+//                      //
+//////////////////////////
+
+//Ruta para crear una nueva session.
+Route::get('/create-session', [MainUserController::class, 'createSession'])->name('create.session');
+
+//Ruta para cerrar la session.
+Route::get('/close-session', [MainUserController::class, 'closeSession'])->name('close.session');
+
+//Ruta para obtener el id de la session.
+Route::get('/get-session-id', [MainUserController::class, 'getSessionId'])->name('get.session.id');
