@@ -29,8 +29,11 @@ Route::get('/kitchen', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard-views.dashboard');
-})->name('dashboard.main');
+})->middleware(['auth'])->name('dashboard.main');
 
+Route::get('/login', function () {
+    return view('login-views.login');
+})->name('login.main');
 
 
 //PRUEBA PARA PODER VER Y GESTIONAR PRODUCTOS.
