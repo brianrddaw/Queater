@@ -26,7 +26,7 @@ Route::get('/cash', function () {
 
 Route::get('/kitchen', function () {
     return view('kitchen-views.kitchen');
-})->middleware(['auth'])->name('kitchen.main');
+})->name('kitchen.main');
 
 
 
@@ -54,11 +54,11 @@ Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.or
 //Ruta del dashboard, solo se puede acceder si el usuario esta autenticado.
 Route::get('/dashboard', function () {
     return view('dashboard-views.dashboard');
-})->middleware(['auth'])->name('dashboard.main');
+})->name('dashboard.main');
 
 //Ruta para el login.
 Route::get('/login', function () {
-    return view('login-views.login');
+    return view('login-views.login',['route' => 'login']);
 })->name('login.main');
 
 //Ruta para el uso del controlador "login".

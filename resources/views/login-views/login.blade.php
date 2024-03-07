@@ -1,7 +1,7 @@
 <form action="{{ route('login') }}" method="post">
-
     @csrf
     <label for="email">Email
+        <input hidden type="text" name="route" value="{{ $route }}">
         <input class="border border-blue-500" type="email" name="email" id="email">
     </label><br>
     <label for="password">Password
