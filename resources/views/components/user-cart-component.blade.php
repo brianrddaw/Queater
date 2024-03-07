@@ -1,10 +1,10 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[94vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-950 z-10 grid grid-rows-12 p-4 pt-0 rounded-t-3xl text-orange-100">
+<div id="cart" class="user-cart fixed bottom-0 top-[54vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-12 p-4 pt-0 rounded-t-lg text-orange-100">
 
     <div class="grid grid-cols-3 justify-items-center items-center  w-full  h-[6vh]">
 
-        <p class=" font-bold text-md">{{ $price }}</p>
+        <p class="font-bold text-md">{{ $total }} €</p>
 
-        <svg id="cart-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6 animate-bounce">
+        <svg id="cart-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6 animate-bounce mt-2">
             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
         </svg>
 
@@ -13,13 +13,18 @@
         </svg>
 
     </div>
-    <div class="flex flex-col gap-3 row-span-11 h-full ">
-        <x-cart-product-card-component />
-        <x-cart-product-card-component />
-        <x-cart-product-card-component />
+
+    <div id="cart-products-container" class="border border-blue-700 flex flex-col gap-3 row-span-11 h-full ">
+
+        <x-cart-product-card-component  total="10" name="Hamburguesa" quantity="1"/>
+
     </div>
 
+    <button onclick="makeOrder()" class="sticky bottom-4 w-full bg-orange-50 py-4 rounded-lg text-orange-950 font-bold">
 
+        Terminar pedido
+
+    </button>
 </div>
 
 
@@ -62,6 +67,10 @@
             cartIsOpen = !cartIsOpen;
 
         })
+
+
+        const cartProductsContainer = document.querySelector('#cart-products-container');
+
 
 
 </script>

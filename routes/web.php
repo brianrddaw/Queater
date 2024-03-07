@@ -5,18 +5,16 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\EatHereController;
+use App\Http\Controllers\CartController;
 
 // MAIN ROUTES
 
 
 // USER ROUTES
-
 Route::get('/', [UserController::class, 'index'])->name('user.main');
 
 
 Route::get('/eat-here', [EatHereController::class, 'index'])->name('eat-here.main');
-
-
 
 
 Route::get('/cash', function () {
