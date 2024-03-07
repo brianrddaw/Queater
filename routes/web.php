@@ -1,18 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\MainUserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\EatHereController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 
 // MAIN ROUTES
 
 
 // USER ROUTES
 
-Route::get('/', [UserController::class, 'index'])->name('user.main');
+Route::get('/', [MainUserController::class, 'index'])->name('user.main');
 
 
 Route::get('/eat-here', [EatHereController::class, 'index'])->name('eat-here.main');
@@ -26,7 +26,7 @@ Route::get('/cash', function () {
 
 Route::get('/kitchen', function () {
     return view('kitchen-views.kitchen');
-})->name('kitchen.main');
+})->middleware(['auth'])->name('kitchen.main');
 
 
 
@@ -62,7 +62,7 @@ Route::get('/login', function () {
 })->name('login.main');
 
 //Ruta para el uso del controlador "login".
-Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [UserController::class, 'login'])->name('login');
 
 //Ruta para el logout.
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
