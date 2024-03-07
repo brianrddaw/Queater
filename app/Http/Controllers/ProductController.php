@@ -13,13 +13,4 @@ class ProductController extends Controller
         $products = Product::all();
         return view('prueba', ['products' => $products]);
     }
-
-    public function comprarProducto($id)
-    {
-        $product = Product::find($id);
-        $product->availability = false;
-        $product->save();
-        return redirect()->route('prueba');
-    }
-    
 }

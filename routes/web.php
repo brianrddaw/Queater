@@ -35,7 +35,7 @@ Route::get('/kitchen', function () {
 Route::get('/prueba', [ProductController::class, 'getProducts'])->name('prueba');
 
 //Comprar producto
-Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProducto'])->name('comprar.producto');
+// Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProducto'])->name('comprar.producto');
 
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
@@ -64,3 +64,19 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 
 //Ruta para el logout.
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+
+//////////////////////////
+//                      //
+//         Session      //
+//                      //
+//////////////////////////
+
+//Ruta para crear una nueva session.
+Route::get('/create-session', [MainUserController::class, 'createSession'])->name('create.session');
+
+//Ruta para cerrar la session.
+Route::get('/close-session', [MainUserController::class, 'closeSession'])->name('close.session');
+
+//Ruta para obtener el id de la session.
+Route::get('/get-session-id', [MainUserController::class, 'getSessionId'])->name('get.session.id');

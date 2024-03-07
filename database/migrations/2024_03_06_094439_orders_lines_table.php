@@ -29,8 +29,5 @@ return new class extends Migration
     {
         // Eliminar la tabla de líneas de pedido
         Schema::dropIfExists('orders_lines');
-
-        
-        
     }
 };
