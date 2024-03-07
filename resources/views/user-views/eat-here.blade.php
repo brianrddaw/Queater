@@ -84,7 +84,6 @@
             url: '{{ route('make.order') }}',
             method: 'POST',
             data: {
-                user_id: 1,
                 products: order
             },
             headers: {

@@ -21,10 +21,8 @@ class UserCartComponent extends Component
     {
 
 
-        $this->total = OrdersLine::join('products', 'orders_lines.product_id', '=', 'products.id')
-            ->select(DB::raw('SUM(orders_lines.quantity * products.price) as total'))
-            ->where('order_id', session('order_id'))
-            ->first()->total;
+        // $this->total = OrdersLine::sum(DB::raw('price * quantity'));
+
 
     }
 
