@@ -52,4 +52,11 @@ class OrderController extends Controller
         $orderLines = OrdersLine::where('order_id', $request->order_id)->get();
         return view('order', ['order' => $order, 'orderLines' => $orderLines]);
     }
+
+    public function getTotal(Request $request)
+    {
+        $total = OrdersLine::where('order_id', $request->order_id)->sum('price * quantity');
+        return $total;
+    }
+
 }
