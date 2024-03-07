@@ -14,6 +14,7 @@
 
 
             @if ($product->availability)
+
             <x-product-card-component
 
             name='{{ $product->name }}'

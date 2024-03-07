@@ -1,6 +1,7 @@
 <div class="flex items-center rounded-lg  min-h-fit h-12 pr-4  bg-orange-50 text-orange-950">
     <img class="w-12 h-12 absolute left-3 border-2 border-orange-500 bg-orange-500 rounded-lg object-fit " src="{{ asset('imgs/burguer.webp') }}" alt="">
 
+
     <div class="flex flex-col justify-between ml-14 text-base   max-w-24 w-full h-full pt-2 pb-1">
         <p class="font-bold leading-none max-h-4  overflow-hidden whitespace-nowrap text-ellipsis">{{ $name }}</p>
         <p class="leading-none max-h-4  overflow-hidden whitespace-nowrap text-ellipsis">{{ $total }} €</p>
