@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function makeOrder(Request $request)
     {
-        
+
         //Crear pedido
         $order = new Order();
         $order->save();
@@ -25,5 +25,30 @@ class OrderController extends Controller
             $orderLine->save();
         }
         echo "Pedido creado: " . json_encode($request->products);
+    }
+
+    public function putProductToOrder(Request $request)
+    {
+        $order = Order::find($request->order_id);
+        $orderLine = new OrdersLine();
+        $orderLine->order_id = $order->id;
+        $orderLine->product_id = $request->product_id;
+        $orderLine->quantity = $request->quantity;
+        $orderLine->save();
+        echo "Producto añadido al pedido";
+    }
+
+    public function deleteProductFromOrder(Request $request)
+    {
+        $orderLine = OrdersLine::where('order_id', $request->order_id)->where('product_id', $request->product_id)->first();
+        $orderLine->delete();
+        echo "Producto eliminado del pedido";
+    }
+
+    public function getOrder(Request $request)
+    {
+        $order = Order::find($request->order_id);
+        $orderLines = OrdersLine::where('order_id', $request->order_id)->get();
+        return view('order', ['order' => $order, 'orderLines' => $orderLines]);
     }
 }

@@ -37,7 +37,7 @@ Route::get('/kitchen', function () {
 Route::get('/prueba', [ProductController::class, 'getProducts'])->name('prueba');
 
 //Comprar producto
-Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProducto'])->name('comprar.producto');
+// Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProducto'])->name('comprar.producto');
 
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
