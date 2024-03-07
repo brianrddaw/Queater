@@ -21,7 +21,7 @@
 
 </header>
 
-<script>
+{{-- <script>
 
     document.addEventListener("DOMContentLoaded", function() {
         // Selecciona el botón SVG
@@ -50,4 +50,4 @@
     });
 
 
-</script>
+</script> --}}

@@ -4,30 +4,25 @@
 @section('content')
 
     <x-header-component />
-    <x-user-cart-component
-
-        price='49.99 €'
-
-    />
+    <x-user-cart-component/>
 
     <main  class="eat-here-main">
-        {{-- <button class="border-2 border-red-500" onclick="makeOrder()">Comer</button> --}}
 
         <h2 class="text-2xl text-orange-950 font-bold border-b-2 border-orange-500">HAMBURGUESAS</h2>
 
         @foreach ( $products as $product )
 
 
+            @if ($product->availability)
 
-        @if ($product->availability)
-        <x-product-card-component
+            <x-product-card-component
 
-        name='{{ $product->name }}'
-        description='{{ $product->description }}'
-        price='{{ $product->price }}'
-        id='{{ $product->id }}'
+            name='{{ $product->name }}'
+            description='{{ $product->description }}'
+            price='{{ $product->price }}'
+            id='{{ $product->id }}'
 
-        />
+            />
 
         @endif
 
@@ -59,12 +54,8 @@
 <script>
     var order = {};
 
-    function addToOrder(id)
+    function addToOrder(id, price)
     {
-        // let orderLine = {
-        //     id: id,
-        //     quantity: 1
-        // };
 
         if(order[id])
         {
@@ -74,7 +65,8 @@
         {
             order[id] = {
                 id: id,
-                quantity: 1
+                quantity: 1,
+                price: price
             };
         }
         console.log(order);
@@ -83,6 +75,7 @@
 
     function makeOrder()
     {
+
         // Obtener el token CSRF desde la etiqueta meta
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
 

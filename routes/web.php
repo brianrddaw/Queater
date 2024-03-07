@@ -12,12 +12,10 @@ use App\Http\Controllers\UserController;
 
 // USER ROUTES
 
-Route::get('/', [MainUserController::class, 'index'])->name('user.main');
+Route::get('/', [UserController::class, 'index'])->name('user.main');
 
 
 Route::get('/eat-here', [EatHereController::class, 'index'])->name('eat-here.main');
-
-
 
 
 Route::get('/cash', function () {

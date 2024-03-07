@@ -22,6 +22,7 @@ class OrderController extends Controller
             $orderLine->order_id = $order->id;
             $orderLine->product_id = $product['id'];
             $orderLine->quantity = $product['quantity'];
+            $orderLine->price = $product['price'];
             $orderLine->save();
         }
         echo "Pedido creado: " . json_encode($request->products);
