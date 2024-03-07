@@ -14,14 +14,8 @@
 
     <div class="flex flex-col">
         <h2 class="font-bold text-md text-left overflow-hidden whitespace-nowrap text-ellipsis"> {{ $name }}</h2>
-        {{-- <p class="description">{{ $description }}</p> --}}
     </div>
-        {{-- <span class="allergens">
-            <div class="w-6 h-6 bg-orange-500 rounded-full"></div>
-            <div class="w-6 h-6 bg-orange-500 rounded-full"></div>
-            <div class="w-6 h-6 bg-orange-500 rounded-full"></div>
-            <div class="w-6 h-6 bg-orange-500 rounded-full"></div>
-        </span> --}}
+
     <div class="flex items-end justify-between h-fit mt-2">
         <p class="text-lg h-fit leading-none">{{ $price }} €</p>
         <button onclick="addToOrder({{ $id }})" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded">

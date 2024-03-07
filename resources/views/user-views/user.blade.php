@@ -9,7 +9,7 @@
 
         <section class="w-fit h-fit flex flex-col justify-center items-center gap-5 border-2 border-red-700 mb-8">
 
-            <x-text-card-component message="Comer aquí" />
+            <x-text-card-component message="Comer aquí"   />
             <x-text-card-component message="Para llevar" />
 
         </section>

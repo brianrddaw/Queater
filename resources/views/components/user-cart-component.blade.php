@@ -1,8 +1,8 @@
-<div class="user-cart fixed bottom-0 left-[10vw] w-[80vw] h-12 bg-orange-950 z-10 grid grid-cols-3 items-center justify-items-center rounded-t-3xl text-orange-50">
+<div id="cart" class="user-cart fixed bottom-0 top-[92vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-950 z-10 grid grid-cols-3 py-4 justify-items-center rounded-t-3xl text-orange-100">
 
-    <p class="leading-none font-bold text-md">{{ $price }}</p>
+    <p class=" font-bold text-md">{{ $price }}</p>
 
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6 animate-bounce mt-2">
+    <svg id="cart-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6 animate-bounce">
         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
     </svg>
 
@@ -15,7 +15,7 @@
 
 <style>
 
-    .user-cart::before{
+    /* .user-cart::before{
         content: '';
         position: absolute;
         left: 0;
@@ -23,6 +23,31 @@
         background-image: linear-gradient(to top, white, transparent);
         width: 100%;
         height: calc(100%*2);
-    }
+    } */
 
 </style>
+
+
+<script>
+
+    const arrow = document.querySelector('#cart-arrow');
+    const cart = document.querySelector('#cart');
+    let cartIsOpen = false;
+    function expandCart(){
+        if(!cartIsOpen){
+            arrow.classList.toggle('animate-bounce');
+            arrow.classList.toggle('rotate-180');
+            cart.style.top = "10vh";
+        } else{
+            arrow.classList.toggle('animate-bounce');
+            arrow.classList.toggle('rotate-180');
+            cart.style.top = "92vh";
+
+        }
+        cartIsOpen = !cartIsOpen;
+    }
+
+    arrow.addEventListener('click', expandCart);
+
+
+</script>

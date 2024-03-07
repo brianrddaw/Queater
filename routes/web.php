@@ -41,3 +41,4 @@ Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProduct
 
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
+
