@@ -1,4 +1,5 @@
 <form action="{{ route('login') }}" method="post">
+    @csrf
     <label for="email">Email
         <input type="email" name="email" id="email">
     </label><br>

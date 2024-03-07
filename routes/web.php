@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\EatHereController;
+use App\Http\Controllers\LoginController;
 
 // MAIN ROUTES
 
@@ -27,13 +28,9 @@ Route::get('/kitchen', function () {
     return view('kitchen-views.kitchen');
 })->name('kitchen.main');
 
-Route::get('/dashboard', function () {
-    return view('dashboard-views.dashboard');
-})->middleware(['auth'])->name('dashboard.main');
 
-Route::get('/login', function () {
-    return view('login-views.login');
-})->name('login.main');
+
+
 
 
 //PRUEBA PARA PODER VER Y GESTIONAR PRODUCTOS.
@@ -45,3 +42,27 @@ Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProduct
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
 
+
+
+
+//////////////////////////
+//                      //
+//         Login        //
+//                      //
+//////////////////////////
+
+//Ruta del dashboard, solo se puede acceder si el usuario esta autenticado.
+Route::get('/dashboard', function () {
+    return view('dashboard-views.dashboard');
+})->middleware(['auth'])->name('dashboard.main');
+
+//Ruta para el login.
+Route::get('/login', function () {
+    return view('login-views.login');
+})->name('login.main');
+
+//Ruta para el uso del controlador "login".
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+//Ruta para el logout.
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
