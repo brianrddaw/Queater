@@ -21,7 +21,7 @@ class UserCartComponent extends Component
     {
 
 
-        $this->total = OrdersLine::sum(DB::raw('price * quantity'));
+        // $this->total = OrdersLine::sum(DB::raw('price * quantity'));
 
 
     }
