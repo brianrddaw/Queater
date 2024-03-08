@@ -18,7 +18,9 @@
 
     <div class="flex items-end justify-between h-fit mt-2">
         <p class="text-lg h-fit leading-none">{{ $price }} €</p>
-        <button onclick="addToOrder({{ $id }})" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded">
+
+        {{-- BOTON AÑADIR AL CARRITO --}}
+        <button onclick="addToOrder({{ $id }}, {{ $price }})" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded">
             Añadir
         </button>
     </div>

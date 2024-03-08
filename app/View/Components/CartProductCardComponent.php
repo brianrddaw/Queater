@@ -11,10 +11,14 @@ class CartProductCardComponent extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(
+
+        public $name = 'Producto',
+        public $total = 0,
+        public $quantity = 0,
+
+    )
+    {}
 
     /**
      * Get the view / contents that represent the component.

@@ -18,7 +18,7 @@
             @if($product->availability)
                 <div class='available product'>
                     <p >{{ $product->name }} - Disponible</p>
-                    <button class='addToOrder' onclick="addToOrder({{ $product->id }})">Añadir al pedido</button>
+                    <button class='addToOrder' onclick="addToOrder({{ $product }})">Añadir al pedido</button>
                 </div>
             @else
                 <div class='unable product'><p>{{ $product->name }} - No disponible</p></div>
@@ -38,10 +38,12 @@
 <script>
     var order = {};
 
-    function addToOrder(id)
+    function addToOrder(product)
     {
         // let orderLine = {
         //     id: id,
+        //     name: name,
+        //     price: price,
         //     quantity: 1
         // };
 
@@ -53,10 +55,12 @@
         {
             order[id] = {
                 id: id,
+                name: name,
+                price: price,
                 quantity: 1
             };
         }
-        console.log(order);
+        console.log(product);
     }
 
     function makeOrder()
@@ -97,7 +101,7 @@
         background-color: green;
     }
 
-    .product 
+    .product
     {
         margin: 10px;
         padding: 10px;
@@ -111,7 +115,7 @@
         flex-direction: row;
         flex-wrap: wrap;
     }
-    
+
 </style>
 
 </body>

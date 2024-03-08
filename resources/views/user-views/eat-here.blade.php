@@ -4,32 +4,20 @@
 @section('content')
 
     <x-header-component />
-    <x-user-cart-component
-
-        price='49.99 €'
-
-    />
+    @livewire('user-cart')
 
     <main  class="eat-here-main">
-        {{-- <button class="border-2 border-red-500" onclick="makeOrder()">Comer</button> --}}
 
         <h2 class="text-2xl text-orange-950 font-bold border-b-2 border-orange-500">HAMBURGUESAS</h2>
 
         @foreach ( $products as $product )
 
 
+            @if ($product->availability)
 
-        @if ($product->availability)
-        <x-product-card-component
+                @livewire('product-card', ['product' => $product], key($product->id))
 
-        name='{{ $product->name }}'
-        description='{{ $product->description }}'
-        price='{{ $product->price }}'
-        id='{{ $product->id }}'
-
-        />
-
-        @endif
+            @endif
 
         @endforeach
 
@@ -50,6 +38,38 @@
         padding: 3rem;
     }
 
+
+
+    .product-card{
+
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid red; */
+        min-width: 15rem;
+        width: 15rem;
+        height: fit-content;
+
+    }
+    .product-card img{
+        width: fit-content;
+        height: 6rem;
+        width: 6rem;
+        object-fit: contain;
+        margin: 0 auto;
+        /* border: 1px solid blue; */
+    }
+
+
+    .allergens{
+        display: flex;
+        width: fit-content;
+        /* border: 1px solid green; */
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+
+
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js">
@@ -59,12 +79,8 @@
 <script>
     var order = {};
 
-    function addToOrder(id)
+    function addToOrder(id, price)
     {
-        // let orderLine = {
-        //     id: id,
-        //     quantity: 1
-        // };
 
         if(order[id])
         {
@@ -74,7 +90,8 @@
         {
             order[id] = {
                 id: id,
-                quantity: 1
+                quantity: 1,
+                price: price
             };
         }
         console.log(order);
@@ -83,6 +100,7 @@
 
     function makeOrder()
     {
+
         // Obtener el token CSRF desde la etiqueta meta
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
@@ -91,7 +109,6 @@
             url: '{{ route('make.order') }}',
             method: 'POST',
             data: {
-                user_id: 1,
                 products: order
             },
             headers: {
