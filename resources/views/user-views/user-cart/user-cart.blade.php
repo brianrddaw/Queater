@@ -4,7 +4,17 @@
     <div class="grid grid-cols-3 justify-items-center items-center  w-full  h-[6vh] ">
 
         {{-- PRECIO TOTAL --}}
-        <p class="font-bold text-md">{{ $total }} €</p>
+        <p class="font-bold text-md">
+
+            @php
+
+                $total = 0;
+                foreach ($orders as $order){
+                    $total += $order->price * $order->quantity;
+                }
+                echo $total;
+
+            @endphp€</p>
 
         {{-- SVGS --}}
         <svg id="cart-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6 animate-bounce mt-2">
@@ -28,11 +38,11 @@
     </div>
 
     {{-- BOTON FINALIZAR PEDIDO --}}
-    <button onclick="makeOrder()" class=" bottom-4 w-full bg-orange-50 py-4 rounded-lg text-orange-950 font-bold">
+    {{-- <button onclick="makeOrder()" class=" bottom-4 w-full bg-orange-50 py-4 rounded-lg text-orange-950 font-bold">
 
         Terminar pedido
 
-    </button>
+    </button> --}}
 
 </div>
 
@@ -60,7 +70,4 @@
 
 
         const cartProductsContainer = document.querySelector('#cart-products-container');
-
-
-
 </script>

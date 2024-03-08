@@ -7,10 +7,17 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    //Funcion para devolver todos los productos en un objeto JSON
-    public function getProducts()
+    public function index($product)
     {
-        $products = Product::all();
-        return view('prueba', ['products' => $products]);
+        return view('user-views.user-product.product-card', ['product' => $product]);
     }
+
+    //Funcion para devolver todos los productos en un objeto JSON
+    // public function getProducts()
+    // {
+    //     $products = Product::all();
+    //     return view('prueba', ['products' => $products]);
+    // }
+
+
 }

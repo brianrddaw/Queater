@@ -18,6 +18,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Hamburguesa con papas fritas',
             'description' => 'Deliciosa hamburguesa con carne de res, lechuga, tomate y papas fritas.',
             'price' => 10.99,
+            'category' => 'Comida rápida', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -25,6 +26,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Refresco de cola',
             'description' => 'Refresco de cola frío y refrescante.',
             'price' => 2.49,
+            'category' => 'Bebidas', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -32,6 +34,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Tarta de manzana',
             'description' => 'Deliciosa tarta de manzana casera con canela y crema.',
             'price' => 4.99,
+            'category' => 'Postres', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -39,6 +42,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Café',
             'description' => 'Café caliente recién hecho.',
             'price' => 1.99,
+            'category' => 'Bebidas', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -46,6 +50,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Té',
             'description' => 'Té caliente recién hecho.',
             'price' => 1.99,
+            'category' => 'Bebidas', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -53,6 +58,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Agua mineral',
             'description' => 'Agua mineral fría.',
             'price' => 1.49,
+            'category' => 'Bebidas', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -60,6 +66,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Ensalada César',
             'description' => 'Ensalada César con pollo, lechuga, tomate, queso parmesano y aderezo.',
             'price' => 8.99,
+            'category' => 'Ensaladas', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -67,6 +74,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Sopa de tomate',
             'description' => 'Sopa de tomate caliente.',
             'price' => 4.99,
+            'category' => 'Sopas', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -74,8 +82,9 @@ class ProductsSeeder extends Seeder
             'name' => 'Sándwich de pollo',
             'description' => 'Sándwich de pollo con lechuga, tomate y mayonesa.',
             'price' => 6.99,
+            'category' => 'Comida rápida', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
-        
+
     }
 }

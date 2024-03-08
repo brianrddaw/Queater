@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name'); //Nombre del producto
             $table->string('description'); //Descripcion del producto
             $table->float('price'); //Precio del producto
+            $table->string('category'); //Categoria del producto
             $table->boolean('availability')->default(true); //Disponibilidad del producto
             $table->timestamps();
         });

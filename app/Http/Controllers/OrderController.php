@@ -8,6 +8,11 @@ use App\Models\OrdersLine;
 
 class OrderController extends Controller
 {
+
+    public function showCart()
+    {
+        return view('views.user-views.user-cart.user-cart');
+    }
     public function makeOrder(Request $request)
     {
         //Crear pedido

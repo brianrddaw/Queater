@@ -18,6 +18,11 @@ Route::get('/', [MainUserController::class, 'index'])->name('user.main');
 Route::get('/eat-here', [EatHereController::class, 'eatHere'])->name('eat-here.main');
 Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
 
+//Llama a un controlador enviando la id del producto.
+Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
+
+//Ruta para el carrito de compras.
+
 
 Route::get('/cash', function () {
     return view('cash-views.cash');

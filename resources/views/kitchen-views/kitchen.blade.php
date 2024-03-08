@@ -1,19 +1,14 @@
 @extends('layouts.html-layout')
-@php
-    $urls = [
-        'home' => route('dashboard.main'),
-        'menu' => route('eat-here.main'),
-        'kitchen' => route('kitchen.main'),
-    ];
-
-    $urls = json_encode($urls);
-@endphp
-
 
 @section('title', 'Kitchen')
-@section('urls', $urls )
-@section('content')
 
+@section('navegacion')
+    <a href="{{ route('kitchen.main') }}" class="border-b-2 border-red-500 text-xl m-auto ">Inicio</a>
+    <a href="{{ route('dashboard.main') }}" class="border-b-2 border-red-500 text-xl m-auto ">Pedidos</a>
+    <a href="{{ route('user.main') }}" class="border-b-2 border-red-500 text-xl m-auto ">Productos</a>
+@endsection
+
+@section('content')
     {{-- Si hay un usuario logeado muestra la cocina, sino muestra el loggin --}}
     Bienvendo a la cocina.
     <h1>Cocina</h1>
