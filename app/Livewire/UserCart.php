@@ -18,7 +18,7 @@ public function render()
     $total = OrdersLine::join('products', 'orders_lines.product_id', '=', 'products.id')
     ->sum(\DB::raw('products.price * orders_lines.quantity'));
 
-    return view('livewire.user-cart', [
+    return view('user-views.user-cart.user-cart', [
         'orders' => $orders,
         'total' => $total
     ]);

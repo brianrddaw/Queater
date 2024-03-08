@@ -1,4 +1,12 @@
-<div class="product-card gap-2 rounded-lg p-4 bg-gray-100 text-orange-950">
+<div>
+    Id: {{ $product->id }}
+    Producto: {{ $product->name }}
+    Precio: {{ $product->price }} €
+    <button wire:click="addToCart({{ $prodct }})">Añadir</button>
+ </div>
+
+
+{{-- <div class="product-card gap-2 rounded-lg p-4 bg-gray-100 text-orange-950">
     <div class="flex h-10 ">
         <img class="relative bottom-16 right-8 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]" src="../imgs/burguer.webp" alt="product_image">
 
@@ -19,17 +27,14 @@
     <div class="flex items-end justify-between h-fit mt-2">
         <p class="text-lg h-fit leading-none">{{ $product->price }} €</p>
 
-        {{-- BOTON AÑADIR AL CARRITO --}}
-        <button wire:click="addToCart()" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded">
+        <button onclick="addToCart({{ $product->id }}, {{ $product->price }})" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded">
             Añadir
         </button>
     </div>
 
 
 </div>
-
-
-
+ --}}
 
 
 

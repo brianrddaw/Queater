@@ -12,6 +12,15 @@ class ProductCard extends Component
 
     public function render()
     {
-        return view('livewire.product-card');
+
+        return view('user-views.user-product.product-card');
+
+    }
+
+    public function addToCart($productId)
+    {
+        //Transformo el producto a un array
+
+        echo json_encode($productId);
     }
 }

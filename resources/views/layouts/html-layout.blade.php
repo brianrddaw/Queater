@@ -9,6 +9,8 @@
     <title>@yield('title')</title>
 </head>
 <body class="overflow-x-hidden">
+    <x-header-component :urls=@yield('urls')>
+
     @yield('content')
     <style>
         * {

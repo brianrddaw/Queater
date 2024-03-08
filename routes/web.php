@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\EatHereController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\TakeAwayController;
 // MAIN ROUTES
 
 
@@ -15,7 +15,8 @@ use App\Http\Controllers\UserController;
 Route::get('/', [MainUserController::class, 'index'])->name('user.main');
 
 
-Route::get('/eat-here', [EatHereController::class, 'index'])->name('eat-here.main');
+Route::get('/eat-here', [EatHereController::class, 'eatHere'])->name('eat-here.main');
+Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
 
 
 Route::get('/cash', function () {

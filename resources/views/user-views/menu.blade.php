@@ -3,7 +3,6 @@
 @section('title', 'User')
 @section('content')
 
-    <x-header-component />
     @livewire('user-cart')
 
     <main  class="eat-here-main">

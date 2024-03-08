@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
-class EatHereController extends Controller
+class TakeAwayController extends Controller
 {
-
     public function comprarProducto($id)
     {
         $product = Product::find($id);
@@ -16,9 +15,9 @@ class EatHereController extends Controller
         return redirect()->route('prueba');
     }
 
-    public function eatHere(){
+    public function takeAway(){
 
         $products = Product::all();
-        return view('user-views.menu', ['products' => $products],[ 'takeAway' => false]);
+        return view('user-views.menu', ['products' => $products],[ 'takeAway' => true]);
     }
 }

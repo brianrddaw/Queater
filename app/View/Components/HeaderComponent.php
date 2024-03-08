@@ -14,7 +14,6 @@ class HeaderComponent extends Component
     public function __construct(
 
         public string $restaurantName = 'QUEATER',
-
     )
     {}
 
