@@ -21,7 +21,6 @@ Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-a
 //Llama a un controlador enviando la id del producto.
 Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
 
-//Ruta para el carrito de compras.
 
 
 Route::get('/cash', function () {

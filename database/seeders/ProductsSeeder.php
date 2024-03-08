@@ -18,7 +18,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Hamburguesa con papas fritas',
             'description' => 'Deliciosa hamburguesa con carne de res, lechuga, tomate y papas fritas.',
             'price' => 10.99,
-            'category' => 'Comida rápida', // Añadido en el commit 'Añadido campo category a la tabla products'
+            'category' => 'Comida rapida', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 
@@ -82,7 +82,7 @@ class ProductsSeeder extends Seeder
             'name' => 'Sándwich de pollo',
             'description' => 'Sándwich de pollo con lechuga, tomate y mayonesa.',
             'price' => 6.99,
-            'category' => 'Comida rápida', // Añadido en el commit 'Añadido campo category a la tabla products'
+            'category' => 'Comida rapida', // Añadido en el commit 'Añadido campo category a la tabla products'
             'availability' => true,
         ]);
 

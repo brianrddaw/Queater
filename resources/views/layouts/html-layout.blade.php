@@ -8,7 +8,7 @@
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden bg-orange-100">
     <header class="flex justify-items-center items-center  bg-orange-950 p-2 h-14 text-orange-100">
         {{-- <img src="{{ asset('imgs/logo.webp') }}" alt="" class="w-8 mr-auto"> --}}
         <div class="flex items-center pr-4 pl-2 h-full">

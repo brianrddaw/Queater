@@ -1,20 +1,10 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[94vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-12 p-4 pt-0 gap-4 rounded-t-lg text-orange-100" style="transition: all 0.3s ease;">
+<div id="cart" class=" user-cart fixed bottom-0 top-[94vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-12 p-4 pt-0 gap-4 rounded-t-lg text-orange-100" style="transition: all 0.3s ease;">
 
     {{-- ENCABEZADO CARRITO --}}
     <div class="grid grid-cols-3 justify-items-center items-center  w-full  h-[6vh] ">
 
         {{-- PRECIO TOTAL --}}
-        <p class="font-bold text-md">
-
-            @php
-
-                $total = 0;
-                foreach ($orders as $order){
-                    $total += $order->price * $order->quantity;
-                }
-                echo $total;
-
-            @endphp€</p>
+        <p class="font-bold text-md">0 €</p>
 
         {{-- SVGS --}}
         <svg id="cart-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6 animate-bounce mt-2">
@@ -31,9 +21,7 @@
     {{-- TARJETAS DE PRODUCTOS DEL CARRITO --}}
     <div id="cart-products-container" class=" flex flex-col gap-3 row-span-11 h-full overflow-scroll pr-4">
 
-        @foreach ($orders as $order)
-            @livewire('cart-product-card', ['order' => $order], key($order->id))
-        @endforeach
+
 
     </div>
 
