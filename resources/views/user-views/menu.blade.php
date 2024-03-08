@@ -7,7 +7,6 @@
     <a href="{{ route('logout') }}" class="border-b-2 border-red-500 text-xl m-auto ">Cerrar sesión</a> --}}
 @endsection
 @section('content')
-
     <main  class="eat-here-main border border-blue-700">
 
         @foreach ($productsByCategory as $category => $products)

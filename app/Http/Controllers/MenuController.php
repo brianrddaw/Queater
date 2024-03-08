@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
-
-
-class EatHereController extends Controller
+class MenuController extends Controller
 {
-
     public function comprarProducto($id)
     {
         $product = Product::find($id);
@@ -18,7 +15,9 @@ class EatHereController extends Controller
         return redirect()->route('prueba');
     }
 
-    public function eatHere(){
+
+    public function showMenu($takeAway){
+
         $categorys = DB::select('select category from products group by category');
 
         // Array para almacenar los productos por categoría
@@ -35,6 +34,6 @@ class EatHereController extends Controller
 
         return view('user-views.menu',
         ['productsByCategory' => $productsByCategory,
-        'takeAway' => 'false']);
+        'takeAway' => $takeAway]);
     }
 }

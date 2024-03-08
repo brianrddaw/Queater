@@ -31,13 +31,8 @@ class TakeAwayController extends Controller
             $productsByCategory[$category->category] = $products;
         }
 
-
-
-
-
         return view('user-views.menu',
-
         ['productsByCategory' => $productsByCategory,
-        'takeAway' => true]);
+        'takeAway' => 'true']);
     }
 }
