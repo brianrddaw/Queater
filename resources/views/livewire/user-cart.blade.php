@@ -1,7 +1,7 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[54vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-12 p-4 pt-0 rounded-t-lg text-orange-100">
+<div id="cart" class="user-cart fixed bottom-0 top-[10vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-12 p-4 pt-0 gap-4 rounded-t-lg text-orange-100" style="transition: all 0.3s ease;">
 
     {{-- ENCABEZADO CARRITO --}}
-    <div class="grid grid-cols-3 justify-items-center items-center  w-full  h-[6vh]">
+    <div class="grid grid-cols-3 justify-items-center items-center  w-full  h-[6vh] ">
 
         {{-- PRECIO TOTAL --}}
         <p class="font-bold text-md">{{ $total }} €</p>
@@ -19,38 +19,22 @@
     </div>
 
     {{-- TARJETAS DE PRODUCTOS DEL CARRITO --}}
-    <div id="cart-products-container" class="border border-blue-700 flex flex-col gap-3 row-span-11 h-full ">
+    <div id="cart-products-container" class=" flex flex-col gap-3 row-span-11 h-full overflow-scroll pr-4">
 
-        <x-cart-product-card-component  total="10" name="Hamburguesa" quantity="1"/>
+        @foreach ($orders as $order)
+            @livewire('cart-product-card', ['order' => $order], key($order->id))
+        @endforeach
 
     </div>
 
     {{-- BOTON FINALIZAR PEDIDO --}}
-    <button onclick="makeOrder()" class="sticky bottom-4 w-full bg-orange-50 py-4 rounded-lg text-orange-950 font-bold">
+    <button onclick="makeOrder()" class=" bottom-4 w-full bg-orange-50 py-4 rounded-lg text-orange-950 font-bold">
 
         Terminar pedido
 
     </button>
+
 </div>
-
-
-<style>
-
-    .user-cart{
-        transition: all 0.3s ease;
-    }
-
-    /* .user-cart::before{
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 100%;
-        background-image: linear-gradient(to top, white, transparent);
-        width: 100%;
-        height: calc(100%*2);
-    } */
-
-</style>
 
 
 <script>
@@ -64,7 +48,7 @@
         arrow.addEventListener('click', function(){
 
             if (!cartIsOpen) {
-                cart.style.transform = 'translateY(-90%)';
+                cart.style.transform = 'translateY(-92%)';
             } else {
                 cart.style.transform = 'translateY(-0%)';
             }

@@ -4,7 +4,7 @@
 @section('content')
 
     <x-header-component />
-    <x-user-cart-component/>
+    @livewire('user-cart')
 
     <main  class="eat-here-main">
 
@@ -15,16 +15,9 @@
 
             @if ($product->availability)
 
-            <x-product-card-component
+                @livewire('product-card', ['product' => $product], key($product->id))
 
-            name='{{ $product->name }}'
-            description='{{ $product->description }}'
-            price='{{ $product->price }}'
-            id='{{ $product->id }}'
-
-            />
-
-        @endif
+            @endif
 
         @endforeach
 
@@ -44,6 +37,38 @@
         align-items: center;
         padding: 3rem;
     }
+
+
+
+    .product-card{
+
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid red; */
+        min-width: 15rem;
+        width: 15rem;
+        height: fit-content;
+
+    }
+    .product-card img{
+        width: fit-content;
+        height: 6rem;
+        width: 6rem;
+        object-fit: contain;
+        margin: 0 auto;
+        /* border: 1px solid blue; */
+    }
+
+
+    .allergens{
+        display: flex;
+        width: fit-content;
+        /* border: 1px solid green; */
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+
 
 </style>
 
