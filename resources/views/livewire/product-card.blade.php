@@ -20,7 +20,7 @@
         <p class="text-lg h-fit leading-none">{{ $product->price }} €</p>
 
         {{-- BOTON AÑADIR AL CARRITO --}}
-        <button onclick="addToOrder({{ $product->id }}, {{ $product->price }})" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded">
+        <button wire:click="addToCart()" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded">
             Añadir
         </button>
     </div>
