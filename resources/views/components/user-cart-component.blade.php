@@ -1,4 +1,4 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[94vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-950 z-10 grid grid-rows-12 p-4 pt-0 rounded-t-3xl text-orange-100">
+<div id="cart" class="user-cart fixed bottom-0 top-[94vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-950 z-10 grid grid-rows-12 p-4 pt-0 rounded-t-lg text-orange-100">
 
     <div class="grid grid-cols-3 justify-items-center items-center  w-full  h-[6vh]">
 
