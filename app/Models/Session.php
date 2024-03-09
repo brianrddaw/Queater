@@ -9,6 +9,6 @@ class Session extends Model
 {
     use HasFactory;
 
-    protected $filable = ['id', 'status'];
+    protected $filable = ['status'];
 
 }

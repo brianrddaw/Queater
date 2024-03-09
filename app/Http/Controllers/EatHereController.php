@@ -35,6 +35,6 @@ class EatHereController extends Controller
 
         return view('user-views.menu',
         ['productsByCategory' => $productsByCategory,
-        'takeAway' => 'false']);
+        'takeAway' => 0]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrdersLine;
+use App\Models\Session;
 
 class OrderController extends Controller
 {
@@ -13,10 +14,13 @@ class OrderController extends Controller
     {
         return view('views.user-views.user-cart.user-cart');
     }
+
+
     public function makeOrder(Request $request)
     {
         //Crear pedido
         $order = new Order();
+        $order->take_away = $request->takeAway;
         $order->save();
 
         //Crear lineas de pedido
@@ -29,6 +33,12 @@ class OrderController extends Controller
             $orderLine->save();
         }
         echo "Pedido creado: " . json_encode($request->products);
+
+        //Elimnar la session
+        $session = Session::find($_COOKIE['session_id']);
+        $session->delete();
+
+
     }
 
     public function putProductToOrder(Request $request)

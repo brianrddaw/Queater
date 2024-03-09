@@ -284,7 +284,8 @@
                 url: '{{ route('make.order') }}',
                 method: 'POST',
                 data: {
-                    products: order
+                    products: order,
+                    takeAway: {{ $takeAway }},
                 },
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
@@ -298,6 +299,12 @@
                     console.error(xhr.responseText);
                 }
             });
+
+
+            //Redirige a la vista inicial.
+            window.location.href = "{{ route('user.main') }}";
+
+
         }
     </script>
 
