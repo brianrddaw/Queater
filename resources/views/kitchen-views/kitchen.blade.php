@@ -3,9 +3,9 @@
 @section('title', 'Kitchen')
 
 @section('navegacion')
-    <a href="{{ route('kitchen.main') }}" class="border-b-2 border-red-500 text-xl m-auto ">Inicio</a>
-    <a href="{{ route('dashboard.main') }}" class="border-b-2 border-red-500 text-xl m-auto ">Pedidos</a>
-    <a href="{{ route('user.main') }}" class="border-b-2 border-red-500 text-xl m-auto ">Productos</a>
+    <a href="{{ route('kitchen.main') }}" class="">Inicio</a>
+    <a href="{{ route('dashboard.main') }}" class="">Pedidos</a>
+    <a href="{{ route('user.main') }}" class="">Productos</a>
 @endsection
 
 @section('content')
@@ -46,7 +46,7 @@
         <form action="{{ route('logout') }}" method="post">
             @csrf
             <input type="hidden" name="route" value='kitchen.main'>
-            <button type="submit" class="bg-brown-400 hover:bg-brown-600 text-white font-bold py-2 px-4 rounded">LogOut</button>
+            <button type="submit" class="bg-red-600 rounded-lg p-4 hover:bg-red-500">LogOut</button>
         </form>
     </div>
 

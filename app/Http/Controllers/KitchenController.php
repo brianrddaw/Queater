@@ -51,16 +51,4 @@ class KitchenController extends Controller
             'orders' => $ordersJson,
         ]);
     }
-
-    public function showOrders()
-    {
-        return view('kitchen-views.kitchen-orders', [
-            'urls' => [
-                'home' => route('dashboard.main'),
-                'menu' => route('eat-here.main'),
-                'kitchen' => route('kitchen.main'),
-            ],
-
-        ]);
-    }
 }
