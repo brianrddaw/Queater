@@ -7,7 +7,7 @@
     <a href="{{ route('logout') }}" class="border-b-2 border-red-500 text-xl m-auto ">Cerrar sesión</a> --}}
 @endsection
 @section('content')
-    <main  class="eat-here-main border border-blue-700">
+    <main  class="eat-here-main">
 
         @foreach ($productsByCategory as $category => $products)
         <h2 class="text-2xl text-orange-950 font-bold border-b-2 border-orange-500">{{ $category }}</h2>
@@ -42,6 +42,11 @@
             if (Object.keys(order).length == 0) {
                 $('#cart').css('transform', 'translateY(10%)');
             }
+
+            $('.info-button').on('click', function(){
+                infoDisplay(this);
+            });
+
 
         }
 
@@ -91,7 +96,7 @@
             var cartCtn = $('#cart-products-container');
 
             // Crear la tarjeta
-            var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card max-w-80 grid grid-cols-9 items-center rounded  min-h-14 h-14 bg-orange-50 text-orange-950 text-xs"></div>');
+            var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card max-w-[600px] grid grid-cols-9 items-center rounded  min-h-14 h-14 bg-orange-50 text-orange-950 text-xs"></div>');
 
             // IMG
             var productImg = $('<img class="col-span-2 w-14 h-14 object-fit border-2 border-orange-950 bg-orange-950 rounded-l object-cover" src="{{ asset('imgs/burguer.webp') }}" alt="">');
@@ -217,60 +222,6 @@
                 });
             }
         }
-        // function addQuantity($element){
-
-        //     //  obtenemos la id tarjeta
-        //     let productCard = $element.parent().parent().parent();
-        //     let productQuantity = productCard.find('.product-quantity');
-
-        //     idProduct = productCard.attr('id').replace('cartProductCard', '');
-
-        //    // actualizar el carrito
-        //     cartProductsQuantity ++;
-        //     productQuantity.text(cartProductsQuantity);
-        //     updateCartQuantityText(cartProductsQuantity);
-
-        //     // actualizar el total
-        //     orderTotal += order[idProduct].price;
-        //     orderTotal = Math.max(0, orderTotal); // Asegurarse de que el total nunca sea menor que cero
-        //     $('.order-total').text(orderTotal.toFixed(2) + '€');
-
-
-        //     order[idProduct].quantity++;
-
-        // }
-
-        // function substractQuantity($element){
-
-
-        //     //  obtenemos la id tarjeta
-        //     let productCard = $element.parent().parent().parent();
-        //     let productQuantity = productCard.find('.product-quantity');
-
-        //     idProduct = productCard.attr('id').replace('cartProductCard', '');
-
-        //     if (productQuantity.text() == 1) {
-        //         return;
-        //     }
-
-        //    // actualizar el carrito
-        //     cartProductsQuantity --;
-        //     productQuantity.text(cartProductsQuantity);
-        //     updateCartQuantityText(cartProductsQuantity);
-
-        //     // actualizar el total
-        //     orderTotal -= order[idProduct].price;
-        //     orderTotal = Math.max(0, orderTotal); // Asegurarse de que el total nunca sea menor que cero
-        //     $('.order-total').text(orderTotal.toFixed(2) + '€');
-
-
-        //     order[idProduct].quantity--;
-
-
-
-        // }
-
-
 
 
         function makeOrder()
@@ -306,6 +257,31 @@
 
 
         }
+
+
+        function infoDisplay(card) {
+
+
+            const infoContainer = $(card).closest('.product-card').find('.product-card-info');
+            const infoCloseSvg = $(card).closest('.product-card').find('.info-close-svg');
+            const isInfoVisible = infoContainer.hasClass('active');
+
+            if (!isInfoVisible) {
+                infoContainer.addClass('active').css('display', 'flex').hide().slideDown(200);
+                infoCloseSvg.css('transform', 'rotate(45deg)');
+                infoCloseSvg.css('color', ' red');
+
+            } else {
+                infoContainer.slideUp(200, function() {
+                    $(this).removeClass('active').css('display', 'none');
+                    infoCloseSvg.css('color', '');
+                });
+                infoCloseSvg.css('transform', 'rotate(0deg)');
+            }
+        }
+
+
+
     </script>
 
 
@@ -316,7 +292,7 @@
             flex-direction: column;
             gap: 5rem;
             align-items: center;
-            padding: 3rem;
+            padding-top: 3rem;
         }
 
 
@@ -325,30 +301,37 @@
 
             display: flex;
             flex-direction: column;
-            /* border: 1px solid red; */
             min-width: 15rem;
-            width: 15rem;
             height: fit-content;
 
         }
+
+
+
         .product-card img{
             width: fit-content;
             height: 6rem;
             width: 6rem;
             object-fit: contain;
             margin: 0 auto;
-            /* border: 1px solid blue; */
         }
 
 
-        .allergens{
-            display: flex;
-            width: fit-content;
-            /* border: 1px solid green; */
-            justify-content: center;
-            gap: 0.5rem;
+        .product-card-info {
+            display: none;
+            overflow: hidden;
+            height: 0;
         }
 
+        .product-card-info.active {
+            height: auto;
+        }
+
+
+
+        .info-close-svg{
+            transition: all 0.2s ease;
+        }
 
 
     </style>
