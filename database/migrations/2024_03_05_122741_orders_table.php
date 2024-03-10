@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id(); //Identificador del pedido
             $table->boolean('take_away'); //Tipo de pedido (para llevar o para comer aquí)
-            $table->string('state')->default("pending"); //Estado del pedido (pendiente, en preparación, listo, entregado)
+            $table->string('state')->default("pending"); //Estado del pedido (pendiente, en preparación, listo, entregado)(pending, preparing, ready, delivered)
             $table->timestamps(); //Fecha del pedido
         });
     }

@@ -7,13 +7,12 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\EatHereController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TakeAwayController;
+use App\Http\Controllers\KitchenController;
 // MAIN ROUTES
 
 
 // USER ROUTES
-
 Route::get('/', [MainUserController::class, 'index'])->name('user.main');
-
 
 Route::get('/eat-here', [EatHereController::class, 'eatHere'])->name('eat-here.main');
 Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
@@ -27,22 +26,13 @@ Route::get('/cash', function () {
     return view('cash-views.cash');
 })->name('cash.main');
 
-Route::get('/kitchen', function () {
-    return view('kitchen-views.kitchen');
-})->name('kitchen.main');
+Route::get('/kitchen', [KitchenController::class, 'index'])->name('kitchen.main');
 
 
 
 
 
-
-//PRUEBA PARA PODER VER Y GESTIONAR PRODUCTOS.
-Route::get('/prueba', [ProductController::class, 'getProducts'])->name('prueba');
-
-//Comprar producto
-// Route::post('/comprar-producto/{id}', [ProductController::class, 'comprarProducto'])->name('comprar.producto');
-
-
+//Hacer el pedido
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
 
 

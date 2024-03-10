@@ -33,6 +33,7 @@ class EatHereController extends Controller
             $productsByCategory[$category->category] = $products;
         }
 
+
         return view('user-views.menu',
         ['productsByCategory' => $productsByCategory,
         'takeAway' => 0]);

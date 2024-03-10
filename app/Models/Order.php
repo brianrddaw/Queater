@@ -9,8 +9,8 @@ class Order extends Model
     protected $fillable = ['state'];
 
     // Relación con la tabla linea_pedido
-    public function orderLine()
+    public function ordersLine()
     {
-        return $this->hasMany(OrderLine::class);
+        return $this->hasMany(OrdersLine::class);
     }
 }

@@ -17,5 +17,4 @@ class MainUserController extends Controller
 
         return view('user-views.main');
     }
-
 }

@@ -32,6 +32,8 @@ class MenuController extends Controller
             $productsByCategory[$category->category] = $products;
         }
 
+
+
         return view('user-views.menu',
         ['productsByCategory' => $productsByCategory,
         'takeAway' => $takeAway]);
