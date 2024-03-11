@@ -3,14 +3,13 @@
 @section('title', 'Kitchen')
 
 @section('navegacion')
-        <a href="{{ route('user.main') }}" class="">User</a>
+    <a href="{{ route('user.main') }}" class="">User</a>
     <a href="{{ route('dashboard.main') }}" class="">Dashboard</a>
-
+    <a href="{{ route('kitchen.main') }}" class="">Kitchen</a>
 @endsection
 
 @section('content')
     {{-- Si hay un usuario logeado muestra la cocina, sino muestra el loggin --}}
-    <h1>Cocina</h1>
     @if (Auth::check())
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold mb-4">¡Bienvenido a la cocina!</h1>
@@ -49,9 +48,6 @@
             <button type="submit" class="bg-red-600 rounded-lg p-4 hover:bg-red-500">LogOut</button>
         </form>
     </div>
-
-
-
     @else
         @include('login-views.login',['route' => 'kitchen.main'])
     @endif

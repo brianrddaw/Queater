@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\Allergen;
+use App\Models\ProductsAllergens;
+use App\Models\Category;
+
 
 class ProductsSeeder extends Seeder
 {
@@ -13,78 +16,339 @@ class ProductsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Inserta datos de ejemplo para Products
-        Product::create([
-            'name' => 'Hamburguesa con papas fritas',
-            'description' => 'Deliciosa hamburguesa con carne de res, lechuga, tomate y papas fritas.',
-            'price' => 10.99,
-            'category' => 'Comida rapida', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
+        $categorys =
+        [
+            [
+                'name' => 'Hamburguesas',
+                'position' => 1
+            ],
+            [
+                'name' => 'Ensaladas',
+                'position' => 2
+            ],
+            [
+                'name' => 'Bebidas',
+                'position' => 3
+            ],
+            [
+                'name' => 'Postres',
+                'position' => 4
+            ],
+        ];
 
-        Product::create([
-            'name' => 'Refresco de cola',
-            'description' => 'Refresco de cola frío y refrescante.',
-            'price' => 2.49,
-            'category' => 'Bebidas', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
+        $products = [
+            [
+                'name' => 'Hamburguesa de pollo',
+                'description' => 'Lechuga, tomate, salsa barbacoa',
+                'price' => 7.75,
+                'category_id' => '1',
+            ],
+            [
+                'name' => 'Ensalada César',
+                'description' => 'Lechuga romana, pollo a la parrilla, crutones, aderezo César',
+                'price' => 9.50,
+                'category_id' => '2',
+            ],
+            [
+                'name' => 'Refresco de cola',
+                'description' => 'Bebida gaseosa con sabor a cola',
+                'price' => 2.50,
+                'category_id' => '3',
+            ],
+            [
+                'name' => 'Tarta de manzana',
+                'description' => 'Tarta de manzana casera con canela',
+                'price' => 4.99,
+                'category_id' => '4',
+            ],
+            [
+                'name' => 'Hamburguesa clásica',
+                'description' => 'Carne de res, queso cheddar, lechuga, tomate, cebolla, salsa especial',
+                'price' => 8.99,
+                'category_id' => '1',
+            ],
+            [
+                'name' => 'Ensalada de quinoa',
+                'description' => 'Quinoa, espinacas, aguacate, tomate, garbanzos, aderezo de limón',
+                'price' => 10.25,
+                'category_id' => '2',
+            ],
+            [
+                'name' => 'Agua mineral',
+                'description' => 'Agua mineral natural embotellada',
+                'price' => 1.50,
+                'category_id' => '3',
+            ],
+            [
+                'name' => 'Cheesecake de fresa',
+                'description' => 'Cheesecake con salsa de fresa y base de galleta',
+                'price' => 6.99,
+                'category_id' => '4',
+            ],
+            [
+                'name' => 'Hamburguesa vegetariana',
+                'description' => 'Falafel, aguacate, lechuga, tomate, cebolla caramelizada, tahini',
+                'price' => 9.75,
+                'category_id' => '1',
+            ],
+            [
+                'name' => 'Ensalada caprese',
+                'description' => 'Tomate, mozzarella fresca, albahaca, aceite de oliva, vinagre balsámico',
+                'price' => 8.50,
+                'category_id' => '2',
+            ],
+            [
+                'name' => 'Jugo de naranja natural',
+                'description' => 'Jugo de naranja recién exprimido',
+                'price' => 3.25,
+                'category_id' => '3',
+            ],
+            [
+                'name' => 'Tiramisú',
+                'description' => 'Postre italiano con capas de bizcocho, café, mascarpone y cacao',
+                'price' => 7.50,
+                'category_id' => '4',
+            ],
+            [
+                'name' => 'Hamburguesa de salmón',
+                'description' => 'Salmón a la parrilla, espinacas, aguacate, mayonesa de wasabi',
+                'price' => 10.99,
+                'category_id' => '1',
+            ],
+            [
+                'name' => 'Ensalada griega',
+                'description' => 'Tomate, pepino, pimiento, cebolla roja, aceitunas, queso feta, aderezo de limón',
+                'price' => 9.25,
+                'category_id' => '2',
+            ],
+            [
+                'name' => 'Café espresso',
+                'description' => 'Café espresso recién hecho',
+                'price' => 2.00,
+                'category_id' => '3',
+            ],
+        ];
+        $allergens = [
+            ['name' => 'Gluten'],
+            ['name' => 'Huevo'],
+            ['name' => 'Lactosa'],
+            ['name' => 'Nueces'],
+            ['name' => 'Pescado'],
+            ['name' => 'Mariscos'],
+            ['name' => 'Soya'],
+        ];
 
-        Product::create([
-            'name' => 'Tarta de manzana',
-            'description' => 'Deliciosa tarta de manzana casera con canela y crema.',
-            'price' => 4.99,
-            'category' => 'Postres', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
+        $allerrgens_products = [
+            [
+            'product_id' => '1',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '1',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '1',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '2',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '2',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '2',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '2',
+            'allergen_id' => '7'
+            ],
+            [
+            'product_id' => '3',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '3',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '3',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '4',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '4',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '4',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '5',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '5',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '5',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '6',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '6',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '6',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '6',
+            'allergen_id' => '7'
+            ],
+            [
+            'product_id' => '7',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '7',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '7',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '8',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '8',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '8',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '9',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '9',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '9',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '10',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '10',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '10',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '11',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '11',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '11',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '12',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '12',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '12',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '13',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '13',
+            'allergen_id' => '2'
+            ],
+            [
 
-        Product::create([
-            'name' => 'Café',
-            'description' => 'Café caliente recién hecho.',
-            'price' => 1.99,
-            'category' => 'Bebidas', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
+            'product_id' => '13',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '14',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '14',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '14',
+            'allergen_id' => '3'
+            ],
+            [
+            'product_id' => '15',
+            'allergen_id' => '1'
+            ],
+            [
+            'product_id' => '15',
+            'allergen_id' => '2'
+            ],
+            [
+            'product_id' => '15',
+            'allergen_id' => '3'
+            ]
+            ];
 
-        Product::create([
-            'name' => 'Té',
-            'description' => 'Té caliente recién hecho.',
-            'price' => 1.99,
-            'category' => 'Bebidas', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
 
-        Product::create([
-            'name' => 'Agua mineral',
-            'description' => 'Agua mineral fría.',
-            'price' => 1.49,
-            'category' => 'Bebidas', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
 
-        Product::create([
-            'name' => 'Ensalada César',
-            'description' => 'Ensalada César con pollo, lechuga, tomate, queso parmesano y aderezo.',
-            'price' => 8.99,
-            'category' => 'Ensaladas', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
 
-        Product::create([
-            'name' => 'Sopa de tomate',
-            'description' => 'Sopa de tomate caliente.',
-            'price' => 4.99,
-            'category' => 'Sopas', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
 
-        Product::create([
-            'name' => 'Sándwich de pollo',
-            'description' => 'Sándwich de pollo con lechuga, tomate y mayonesa.',
-            'price' => 6.99,
-            'category' => 'Comida rapida', // Añadido en el commit 'Añadido campo category a la tabla products'
-            'availability' => true,
-        ]);
 
+        foreach ($categorys as $category) {
+            Category::create($category);
+        }
+
+        foreach ($products as $product) {
+            Product::create($product);
+        }
+
+        foreach ($allergens as $allergen) {
+            Allergen::create($allergen);
+        }
+
+        foreach ($allerrgens_products as $allergen_product) {
+            ProductsAllergens::create($allergen_product);
+        }
     }
 }

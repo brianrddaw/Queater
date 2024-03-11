@@ -84,9 +84,6 @@
             if(Object.keys(order).length = 1){
                 $('#cart').css('transform', 'translateY(0%)');
             }
-
-
-
         }
 
 

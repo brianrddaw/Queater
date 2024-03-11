@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name'); //Nombre del producto
             $table->string('description'); //Descripcion del producto
             $table->float('price'); //Precio del producto
-            $table->string('category'); //Categoria del producto
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade'); //Identificador del pedido
             $table->boolean('availability')->default(true); //Disponibilidad del producto
             $table->timestamps();
         });
@@ -28,9 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders_lines');
-
-        // Eliminar la tabla de productos
         Schema::dropIfExists('products');
     }
 };

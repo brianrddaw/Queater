@@ -16,26 +16,32 @@ class MenuController extends Controller
     }
 
 
-    public function showMenu($takeAway){
+    public function getMenu(){
 
-        $categorys = DB::select('select category from products group by category');
+        // $categorys = DB::select('select category from products group by category');
 
-        // Array para almacenar los productos por categoría
-        $productsByCategory = [];
-
-
-        foreach ($categorys as $category) {
-            // Consultar los productos asociados a la categoría actual
-            $products = DB::select('select * from products where category = ?', [$category->category]);
-
-            // Almacenar los productos en el array asociativo
-            $productsByCategory[$category->category] = $products;
-        }
+        // // Array para almacenar los productos por categoría
+        // $productsByCategory = [];
 
 
+        // foreach ($categorys as $category) {
+        //     // Consultar los productos asociados a la categoría actual
+        //     $products = DB::select('select * from products where category = ?', [$category->category]);
 
-        return view('user-views.menu',
-        ['productsByCategory' => $productsByCategory,
-        'takeAway' => $takeAway]);
+        //     // Almacenar los productos en el array asociativo
+        //     $productsByCategory[$category->category] = $products;
+        // }
+
+
+        $productsByCategory = DB::table('products')
+        ->join('categorys', 'products.category_id', '=', 'categorys.id')
+        ->select('products.*', 'categorys.name as category_name')
+        ->where('products.take_away', $takeAway)
+        ->get()
+        ->groupBy('category_name');
+
+
+        //Devuelve un json con los productos
+        return $productsByCategory;
     }
 }

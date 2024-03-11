@@ -33,22 +33,12 @@
 
         </div>
 
-        <u class="flex gap-2 flex-wrap list-none no-underline">
-
-            {{-- lista de ingreidntes--}}
-            <li>prueba</li>
-            <li>prueba</li>
-            <li>prueba</li>
-            <li>prueba</li>
-
-        </u>
-
+        {{-- Lista de alergenos --}}
         <div class="flex gap-2">
+            @foreach ($product->allergens as $allergen)
 
-            <span class="w-5 h-5 rounded-full bg-orange-500"></span>
-            <span class="w-5 h-5 rounded-full bg-orange-500"></span>
-            <span class="w-5 h-5 rounded-full bg-orange-500"></span>
-            <span class="w-5 h-5 rounded-full bg-orange-500"></span>
+            <span class="w-5 h-5 rounded-full bg-orange-500">{{ $allergen->name }}</span>
+            @endforeach
         </div>
 
     </div>

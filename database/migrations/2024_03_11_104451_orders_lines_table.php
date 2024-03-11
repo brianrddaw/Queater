@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
-     */
+    * Run the migrations.
+    */
     public function up(): void
     {
         //Tabla de lineas de pedido
@@ -22,8 +22,8 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
-     */
+    * Reverse the migrations.
+    */
     public function down(): void
     {
         // Eliminar la tabla de líneas de pedido

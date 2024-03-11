@@ -25,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('orders_lines');
+
         //Delete table
         Schema::dropIfExists('orders');
     }
