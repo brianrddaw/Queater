@@ -49,7 +49,7 @@
         </form>
     </div>
     @else
-        @include('login-views.login',['route' => 'kitchen.main'])
+        @include('login-views.login',['route' => 'kitchen.main', 'title' => 'cocina'])
     @endif
 
 @endsection
