@@ -14,7 +14,7 @@
     <div class="container mx-auto py-8 px-4 text-orange-950">
         <h1 class="text-center text-3xl font-bold my-4">¡Bienvenido a la cocina!</h1>
         <h2 class="text-2xl mb-4 uppercase font-bold">pedidos</h2>
-        <ul id="orders-ctn">
+        <ul>
             @foreach ($orders as $order)
             <div class="order-container bg-gray-100 rounded-lg  mb-4 drop-shadow-lg ">
                 <div class="flex text-lg flex-row justify-between items-center font-semibold p-4  rounded-t-lg bg-orange-400">
@@ -58,12 +58,8 @@
                                 </div>
                                 <img src="{{ asset('imgs/burguer.webp') }}" alt="" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
                             </div>
-                            <div>
-                                <div class="ingredients-container hidden bg-gray-200 h-fit p-4 m-4 rounded text-lg">
-
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam maxime labore tempore explicabo quaerat consectetur, tenetur nam iste modi voluptatum sed repellat. Sequi, odio exercitationem hic unde debitis ipsam et.
-
-                                </div>
+                            <div class="ingredients-container hidden bg-gray-200 h-fit p-4 m-4 rounded text-lg w-full">
+                                {{ $orderLine['product']['description'] }}
                             </div>
                         </li>
                         <hr class="border border-orange-950">
@@ -85,8 +81,6 @@
     @else
         @include('login-views.login',['route' => 'kitchen.main', 'title' => 'cocina'])
     @endif
-
-
 
 
     <script>
@@ -139,13 +133,11 @@
                                     </div>
                                     <img src="{{ asset('imgs/burguer.webp') }}" alt="" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
                                 </div>
-                                <div>
-                                    <div class="ingredients-container hidden bg-gray-200 h-fit p-4 m-4 rounded text-lg">
+                                    <div class="ingredients-container hidden bg-gray-200 h-fit p-4 m-4 rounded text-lg w-full">
 
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam maxime labore tempore explicabo quaerat consectetur, tenetur nam iste modi voluptatum sed repellat. Sequi, odio exercitationem hic unde debitis ipsam et.
+                                        ${orderLine.product.description}
 
                                     </div>
-                                </div>
                             </li>
                             <hr class="border border-orange-950">
                             `).join('')}
@@ -177,7 +169,6 @@
 
 
     </script>
-
 
 @endsection
 
