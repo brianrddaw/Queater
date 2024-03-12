@@ -14,7 +14,7 @@
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold mb-4">¡Bienvenido a la cocina!</h1>
         <h2 class="text-xl mb-4">Estos son los pedidos que tienes que preparar:</h2>
-        <ul>
+        <ul id="orders-ctn">
             @foreach ($orders as $order)
             <div class="bg-orange-800 rounded-lg p-4 mb-4">
                 <div class="flex flex-col mb-4 ">
@@ -51,5 +51,61 @@
     @else
         @include('login-views.login',['route' => 'kitchen.main', 'title' => 'cocina'])
     @endif
+
+
+
+
+    <script>
+
+        function showNewOrders(data){
+            data.forEach(order => {
+                let newOrder = `
+                <div class="bg-orange-800 rounded-lg p-4 mb-4">
+                    <div class="flex flex-col mb-4 ">
+                        <div class="flex text-lg flex-row justify-between font-semibold border-b border-black">
+                            <div><strong>ID de Pedido:</strong> ${order.id}</div>
+                            <div><strong>Para llevar:</strong> ${order.take_away ? 'Sí' : 'No'}</div>
+                            <div><strong>Estado:</strong> ${order.state}</div>
+                        </div>
+                        <ul>
+                            ${order.orders_line.map(orderLine => `
+                            <li class="flex justify-between items-center border-b border-orange-200 py-2">
+                                <div class="text-sm">
+                                    <strong>ID de Producto:</strong> ${orderLine.product.id}<br>
+                                    <strong>Nombre de Producto:</strong> ${orderLine.product.name}<br>
+                                    <strong>Cantidad:</strong> ${orderLine.quantity}<br>
+                                </div>
+                                <div class="text-sm">
+                                    <strong>Precio:</strong> $${orderLine.product.price}<br>
+                                </div>
+                            </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+                `;
+                $('#orders-ctn').append(newOrder);
+            });
+        }
+
+
+        //Pide los nuevos pedidos cada 5 segundos
+        setInterval(() => {
+            $.ajax({
+                url: "{{ route('kitchen.orders.new') }}",
+                type: 'GET',
+                success: function(data) {
+                    if (data.length > 0) {
+
+                        showNewOrders(data);
+                    }
+
+                }
+            });
+        }, 5000);
+
+
+    </script>
+
 
 @endsection
