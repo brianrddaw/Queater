@@ -56,6 +56,7 @@
                 navSlide.removeClass('active').slideUp(200);
             }
         }
+
     </script>
 
 
