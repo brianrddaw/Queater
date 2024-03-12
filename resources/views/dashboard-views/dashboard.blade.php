@@ -6,7 +6,6 @@
     <a href="{{ route('kitchen.main') }}" class="">Kitchen</a>
 @endsection
 @section('content')
-    <h1>Dashboard</h1>
     @if (Auth::check())
         <h1>¡Bienvenido a la Dashboard!</h1>
         <form action="{{ route('logout') }}" method="post">
@@ -15,6 +14,6 @@
             <button type="submit" class="bg-red-600 rounded-lg p-4 hover:bg-red-500">LogOut</button>
         </form>
     @else
-        @include('login-views.login',['route' => 'dashboard.main'])
+        @include('login-views.login',['route' => 'dashboard.main', 'title' => 'Dashboard'])
     @endif
 @endsection

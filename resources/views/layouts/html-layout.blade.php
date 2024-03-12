@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @livewireStyles
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
@@ -15,36 +14,51 @@
             <h1 class=" col-span-2 font-bold">Queater</h1>
         </div>
         <nav class="flex flex-row items-center ml-auto mr-2 ">
-            <div>
-                        @yield('navegacion')
-                        {{-- <a>asdadas</a> --}}
-                        {{-- <a>asdadas</a> --}}
-                        {{-- <a>asdadas</a> --}}
-                        {{-- <a>asdadas</a> --}}
-            </div>
 
+            <button id="nav-button" class="">
 
-            <svg  id="icono-expandir" class="cursor-pointer w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-            </svg>
-             {{-- <div id="expandible" class="grid grid-rows-12  bg-orange-500 w-[25vw] h-[100vh] absolute top-0 left-full transition-transform duration-500 transform translate-x-[0%] p-2">
+                <svg  id="icono-expandir" class="cursor-pointer w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
 
-                <svg id="icono-contraer" class="w-6 h-6 ml-auto cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                 </svg>
 
-                <a href="#" class="border-b-2 border-red-500 text-xl m-auto ">Inicio</a>
-            --}}
+            </button>
 
+            {{-- NAV SLIDE --}}
+            <div class="nav-slide flex flex-col gap-2 p-3  items-center h-[300px] w-[25vw]  min-w-fit absolute right-0 top-14 z-10 bg-orange-950">
 
+                <a href="#">Inicio</a>
+                @yield('navegacion')
 
-
-
-
+            </div>
         </nav>
 
     </header>
     @yield('content')
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#nav-button').click(function() {
+                toggleNavSlideLeft();
+            });
+        });
+
+        function toggleNavSlideLeft() {
+            const navSlide = $('.nav-slide');
+            const isNavVisible = navSlide.hasClass('active');
+
+            if (!isNavVisible) {
+                navSlide.addClass('active').css('display', 'flex').hide().slideDown(200);
+            } else {
+                navSlide.removeClass('active').slideUp(200);
+            }
+        }
+    </script>
+
+
 
     <style>
         * {
@@ -53,8 +67,30 @@
             box-sizing: border-box;
             min-width: 0;
         }
-    </style>
-    @livewireScripts
 
+
+        .nav-slide {
+            display: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 0;
+        }
+
+        .nav-slide.active {
+            height: auto;
+        }
+
+
+        .nav-slide a {
+            font-weight: bold;
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+
+        .nav-slide a:hover {
+            color: #fb923c;
+        }
+
+    </style>
 </body>
 </html>
