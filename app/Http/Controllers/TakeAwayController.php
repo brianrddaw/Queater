@@ -7,14 +7,6 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 class TakeAwayController extends Controller
 {
-    public function comprarProducto($id)
-    {
-        $product = Product::find($id);
-        $product->availability = false;
-        $product->save();
-        return redirect()->route('prueba');
-    }
-
     public function takeAway(){
         $categorys = DB::select('select id,name,position from categories order by position');
 
@@ -35,6 +27,6 @@ class TakeAwayController extends Controller
 
         return view('user-views.menu',
         ['productsByCategory' => $productsByCategory,
-        'takeAway' => 0]);
+        'takeAway' => 1]);
     }
 }

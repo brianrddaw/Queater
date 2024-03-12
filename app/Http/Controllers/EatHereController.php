@@ -9,15 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class EatHereController extends Controller
 {
-
-    public function comprarProducto($id)
-    {
-        $product = Product::find($id);
-        $product->availability = false;
-        $product->save();
-        return redirect()->route('prueba');
-    }
-
     public function eatHere(){
         $categorys = DB::select('select id,name,position from categories order by position');
 
