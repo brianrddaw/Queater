@@ -84,6 +84,9 @@
             if(Object.keys(order).length = 1){
                 $('#cart').css('transform', 'translateY(0%)');
             }
+
+
+
         }
 
 
@@ -323,6 +326,7 @@
         .product-card-info.active {
             height: auto;
         }
+
 
 
         .info-close-svg{

@@ -39,10 +39,6 @@ class EatHereController extends Controller
         }
 
 
-        echo json_encode($productsByCategory);
-
-
-
 
         return view('user-views.menu',
         ['productsByCategory' => $productsByCategory,
