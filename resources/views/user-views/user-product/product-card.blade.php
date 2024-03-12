@@ -2,7 +2,8 @@
     <div class="flex h-10 ">
         <img class="relative bottom-16 right-16 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]" src="../imgs/burguer.webp" alt="product_image">
 
-        <div class="info-button flex gap-1 items-center">
+        {{-- INFO BUTTON--}}
+        <div class="info-button flex gap-1 items-center cursor-pointer">
 
             <p class="text-lg">info</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="info-close-svg w-6 h-6">
@@ -24,7 +25,7 @@
         </button>
     </div>
 
-    {{-- INFO CONTAINER --}}
+    {{-- DESCRIPTION CONTAINER --}}
     <div class="product-card-info flex flex-col gap-2 bg-gray-200 p-2 rounded-sm mt-2">
 
         <div class="font-bold">
@@ -34,10 +35,12 @@
         </div>
 
         {{-- Lista de alergenos --}}
-        <div class="flex gap-2">
+        <div class="flex gap-2 text-sm ">
             @foreach ($product->allergens as $allergen)
 
-            <span class="w-5 h-5 rounded-full bg-orange-500">{{ $allergen->name }}</span>
+
+                {{ $allergen->name }}
+
             @endforeach
         </div>
 
