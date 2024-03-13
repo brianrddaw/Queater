@@ -98,12 +98,6 @@
                             <strong>${order.take_away ? 'Para llevar' : 'Comer aquí'}</strong>
                         </div>
 
-                        <div class="flex items
-                        -center gap-2">
-                            <strong>Estado:</strong>
-                            ${order.state}
-                            <span class="flex w-4 h-4 rounded-full  bg-red-500 border-2 border-red-600"></span>
-                        </div>
 
                         <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer">Hecho</button>
                     </div>
@@ -181,8 +175,10 @@
         Swal.fire({
             title: "¿Quieres terminar el pedido?",
             customClass: {
-                confirmButton: 'border border-orange-500 bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600',
-                cancelButton: 'border border-red-500 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 ml-2'
+                confirmButton: 'border-0 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400',
+                cancelButton: 'border-0 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400 ml-2',
+                title: 'text-green-950',
+
             },
             buttonsStyling: false,
             showCancelButton: true,
@@ -192,7 +188,21 @@
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                Swal.fire("¡Pedido terminado!", "", "success");
+                Swal.fire({
+                    title: "¡Pedido terminado!",
+                    customClass: {
+                        confirmButton: 'border border-orange-500 bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600',
+                        popup: 'bg-white', // Clase para personalizar el fondo del pop-up
+                        title: 'text-orange-950', // Clase para personalizar el color del texto del título
+
+                    },
+                    icon: "success",
+                    iconColor: '#84cc16', // Clase para personalizar el color del icono
+                    showConfirmButton: false, // Oculta el botón de confirmación
+                    buttonsStyling: false,
+                    timer: 1000 // Tiempo en milisegundos antes de que el pop-up se cierre automáticamente
+                });
+
 
                 $.ajax({
                     url: "{{ route('kitchen.orders.change-status') }}",

@@ -40,7 +40,6 @@ Route::get('/kitchen/orders/new', [KitchenController::class, 'sendNewOrders'])->
 Route::post('/kitchen/orders/change-status', [KitchenController::class, 'changeOrderStatus'])->name('kitchen.orders.change-status');
 
 
-
 //Hacer el pedido
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
 
