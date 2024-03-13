@@ -14,7 +14,7 @@
     <div class="container mx-auto py-8 px-4 text-orange-950">
         <h1 class="text-center text-3xl font-bold my-4">¡Bienvenido a la cocina!</h1>
         <h2 class="text-2xl mb-4 uppercase font-bold">pedidos</h2>
-        <ul>
+        <ul id="orders-ctn" class="select-none">
             @foreach ($orders as $order)
             <div class="order-container bg-gray-100 rounded-lg  mb-4 drop-shadow-lg ">
                 <div class="flex text-lg flex-row justify-between items-center font-semibold p-4  rounded-t-lg bg-orange-400">
@@ -27,11 +27,10 @@
                         <strong>{{ $order['take_away'] ? 'Para llevar' : 'Comer aquí' }}</strong>
                     </div>
 
-                    <div class="flex items-center gap-2">
+                    {{-- <div class="flex items-center gap-2">
                         <strong>Estado:</strong>
                         {{ $order['state'] }}
-                        <span class="flex w-4 h-4 rounded-full  bg-red-500 border-2 border-red-600"></span>
-                    </div>
+                    </div> --}}
 
                     <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer">Hecho</button>
                 </div>
@@ -109,7 +108,7 @@
                         <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer">Hecho</button>
                     </div>
                     <div class=" flex items-center p-4 pt-0">
-                        <ul class="flex flex-col w-full">
+                        <ul  class="flex flex-col w-full">
                             ${order.orders_line.map(orderLine => `
                             <li class="order-line
                             flex flex-col items-center py-4 ">
