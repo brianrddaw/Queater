@@ -152,10 +152,14 @@
                 url: "{{ route('kitchen.orders.new') }}",
                 type: 'GET',
                 success: function(data) {
+                    console.log("Hola");
                     if (data.length > 0) {
                         console.log(data);
                         showNewOrders(data);
                     }
+                },
+                error: function() {
+                    console.log('Error');
                 }
             });
         }, 5000);

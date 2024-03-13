@@ -14,14 +14,16 @@ use App\Http\Controllers\KitchenController;
 // USER ROUTES
 Route::get('/', [MainUserController::class, 'index'])->name('user.main');
 
+//Ruta para obtener los productos.
 Route::get('/eat-here', [EatHereController::class, 'eatHere'])->name('eat-here.main');
+
+//Ruta para obtener los productos.
 Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
 
 //Llama a un controlador enviando la id del producto.
 Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
 
-
-
+//Ruta para obtener los productos.
 Route::get('/cash', function () {
     return view('cash-views.cash');
 })->name('cash.main');
@@ -33,13 +35,10 @@ Route::get('/cash', function () {
 //                      //
 //////////////////////////
 Route::get('/kitchen', [KitchenController::class, 'index'])->name('kitchen.main');
-
 //Enviar los pedidos con el estado new.
 Route::get('/kitchen/orders/new', [KitchenController::class, 'sendNewOrders'])->name('kitchen.orders.new');
 //Cambiar el estado del pedido.
 Route::post('/kitchen/orders/change-status', [KitchenController::class, 'changeOrderStatus'])->name('kitchen.orders.change-status');
-
-
 //Hacer el pedido
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
 

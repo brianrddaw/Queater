@@ -243,7 +243,10 @@
                 },
                 success: function(response)
                 {
+                    $("#error").html(response);
+
                     console.log(response);
+                    window.location.href = "{{ route('user.main') }}";
                 },
                 error: function(xhr, status, error)
                 {
@@ -253,7 +256,6 @@
 
 
             //Redirige a la vista inicial.
-            window.location.href = "{{ route('user.main') }}";
 
 
         }
