@@ -57,7 +57,7 @@ class KitchenController extends Controller
     //controlador que verifica si hay pedidos nuevos
     public function sendNewOrders()
     {
-        // Obtener todos los pedidos con estado 'new'
+                // Obtener todos los pedidos con estado 'new'
         $ordersData = Order::with('ordersLine.product')
         ->where('state', 'new')
         ->get();

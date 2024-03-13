@@ -35,8 +35,8 @@ class OrderController extends Controller
         echo "Pedido creado: " . json_encode($request->products);
 
         //Elimnar la session
-        $session = Session::find($_COOKIE['session_id']);
-        $session->delete();
+        // $session = Session::find($_COOKIE['session_id']);
+        // $session->delete();
 
 
     }
