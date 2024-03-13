@@ -51,10 +51,6 @@ Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.or
 //                      //
 //////////////////////////
 
-//Ruta del dashboard, solo se puede acceder si el usuario esta autenticado.
-Route::get('/dashboard', function () {
-    return view('dashboard-views.dashboard');
-})->name('dashboard.main');
 
 //Ruta para el login.
 Route::get('/login', function () {
@@ -82,3 +78,18 @@ Route::get('/close-session', [MainUserController::class, 'closeSession'])->name(
 
 //Ruta para obtener el id de la session.
 Route::get('/get-session-id', [MainUserController::class, 'getSessionId'])->name('get.session.id');
+
+
+//////////////////////////
+//                      //
+//       Dashboard      //
+//                      //
+//////////////////////////
+
+//Ruta del dashboard, solo se puede acceder si el usuario esta autenticado.
+Route::get('/dashboard', function () {
+    return view('dashboard-views.dashboard');
+})->name('dashboard.main');
+
+
+Route::get('/dashboard/products', [DashboardController::class, 'index'])->name('dashboard.orders');
