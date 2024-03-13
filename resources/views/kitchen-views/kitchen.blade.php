@@ -32,7 +32,7 @@
                         {{ $order['state'] }}
                     </div> --}}
 
-                    <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="doneOrder({{ $order['id'] }})">Hecho</button>
+                    <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="confirmOrder(this, {{ $order['id'] }})">Hecho</button>
                 </div>
                 <div class=" flex items-center p-4 pt-0">
                     <ul class="flex flex-col w-full">
@@ -98,7 +98,14 @@
                             <strong>${order.take_away ? 'Para llevar' : 'Comer aquí'}</strong>
                         </div>
 
-                        <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="doneOrder(${order.id})">Hecho</button>
+                        <div class="flex items
+                        -center gap-2">
+                            <strong>Estado:</strong>
+                            ${order.state}
+                            <span class="flex w-4 h-4 rounded-full  bg-red-500 border-2 border-red-600"></span>
+                        </div>
+
+                        <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer">Hecho</button>
                     </div>
                     <div class=" flex items-center p-4 pt-0">
                         <ul  class="flex flex-col w-full">
@@ -164,8 +171,48 @@
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+
+    function confirmOrder(order, orderId){
+        const card = $(order).closest('.order-container');
+
+        Swal.fire({
+            title: "¿Quieres terminar el pedido?",
+            customClass: {
+                confirmButton: 'border border-orange-500 bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600',
+                cancelButton: 'border border-red-500 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 ml-2'
+            },
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "Confirmar",
+            cancelButtonText: "Cancelar",
+            focusConfirm: false
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                Swal.fire("¡Pedido terminado!", "", "success");
+
+                $.ajax({
+                    url: "{{ route('kitchen.orders.change-status') }}",
+                    type: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        order_id: orderId
+                    },
+                    success: function() {
+                        card.fadeOut(200, function() {
+                            $(this).remove();
+                        });
+                        console.log('Pedido hecho');
+                    }
+                });
+            }
+        });
+
+
+    }
 
     function ingredientsDisplay(card){
 
