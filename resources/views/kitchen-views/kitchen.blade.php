@@ -32,7 +32,7 @@
                         {{ $order['state'] }}
                     </div> --}}
 
-                    <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer">Hecho</button>
+                    <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="doneOrder({{ $order['id'] }})">Hecho</button>
                 </div>
                 <div class=" flex items-center p-4 pt-0">
                     <ul class="flex flex-col w-full">
@@ -98,14 +98,7 @@
                             <strong>${order.take_away ? 'Para llevar' : 'Comer aquí'}</strong>
                         </div>
 
-                        <div class="flex items
-                        -center gap-2">
-                            <strong>Estado:</strong>
-                            ${order.state}
-                            <span class="flex w-4 h-4 rounded-full  bg-red-500 border-2 border-red-600"></span>
-                        </div>
-
-                        <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer">Hecho</button>
+                        <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="doneOrder(${order.id})">Hecho</button>
                     </div>
                     <div class=" flex items-center p-4 pt-0">
                         <ul  class="flex flex-col w-full">
@@ -165,7 +158,6 @@
                 }
             });
         }, 5000);
-
 
     </script>
 

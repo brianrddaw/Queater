@@ -36,7 +36,8 @@ Route::get('/kitchen', [KitchenController::class, 'index'])->name('kitchen.main'
 
 //Enviar los pedidos con el estado new.
 Route::get('/kitchen/orders/new', [KitchenController::class, 'sendNewOrders'])->name('kitchen.orders.new');
-
+//Cambiar el estado del pedido.
+Route::post('/kitchen/orders/change-status', [KitchenController::class, 'changeOrderStatus'])->name('kitchen.orders.change-status');
 
 
 

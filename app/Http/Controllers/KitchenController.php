@@ -96,11 +96,22 @@ class KitchenController extends Controller
                 'orders_line' => $orderLines,
             ];
         }
-
-
         return response()->json($ordersJson);
+    }
 
+    public function changeOrderStatus(Request $request)
+    {
+        $order = Order::find($request->order_id);
+        $order->state = 'ready';
+        $order->save();
 
+        return response()->json([
+            'id' => $order->id,
+            'take_away' => $order->take_away,
+            'state' => $order->state,
+            'created_at' => $order->created_at->toIso8601String(),
+            'updated_at' => $order->updated_at->toIso8601String(),
+        ]);
 
     }
 
