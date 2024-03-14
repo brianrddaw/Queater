@@ -8,6 +8,7 @@ use App\Http\Controllers\EatHereController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TakeAwayController;
 use App\Http\Controllers\KitchenController;
+use App\Http\Controllers\DashboardController;
 // MAIN ROUTES
 
 
@@ -93,4 +94,4 @@ Route::get('/dashboard', function () {
 })->name('dashboard.main');
 
 
-Route::get('/dashboard/products', [DashboardController::class, 'index'])->name('dashboard.orders');
+Route::get('/dashboard/products', [DashboardController::class, 'showProducts'])->name('dashboard.products');
