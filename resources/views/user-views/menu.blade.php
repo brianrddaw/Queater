@@ -7,10 +7,10 @@
     <a href="{{ route('logout') }}" class="border-b-2 border-red-500 text-xl m-auto ">Cerrar sesión</a> --}}
 @endsection
 @section('content')
-    <main  class="eat-here-main">
+    <main  class="eat-here-main pb-20">
 
         @foreach ($productsByCategory as $category => $products)
-        <h2 class="text-2xl text-orange-950 font-bold border-b-2 border-orange-500">{{ $category }}</h2>
+        <h2 class="text-2xl text-orange-950 font-bold bg-orange-200 w-full text-center py-4 ">{{ $category }}</h2>
             <ul class="flex flex-col gap-20">
                 @foreach ($products as $product)
                     @if ($product->availability)
@@ -96,10 +96,10 @@
             var cartCtn = $('#cart-products-container');
 
             // Crear la tarjeta
-            var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card max-w-[600px] grid grid-cols-9 items-center rounded  min-h-14 h-14 bg-orange-50 text-orange-950 text-xs"></div>');
+            var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card max-w-[600px] grid grid-cols-9 items-center rounded  min-h-14 h-14 bg-orange-50 drop-shadow-lg text-orange-950 text-xs"></div>');
 
             // IMG
-            var productImg = $('<img class="col-span-2 w-14 h-14 object-fit border-2 border-orange-950 bg-orange-950 rounded-l object-cover" src="{{ asset('imgs/burguer.webp') }}" alt="">');
+            var productImg = $('<img class="col-span-2 w-14 h-14 object-fit border-2 border-orange-500 bg-orange-500 rounded-l object-cover" src="{{ asset('imgs/burguer.webp') }}" alt="">');
 
             // INFO CONTAINER
             var productInfo = $('<div class="flex flex-col justify-between pl-1 py-1 text-base m w-full h-full col-span-5 "></div>');
@@ -127,7 +127,7 @@
 
             // DELETE ICON
             var deleteIcon = $('<div class="delete-product-button cursor-pointer flex items-center gap-2 ml-auto"></div>');
-            deleteIcon.append('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>');
+            deleteIcon.append('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="red" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>');
             productButtons.append(deleteIcon);
 
             // PRICE
@@ -257,7 +257,6 @@
 
             //Redirige a la vista inicial.
 
-
         }
 
 
@@ -294,7 +293,6 @@
             flex-direction: column;
             gap: 5rem;
             align-items: center;
-            padding-top: 3rem;
         }
 
 

@@ -20,13 +20,13 @@
     <div class="flex items-end justify-between h-fit mt-2">
         <p class="text-lg h-fit leading-none">{{ $product->price }} €</p>
 
-        <button onclick="addToOrder({{ $product->id }},{{ $product->price }},'{{ $product->name }}')" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded">
+        <button onclick="addToOrder({{ $product->id }},{{ $product->price }},'{{ $product->name }}')" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded active:bg-orange-400 active:scale-105">
             Añadir
         </button>
     </div>
 
     {{-- DESCRIPTION CONTAINER --}}
-    <div class="product-card-info flex flex-col gap-2 bg-gray-200 p-2 rounded-sm mt-2">
+    <div class="product-card-info flex flex-col gap-2 bg-walter-300 p-2 rounded-sm mt-2">
 
         <div class="font-bold">
 

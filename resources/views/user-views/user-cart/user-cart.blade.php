@@ -1,7 +1,7 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[92vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-10 p-4 pt-0 gap-4 rounded-t-lg text-orange-100" style="transition: all 0.3s ease;">
+<div id="cart" class="user-cart fixed bottom-0 top-[92vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-10  pt-0 gap-4 rounded-t-lg text-orange-100" style="transition: all 0.3s ease;">
 
     {{-- ENCABEZADO CARRITO --}}
-    <div class="grid grid-cols-3 justify-items-center items-center  w-full  h-[8vh] pt-1 ">
+    <div id="cart-header" class="grid grid-cols-3 justify-items-center items-center  w-full  h-[8vh] pt-1 ">
 
         {{-- PRECIO TOTAL --}}
         <p class="order-total font-bold text-md">0 €</p>
@@ -26,21 +26,23 @@
 
     </div>
 
-    <div class="w-full h-0.5 bg-orange-50 rounded-full my-auto"></div>
+    {{-- <div class="w-full h-0.5 bg-orange-50 rounded-full my-auto"></div> --}}
+    <div class="flex flex-col p-4 row-span-10 bg-walter-200">
 
-    {{-- TARJETAS DE PRODUCTOS DEL CARRITO --}}
-    <div id="cart-products-container" class=" flex flex-col w-full gap-3 row-span-9 h-full overflow-scroll">
+        {{-- TARJETAS DE PRODUCTOS DEL CARRITO --}}
+        <div id="cart-products-container" class=" flex flex-col w-full gap-3  h-full overflow-scroll">
 
-        {{-- @livewire('cart-product-card') --}}
+            {{-- @livewire('cart-product-card') --}}
 
+        </div>
+
+        {{-- BOTON FINALIZAR PEDIDO --}}
+        <button onclick="makeOrder()" class="flex justify-center items-center bottom-4 w-full bg-orange-500 py-4 rounded-lg text-orange-50 font-bold row-span-1">
+
+            Terminar pedido
+
+        </button>
     </div>
-
-    {{-- BOTON FINALIZAR PEDIDO --}}
-    <button onclick="makeOrder()" class="flex justify-center items-center bottom-4 w-full bg-orange-50 py-4 rounded-lg text-orange-950 font-bold row-span-1">
-
-        Terminar pedido
-
-    </button>
 
 </div>
 
@@ -48,12 +50,13 @@
 <script>
 
 
+        const header = document.querySelector('#cart-header');
         const arrow = document.querySelector('#cart-arrow');
         const cart = document.querySelector('#cart');
         let cartIsOpen = false;
 
 
-        arrow.addEventListener('click', function(){
+        header.addEventListener('click', function(){
 
             if (!cartIsOpen) {
                 cart.style.transform = 'translateY(-90%)';

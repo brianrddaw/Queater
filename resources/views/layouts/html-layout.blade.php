@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
-<body class="overflow-x-hidden bg-orange-100">
-    <header class="flex justify-items-center items-center  bg-orange-950 p-2 h-14 text-orange-100">
+<body class="overflow-x-hidden bg-walter-200">
+    <header class="flex justify-items-center items-center  bg-orange-500 p-2 h-14 text-zinc-100 ">
         {{-- <img src="{{ asset('imgs/logo.webp') }}" alt="" class="w-8 mr-auto"> --}}
         <div class="flex items-center pr-4 pl-2 h-full">
             <h1 class=" col-span-2 font-bold">Queater</h1>
@@ -25,9 +28,9 @@
             </button>
 
             {{-- NAV SLIDE --}}
-            <div class="nav-slide flex flex-col gap-2 p-3  items-center h-[300px] w-[25vw]  min-w-fit absolute right-0 top-14 z-10 bg-orange-950">
+            <div class="nav-slide flex flex-col gap-2 p-3  items-center h-[300px] w-full  min-w-fit absolute right-0 top-14 z-10 bg-orange-500 active:bg-orange-300">
 
-                <a href="#">Inicio</a>
+                <a href="#" class="w-full text-center">Inicio</a>
                 @yield('navegacion')
 
             </div>
@@ -62,6 +65,7 @@
 
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -88,9 +92,7 @@
             text-transform: uppercase;
         }
 
-        .nav-slide a:hover {
-            color: #fb923c;
-        }
+
 
     </style>
 </body>
