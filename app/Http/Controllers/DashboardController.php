@@ -14,8 +14,10 @@ class DashboardController extends Controller
 
     public function showProducts()
     {
-        $products = Product::all();
-        return view('dashboard-views.products', ['products' => $products]);
+        return view('dashboard-views.dashboard-products');
     }
+
+
+
 
 }
