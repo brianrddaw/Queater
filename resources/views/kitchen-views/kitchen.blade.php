@@ -11,12 +11,12 @@
 @section('content')
     {{-- Si hay un usuario logeado muestra la cocina, sino muestra el loggin --}}
     @if (Auth::check())
-    <div class="container mx-auto text-orange-950">
-        <div class="mb-10 bg-orange-300   p-8 flex items-center">
-            <h1 class="text-left text-2xl font-bold  uppercase min-w-fit">cocina</h1>
-            <div class="w-96 flex items-center bg-walter-200 rounded px-2 ml-auto">
-                <input type="text" id="search" placeholder="Buscar pedido..." class="w-96 p-2 bg-transparent focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+    <div class="container mx-auto text-walter-200">
+        <div class="mb-10 bg-orange-500  py-8 px-4 flex items-center">
+            <div class="w-full flex items-center bg-walter-200 rounded px-2">
+                <input type="text" id="search" placeholder="Buscar pedido..." class="w-full p-2 bg-transparent focus:outline-none text-orange-950">
+
+                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="text-orange-950 w-6 h-6">
                     <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
                 </svg>
             </div>
@@ -24,7 +24,7 @@
 
         <section class="flex flex-col px-4">
 
-            <ul id="orders-ctn" class="select-none">
+            <ul id="orders-ctn" class="select-none text-orange-950">
                 @foreach ($orders as $order)
                 <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg ">
                     <div class="flex text-lg flex-row justify-between items-center font-semibold p-4  rounded-t-lg bg-orange-500">
