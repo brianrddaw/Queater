@@ -12,10 +12,8 @@
 </head>
 <body class="overflow-x-hidden bg-walter-200">
     <header class="flex justify-items-center items-center  bg-orange-500 p-2 h-14 text-zinc-100 ">
-        {{-- <img src="{{ asset('imgs/logo.webp') }}" alt="" class="w-8 mr-auto"> --}}
-        <div class="flex items-center pr-4 pl-2 h-full">
-            <h1 class=" col-span-2 font-bold">Queater</h1>
-        </div>
+        <img src="{{ asset('imgs/letras.webp') }}" alt="" class="pl-2 h-4 mr-auto  ">
+
         <nav class="flex flex-row items-center ml-auto mr-2 ">
 
             <button id="nav-button" class="">
@@ -28,9 +26,9 @@
             </button>
 
             {{-- NAV SLIDE --}}
-            <div class="nav-slide flex flex-col gap-2 p-3  items-center h-[300px] w-full  min-w-fit absolute right-0 top-14 z-10 bg-orange-500 active:bg-orange-300">
+            <div class="nav-slide flex flex-col gap-2 items-center h-[300px] w-full  min-w-fit absolute right-0 top-14 z-10 bg-orange-500">
 
-                <a href="#" class="w-full text-center">Inicio</a>
+                <a href="#">Inicio</a>
                 @yield('navegacion')
 
             </div>
@@ -87,9 +85,16 @@
 
 
         .nav-slide a {
+            width: 100%;
             font-weight: bold;
             white-space: nowrap;
             text-transform: uppercase;
+            text-align: center;
+            padding: .75rem;
+        }
+
+        .nav-slide a:active {
+            background-color: #fb923c
         }
 
 

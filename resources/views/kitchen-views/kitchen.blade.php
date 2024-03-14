@@ -11,71 +11,77 @@
 @section('content')
     {{-- Si hay un usuario logeado muestra la cocina, sino muestra el loggin --}}
     @if (Auth::check())
-    <div class="container mx-auto py-8 px-4 text-orange-950">
-        <h1 class="text-center text-3xl font-bold my-4">¡Bienvenido a la cocina!</h1>
-        <h2 class="text-2xl mb-4 uppercase font-bold">pedidos</h2>
-        <ul id="orders-ctn" class="select-none">
-            @foreach ($orders as $order)
-            <div class="order-container bg-gray-100 rounded-lg  mb-4 drop-shadow-lg ">
-                <div class="flex text-lg flex-row justify-between items-center font-semibold p-4  rounded-t-lg bg-orange-400">
-                    <div>
-                        <strong>Pedido: </strong>
-                        {{ $order['id'] }}
-                    </div>
+    <div class="container mx-auto text-walter-200">
+        <div class="mb-10 bg-orange-500  py-8 px-4 flex items-center">
+            <div class="w-full flex items-center bg-walter-200 rounded px-2">
+                <input type="text" id="search" placeholder="Buscar pedido..." class="w-full p-2 bg-transparent focus:outline-none text-orange-950">
 
-                    <div >
-                        <strong>{{ $order['take_away'] ? 'Para llevar' : 'Comer aquí' }}</strong>
-                    </div>
-
-                    {{-- <div class="flex items-center gap-2">
-                        <strong>Estado:</strong>
-                        {{ $order['state'] }}
-                    </div> --}}
-
-                    <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="confirmOrder(this, {{ $order['id'] }})">Hecho</button>
-                </div>
-                <div class=" flex items-center p-4 pt-0">
-                    <ul class="flex flex-col w-full">
-                        @foreach ($order['orders_line'] as $orderLine)
-                        <li class="order-line flex flex-col items-center py-4 ">
-                            <div class="flex items-center  w-full ">
-
-                                <div class="text-lg flex flex-col gap-1 ">
-                                    <div>
-                                        <strong>
-                                            {{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}
-                                        </strong>
-                                    </div>
-
-                                    <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
-                                        <strong>Ingredientes</strong>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="  w-7 h-7 transition-all">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                        </svg>
-
-                                    </div>
-                                </div>
-                                <img src="{{ asset('imgs/burguer.webp') }}" alt="" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
-                            </div>
-                            <div class="ingredients-container hidden bg-gray-200 h-fit p-4 m-4 rounded text-lg w-full">
-                                {{ $orderLine['product']['description'] }}
-                            </div>
-                        </li>
-                        <hr class="border border-orange-950">
-                        @endforeach
-                    </ul>
-                </div>
-
-                <div class="w-[150px] h-1 bg-orange-400 rounded-full mx-auto "></div>
+                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="text-orange-950 w-6 h-6">
+                    <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
+                </svg>
             </div>
-            @endforeach
-        </ul>
+        </div>
 
-        <form action="{{ route('logout') }}" method="post">
-            @csrf
-            <input type="hidden" name="route" value='kitchen.main'>
-            <button type="submit" class="bg-orange-950 rounded min-w-40 p-4 hover:bg-orange-900 text-orange-50 font-bold text-xl">Salir</button>
-        </form>
+        <section class="flex flex-col px-4">
+
+            <ul id="orders-ctn" class="select-none text-orange-950">
+                @foreach ($orders as $order)
+                <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg ">
+                    <div class="flex text-lg flex-row justify-between items-center font-semibold p-4  rounded-t-lg bg-orange-500">
+                        <div>
+                            <strong>Pedido: </strong>
+                            {{ $order['id'] }}
+                        </div>
+
+                        <div >
+                            <strong>{{ $order['take_away'] ? 'Para llevar' : 'Comer aquí' }}</strong>
+                        </div>
+
+                        <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="confirmOrder(this, {{ $order['id'] }})">Hecho</button>
+                    </div>
+                    <div class=" flex items-center p-4 pt-0">
+                        <ul class="flex flex-col w-full">
+                            @foreach ($order['orders_line'] as $orderLine)
+                            <li class="order-line flex flex-col items-center py-4 ">
+                                <div class="flex items-center  w-full ">
+
+                                    <div class="text-lg flex flex-col gap-1 ">
+                                        <div>
+                                            <strong>
+                                                {{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}
+                                            </strong>
+                                        </div>
+
+                                        <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
+                                            <strong>Ingredientes</strong>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="  w-7 h-7 transition-all">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+
+                                        </div>
+                                    </div>
+                                    <img src="{{ asset('imgs/burguer.webp') }}" alt="" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                </div>
+                                <div class="ingredients-container hidden bg-walter-200 h-fit p-4 pl-0 m-4 rounded text-lg w-full">
+                                    {{ $orderLine['product']['description'] }}
+                                </div>
+                            </li>
+                            <hr class="border border-orange-950">
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <div class="w-[150px] h-1 bg-orange-400 rounded-full mx-auto "></div>
+                </div>
+                @endforeach
+            </ul>
+
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <input type="hidden" name="route" value='kitchen.main'>
+                <button type="submit" class="bg-orange-950 rounded min-w-40 p-4 hover:bg-orange-900 text-orange-50 font-bold text-xl">Salir</button>
+            </form>
+        </section>
     </div>
     @else
         @include('login-views.login',['route' => 'kitchen.main', 'title' => 'cocina'])
