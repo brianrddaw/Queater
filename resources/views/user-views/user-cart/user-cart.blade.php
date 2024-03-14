@@ -1,4 +1,4 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[92vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-10  pt-0 gap-4 rounded-t-lg text-orange-100" style="transition: all 0.3s ease;">
+<div id="cart" class="user-cart fixed bottom-0 top-[92vh] left-[10vw]  w-[80vw] h-[90vh] bg-orange-500 z-10 grid grid-rows-10  pt-0 gap-4 rounded-t-lg text-orange-100 transition-all " >
 
     {{-- ENCABEZADO CARRITO --}}
     <div id="cart-header" class="grid grid-cols-3 justify-items-center items-center  w-full  h-[8vh] pt-1 ">
