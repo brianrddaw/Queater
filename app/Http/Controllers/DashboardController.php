@@ -10,16 +10,27 @@ class DashboardController extends Controller
     public function index()
 
     {
-        $products = Product::all();
-        return view('dashboard-views.dashboard', compact('products'));
+
+        return view('dashboard-views.dashboard');
     }
 
     public function showProducts()
     {
-        return view('dashboard-views.dashboard-products');
+        $products = Product::all();
+        return view('dashboard-views.dashboard-products',['products' => $products]);
     }
 
 
+    //Funcion para mostrar las categorias.
+    public function showCategories()
+    {
+        return view('dashboard-views.dashboard-categories');
+    }
 
+    //Funcion para mostrar las mesas.
+    public function showTables()
+    {
+        return view('dashboard-views.dashboard-tables');
+    }
 
 }

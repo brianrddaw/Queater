@@ -1,3 +1,8 @@
+
+@extends('dashboard-views.dashboard')
+
+@section('dashboard-content')
+
 <div class="w-full h-full ">
     <div class="flex items-center w-full h-[3.75rem] ">
         {{-- SEARCH --}}
@@ -41,3 +46,5 @@
 
 
 </script> --}}
+
+@endsection
