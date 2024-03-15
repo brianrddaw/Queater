@@ -27,7 +27,7 @@
             </button>
 
             {{-- NAV SLIDE --}}
-                <div class="nav-slide flex flex-col gap-2 items-center h-[300px] w-full min-w-fit absolute right-0 top-14 z-10 bg-orange-500">
+                <div class="nav-slide hidden flex-col gap-2 items-center min-w-fit absolute right-0 top-14 z-10 bg-orange-500 overflow-hidden text-ellipsis w-fit">
                     @yield('navegacion')
                 </div>
 
@@ -43,22 +43,18 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#nav-button').click(function() {
-                toggleNavSlideLeft();
-            });
+            $('#nav-button').click(toggleDropdownNav);
         });
 
-        function toggleNavSlideLeft() {
-            const navSlide = $('.nav-slide');
-            const isNavVisible = navSlide.hasClass('active');
+        // Funcion para cerrar o abrir el dropdown con JavaScript puro
+        function toggleDropdownNav() {
+            const dropdawn =  $(this).parent();
+            const dropdawnItems = dropdawn.find('.nav-slide');
+            console.log(dropdawn);
+            console.log(dropdawnItems);
 
-            if (!isNavVisible) {
-                navSlide.addClass('active').css('display', 'flex').hide().slideDown(200);
-            } else {
-                navSlide.stop().slideUp(200, function() {
-                    $(this).removeClass('active').css('height', 'auto');
-                });
-            }
+            // Si el dropdown esta abierto se cierra / si esta cerrado se abre
+            dropdawnItems.slideToggle();
         }
 
 
@@ -75,21 +71,8 @@
             min-width: 0;
         }
 
-
-        .nav-slide {
-            display: none;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            height: 0;
-        }
-
-        .nav-slide.active {
-
-            height: auto;
-        }
-
-
         .nav-slide a {
+            display: flex;
             width: 100%;
             font-weight: bold;
             white-space: nowrap;
@@ -97,12 +80,6 @@
             text-align: right;
             padding: .75rem;
         }
-
-        .nav-slide a:active {
-            background-color: #fb923c
-        }
-
-
 
     </style>
 </body>
