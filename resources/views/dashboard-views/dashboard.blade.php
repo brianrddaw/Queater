@@ -16,12 +16,12 @@
                         </svg>
 
                     </div>
-                    <div class="flex flex-col routes-dropdown font-bold text-orange-950 nav-child">
+                    <div class="hidden flex-col routes-dropdown font-bold text-orange-950 nav-child">
                         {{-- Navegacion --}}
-                        <a href="{{ route('dashboard.main') }}" class="p-4 hover:bg-orange-100">Inicio</a>
-                        <a href="{{ route('dashboard.products') }}" class="p-4 hover:bg-orange-100">Productos</a>
-                        <a href="{{ route('dashboard.categories') }}" class="p-4 hover:bg-orange-100">Categorias</a>
-                        <a href="{{ route('dashboard.tables') }}" class="p-4 hover:bg-orange-100">Mesas</a>
+                        <a href="{{ route('dashboard.main') }}" class="p-4 hover:bg-orange-100 flex">Inicio</a>
+                        <a href="{{ route('dashboard.products') }}" class="p-4 hover:bg-orange-100 flex">Productos</a>
+                        <a href="{{ route('dashboard.categories') }}" class="p-4 hover:bg-orange-100 flex">Categorias</a>
+                        <a href="{{ route('dashboard.tables') }}" class="p-4 hover:bg-orange-100 flex">Mesas</a>
                     </div>
                 </div>
             </nav>
@@ -80,17 +80,12 @@
 
     // Funcion para cerrar o abrir el dropdown con JavaScript puro
     function toggleDropdown() {
-        const child =  $(this).children('.nav-child');
-        const arrow = $(this).find('.nav-arrow');
+        const dropdawnItems = dropdawn.find('.nav-child');
+        const arrow = dropdawn.find('.nav-arrow');
+
         // Si el dropdown esta abierto se cierra / si esta cerrado se abre
-        child.slideToggle();
-
-        //Rotar la flecha
+        dropdawnItems.slideToggle();
         arrow.toggleClass('rotate-180');
-
-        console.log(arrow);
-        //Rotar la flecha
-
     }
 
 </script>
