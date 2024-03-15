@@ -4,9 +4,9 @@
 
 @section('content')
     @if (Auth::check())
-    <main class=" w-full h-[100vh] grid grid-cols-10">
-        <div class="bg-walter-200 col-span-3 text-left border-r-2 border-orange-500">
-            <h2 class="text-lg text-orange-50 bg-orange-500  font-bold capitalize bg-orange py-4 pl-4">dashboard</h2>
+    <main class=" w-full h-[calc(100vh-3.75rem)] grid grid-cols-10">
+        <aside class="bg-walter-200 col-span-3 text-left ">
+            <h2 class="text-lg text-orange-950 bg-zinc-200  font-bold capitalize  py-4 pl-4">dashboard</h2>
             <nav class="flex flex-col text-orange-950">
                 <div class="flex flex-col">
                     <div class="flex items-center justify-between p-4 bg-orange-100">
@@ -30,9 +30,9 @@
                 <input type="hidden" name="route" value='dashboard.main'>
                 <button type="submit" class="bg-orange-500 w-full rounded p-4 hover:bg-orange-400 text-orange-50 font-bold text-lg bottom-0 relative">Salir</button>
             </form>
-        </div>
+        </aside>
 
-        <section class="flex w-full h-full bg-gray-100 col-span-7 ">
+        <section class="flex w-full h-full bg-gray-100 col-span-7 overflow-y-auto">
             @include('dashboard-views.dashboard-products', ['products' => $products])
         </section>
 
@@ -58,6 +58,7 @@
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
 
