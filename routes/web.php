@@ -88,9 +88,7 @@ Route::get('/get-session-id', [MainUserController::class, 'getSessionId'])->name
 //////////////////////////
 
 //Ruta del dashboard, solo se puede acceder si el usuario esta autenticado.
-Route::get('/dashboard', function () {
-    return view('dashboard-views.dashboard');
-})->name('dashboard.main');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.main');
 
 
 Route::get('/dashboard/products', [DashboardController::class, 'showProducts'])->name('dashboard.products');

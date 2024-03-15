@@ -8,8 +8,10 @@ use App\Models\Product;
 class DashboardController extends Controller
 {
     public function index()
+
     {
-        return view('dashboard-views.dashboard');
+        $products = Product::all();
+        return view('dashboard-views.dashboard', compact('products'));
     }
 
     public function showProducts()
