@@ -17,7 +17,42 @@
 
     <div class="w-full h-full flex flex-wrap p-4 gap-4">
 
-        @foreach ($products as  $product)
+        <form action="" method="post" class="w-[500px] h-[400px] mx-auto p-2 border border-red-500">
+            @csrf
+            <div class="grid grid-rows-2 border border-blue-500 h-full">
+
+                {{-- IMG && INFO --}}
+                <div class="grid grid-cols-2 ">
+                    <div class="w-full ">
+                        <img src="../imgs/burguer.webp" alt="" class="border border-indigo-500 object-cover h-48 w-full">
+
+                    </div>
+                    <div class="border border-yellow-500">
+                        <input type="text" name="" id="name" placeholder="Nombre...">
+                        <input type="number" name="" id="price" placeholder="Price...">
+                        <select name="" id="category">
+                            @foreach ($categories as  $category)
+
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                            @endforeach
+                        </select>
+                    </div>
+
+                </div>
+
+                {{-- DESCRIPCIÓN --}}
+                <div class=" w-full border border-pink-500">
+
+                    <p>3</p>
+                </div>
+
+            </div>
+
+        </form>
+
+
+        {{-- @foreach ($products as  $product)
             <div class="card flex flex-col bg-walter-300  drop-shadow-[0_4px_3px_rgba(0,0,0,.3)] w-full h-32">
                 <div class="flex justify-between">
                     <h3>{{ $product->name }}</h3>
@@ -25,7 +60,7 @@
 
                 </div>
             </div>
-        @endforeach
+        @endforeach --}}
 
     </div>
 
@@ -37,7 +72,7 @@
 <script>
 
     function addProduct() {
-        alert('hola');
+
     }
 
 </script>
