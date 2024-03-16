@@ -137,8 +137,8 @@
         var formData = new FormData();
         formData.append('image', image); // Adjunta el archivo de imagen
         formData.append('name', name.toString()); // Adjunta el nombre del producto
-        formData.append('price', price); // Adjunta el precio del producto
-        formData.append('category', category); // Adjunta la categoría del producto
+        formData.append('price', parseFloat(price)); // Adjunta el precio del producto
+        formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
         formData.append('description', description.toString()); // Adjunta la descripción del producto
         formData.append('_token', '{{ csrf_token() }}');
 
