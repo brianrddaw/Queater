@@ -101,6 +101,11 @@ Route::get('/dashboard/categories', [DashboardController::class, 'showCategories
 //Ruta para obtener las mesas en dashboard.
 Route::get('/dashboard/tables', [DashboardController::class, 'showTables'])->name('dashboard.tables');
 
+//Ruta para crear un nuevo producto.
+Route::post('/dashboard/products/create', [DashboardController::class, 'createNewProduct'])->name('dashboard.products.create');
+
+
+
 
 //////////////////////////
 //                      //
@@ -110,3 +115,4 @@ Route::get('/dashboard/tables', [DashboardController::class, 'showTables'])->nam
 
 //Llama a un controlador enviando la id del producto.
 Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
+
