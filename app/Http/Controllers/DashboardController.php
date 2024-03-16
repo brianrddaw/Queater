@@ -58,13 +58,13 @@ class DashboardController extends Controller
         $price = $request->price;
         $category = $request->category;
         $description = $request->description;
-        $image = $request->image;
+        $image = $request->file('image');
 
 
+        $nombreArchivo = $name . '.' . $image->getClientOriginalExtension();
+        $imagePath = $image->storeAs('products_images', $nombreArchivo, 'public');
 
-        $imagePath = $request->file('image')->store('products_images',$name, 'public');
-
-        echo "Producto creado: " . $name;
+        echo "Producto creado: " . $name . " " . $price . " " . $category . " " . $description . " " . $imagePath;
 
 
 
