@@ -44,15 +44,12 @@ class DashboardController extends Controller
     {
 
         // $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+        //     'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Adjust validation rules as needed
         //     'name' => 'required|string',
         //     'price' => 'required|numeric',
         //     'category' => 'required|exists:categories,id', // Assuming you have a categories table
-        //     'description' => 'nullable|string',
+        //     'description' => 'string',
         // ]);
-
-
-
 
         $name = $request->name;
         $price = $request->price;
@@ -66,16 +63,14 @@ class DashboardController extends Controller
 
         echo "Producto creado: " . $name . " " . $price . " " . $category . " " . $description . " " . $imagePath;
 
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->category_id = $request->category_id;
+        $product->image_url = $request->image_url;
+        $product->save();
 
-
-
-        // $product = new Product();
-        // $product->name = $request->name;
-        // $product->description = $request->description;
-        // $product->price = $request->price;
-        // $product->category_id = $request->category_id;
-        // $product->image_url = $request->image_url;
-        // $product->save();
+        echo "Producto creado: Nombre: ". $product->name . "\nDescripcion: " . $product->description . "\nPrecio: " . $product->price . "\nCategoria: " . $product->category_id . "\nImagen: " . $product->image_url;
     }
-
 }

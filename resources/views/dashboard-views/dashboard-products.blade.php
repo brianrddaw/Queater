@@ -146,22 +146,22 @@
         // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
 
 
-        // Realiza la solicitud AJAX
-        // $.ajax({
-        //     url: '{{ route('dashboard.products.create') }}',
-        //     method: 'POST',
-        //     data: formData,
-        //     processData: false, // Evita que jQuery procese los datos
-        //     contentType: false, // Evita que jQuery establezca el tipo de contenido
-        //     success: function(response) {
-        //         console.log(response);
-        //         // Maneja la respuesta exitosa aquí
-        //     },
-        //     error: function(error) {
-        //         console.log(error);
-        //         // Maneja el error aquí
-        //     },
-        // });
+        //Realiza la solicitud AJAX
+        $.ajax({
+            url: '{{ route('dashboard.products.create') }}',
+            method: 'POST',
+            data: formData,
+            processData: false, // Evita que jQuery procese los datos
+            contentType: false, // Evita que jQuery establezca el tipo de contenido
+            success: function(response) {
+                console.log(response);
+                // Maneja la respuesta exitosa aquí
+            },
+            error: function(error) {
+                console.log(error);
+                // Maneja el error aquí
+            },
+        });
     }
 
 
