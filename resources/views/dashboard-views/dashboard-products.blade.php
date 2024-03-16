@@ -87,12 +87,16 @@
 
         }).then((result) => {
             if (result.isConfirmed) {
-                // Aquí puedes manejar la lógica para enviar el formulario si el usuario confirma
+                // Obtén la información del formulario
+
+
                 Swal.fire(
                     'Agregado!',
                     'El producto ha sido agregado exitosamente.',
                     'success'
                 );
+
+
             }
         });
     }
@@ -101,6 +105,35 @@
     document.querySelector('svg').addEventListener('click', function() {
         document.getElementById('avatar').click();
     });
+
+
+    function createNewProduct(){
+
+        var formData = new FormData();
+                formData.append('image', $('#image')[0].files[0]); // Adjunta el archivo de imagen
+                formData.append('name', $('#name').val()); // Adjunta el nombre del producto
+                formData.append('price', $('#price').val()); // Adjunta el precio del producto
+                formData.append('category', $('#category').val()); // Adjunta la categoría del producto
+                formData.append('description', $('#description').val()); // Adjunta la descripción del producto
+                formData.append('_token', '{{ csrf_token() }}');
+
+                // Realiza la solicitud AJAX
+                $.ajax({
+                    url: '{{ route('dashboard.products.create') }}',
+                    method: 'POST',
+                    data: formData,
+                    processData: false, // Evita que jQuery procese los datos
+                    contentType: false, // Evita que jQuery establezca el tipo de contenido
+                    success: function(response) {
+                        console.log(response);
+                        // Maneja la respuesta exitosa aquí
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        // Maneja el error aquí
+                    },
+                });
+    }
 
 </script>
 

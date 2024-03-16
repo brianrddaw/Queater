@@ -52,6 +52,8 @@ class DashboardController extends Controller
         // ]);
 
 
+
+
         $name = $request->name;
         $price = $request->price;
         $category = $request->category;
