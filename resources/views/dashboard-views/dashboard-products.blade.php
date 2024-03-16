@@ -5,7 +5,7 @@
 
 <div class="w-full h-full ">
 
-    <div class="flex items-center   w-full h-[3.75rem]  ">
+    <div class="flex items-center  w-full h-[3.75rem] overflow-scroll">
         {{-- SEARCH --}}
         <div class="flex items-center justify-center p-4 w-full h-full bg-zinc-200 text-orange-950">
 
@@ -20,44 +20,10 @@
         <button class="bg-zinc-200 min-w-fit h-full p-4 border-l-4 border-walter-950 active:bg-zinc-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
     </div>
 
-    <div class="w-full h-full flex flex-wrap p-4 gap-4">
-
-        <form action="" method="post" class="w-[500px] h-[400px] mx-auto  rounded-lg   text-orange-950">
-            @csrf
-            <div class="grid grid-rows-2 h-full">
-
-                {{-- IMG && INFO --}}
-                <div class="grid grid-cols-2 ">
-                    <div class="w-full ">
-                        <img src="../imgs/burguer.webp" alt="" class=" object-contain h-48 w-full">
-
-                    </div>
-                    <div class="">
-                        <input type="text" name="name" id="name" placeholder="Nombre..." class="w-full p-2 border-b-4 border-transparent focus:border-orange-950 no-underline outline-none">
-                        <input type="number" name="price" id="price" placeholder="Precio..." class="w-full p-2 border-b-4 border-transparent focus:border-orange-950 no-underline outline-none">
-                        <select name="category" id="category" class="w-full p-2 border-b-4 border-transparent focus:border-orange-950 no-underline outline-none">
-                            @foreach ($categories as  $category)
-
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-
-                            @endforeach
-                        </select>
-                    </div>
-
-                </div>
+    <div class="w-full h-full flex flex-wrap p-4 gap-4 ">
 
 
-                {{-- DESCRIPCIÓN --}}
-                <div class="flex flex-col w-full h-full bg-walter-400  gap-2 pt-2 font-bold uppercase">
-                    <p class="text-left text-lg pl-4">Descripción</p>
-                    <textarea name="description" id="description" cols="10" rows="10" class="w-full p-2 h  no-underline outline-none"></textarea>
-                </div>
-            </div>
-
-        </form>
-
-
-        {{-- @foreach ($products as  $product)
+        @foreach ($products as  $product)
             <div class="card flex flex-col bg-walter-300  drop-shadow-[0_4px_3px_rgba(0,0,0,.3)] w-full h-32">
                 <div class="flex justify-between">
                     <h3>{{ $product->name }}</h3>
@@ -65,7 +31,7 @@
 
                 </div>
             </div>
-        @endforeach --}}
+        @endforeach
 
     </div>
 

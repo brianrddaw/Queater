@@ -4,12 +4,12 @@
 
 @section('content')
     @if (Auth::check())
-    <main class=" w-full h-[calc(100vh-3.75rem)] grid grid-cols-10">
+    <main class=" w-full h-[calc(100vh-3.5rem)] grid grid-cols-10">
         <aside class="bg-walter-200 col-span-3 text-left ">
             <h2 class="text-lg text-orange-950 bg-zinc-200  font-bold capitalize  py-4 pl-4">dashboard</h2>
             <nav class="flex flex-col text-orange-950">
                 <div class="flex flex-col nav-parent">
-                    <div class="nav-parent-title flex items-center justify-between p-4 bg-orange-100">
+                    <div class="nav-parent-title flex flex-wrap items-center justify-between p-4 bg-orange-100 ">
                         <h2 class="font-bold ">Navegación</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="nav-arrow w-6 h-6 transition-all duration-500 rotate-180">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
