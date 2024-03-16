@@ -4,13 +4,8 @@
 
 @section('content')
     @if (Auth::check())
-<<<<<<< HEAD
-    <main class=" w-full h-[calc(100vh-3.50rem)] grid grid-cols-10">
-        <aside class="bg-walter-200 col-span-3 text-left drop-shadow-lg">
-=======
     <main class=" w-full h-[calc(100vh-3.5rem)] grid grid-cols-10">
         <aside class="bg-walter-200 col-span-3 text-left ">
->>>>>>> ee34072a0f2fa708c0a4db1fbdcdb42871f051cc
             <h2 class="text-lg text-orange-950 bg-zinc-200  font-bold capitalize  py-4 pl-4">dashboard</h2>
             <nav class="flex flex-col text-orange-950">
                 <div class="flex flex-col nav-parent">
