@@ -128,19 +128,18 @@
         const price = $('#price').val();
         const category = $('#category').val();
         const description = $('#description').val();
-        console.log(price);
+
         // validate fields
-        // if (!image || !name || !price || !category || !description) {
-        //     alert('Por favor llena todos los campos');
-        //     return false;
-        // }
+        if (!image || !name || !price || !category || !description) {
+            return false;
+        }
 
         var formData = new FormData();
         formData.append('image', image); // Adjunta el archivo de imagen
-        formData.append('name', name); // Adjunta el nombre del producto
+        formData.append('name', name.toString()); // Adjunta el nombre del producto
         formData.append('price', price); // Adjunta el precio del producto
         formData.append('category', category); // Adjunta la categoría del producto
-        formData.append('description', description); // Adjunta la descripción del producto
+        formData.append('description', description.toString()); // Adjunta la descripción del producto
         formData.append('_token', '{{ csrf_token() }}');
 
         // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
@@ -181,6 +180,8 @@
             input.value = parts.join('.');
         }
     }
+
+
 
 </script>
 
