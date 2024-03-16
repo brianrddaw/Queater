@@ -3,9 +3,9 @@
 
 @section('dashboard-content')
 
-<div class="w-full h-full ">
+<div class="w-full">
 
-    <div class="flex items-center  w-full h-[3.75rem] overflow-scroll">
+    <div class="flex items-center  w-full h-[3.75rem]">
         {{-- SEARCH --}}
         <div class="flex items-center justify-center p-4 w-full h-full bg-zinc-200 text-orange-950">
 
@@ -20,9 +20,7 @@
         <button class="bg-zinc-200 min-w-fit h-full p-4 border-l-4 border-walter-950 active:bg-zinc-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
     </div>
 
-    <div class="w-full h-full flex flex-wrap p-4 gap-4 ">
-
-
+    <div class="w-full h-full flex flex-wrap p-4 gap-4 overflow-y-scroll">
         @foreach ($products as  $product)
             <div class="card flex flex-col bg-walter-300  drop-shadow-[0_4px_3px_rgba(0,0,0,.3)] w-full h-32">
                 <div class="flex justify-between">
@@ -32,7 +30,6 @@
                 </div>
             </div>
         @endforeach
-
     </div>
 
 </div>
