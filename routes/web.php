@@ -98,3 +98,17 @@ Route::get('/dashboard/categories', [DashboardController::class, 'showCategories
 
 //Ruta para obtener las mesas en dashboard.
 Route::get('/dashboard/tables', [DashboardController::class, 'showTables'])->name('dashboard.tables');
+
+
+//////////////////////////
+//                      //
+//       Products       //
+//                      //
+//////////////////////////
+
+//Ruta para crear un nuevo producto.
+Route::get('/prueba',function (){
+
+
+    return view('prueba-crud-products');
+})->name('prueba');

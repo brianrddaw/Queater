@@ -10,7 +10,7 @@ use App\Models\Allergen;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'price', 'availability','category_id'];
+    protected $fillable = ['name', 'description', 'price', 'availability','category_id', 'image_url'];
 
     // Relación con la tabla linea_pedido
     public function lineasPedido()
