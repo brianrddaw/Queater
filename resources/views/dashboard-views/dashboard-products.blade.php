@@ -43,7 +43,7 @@
         Swal.fire({
             title: 'Agregar Producto',
             html: `
-                <form action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                <form enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
                     @csrf
                     <div class="grid grid-rows-2 h-full gap-4">
 
@@ -60,8 +60,23 @@
                             </div>
 
                             <div class="flex flex-col gap-2">
-                                <input type="text" name="name" id="name" placeholder="Nombre..." class="w-full p-2 bg-walter-200 rounded no-underline outline-none">
-                                <input type="number" name="price" id="price" placeholder="Precio..." class="w-full p-2 bg-walter-200 rounded no-underline outline-none">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    placeholder="Nombre..."
+                                    class="w-full p-2 bg-walter-200 rounded no-underline outline-none">
+                                <input
+                                    type="text"
+                                    name="price"
+                                    id="price"
+                                    placeholder="Precio..."
+                                    class="w-full p-2 bg-walter-200 rounded no-underline outline-none"
+                                    oninput="formatPrice(this)"
+                                />
+
+
+
                                 <div class="flex items-center w-full pr-2  ">
                                     <select name="category" id="category" class="w-full p-2  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
                                         @foreach ($categories as  $category)
@@ -84,18 +99,18 @@
             cancelButtonText: 'Cancelar',
             cancelButtonColor: '#d33',
             confirmButtonColor: '#f97306',
+            position:'top-end',
 
         }).then((result) => {
             if (result.isConfirmed) {
                 // Obtén la información del formulario
+                createNewProduct();
 
-
-                Swal.fire(
-                    'Agregado!',
-                    'El producto ha sido agregado exitosamente.',
-                    'success'
-                );
-
+                // Swal.fire(
+                //     'Agregado!',
+                //     'El producto ha sido agregado exitosamente.',
+                //     'success'
+                // );
 
             }
         });
@@ -106,33 +121,65 @@
         document.getElementById('avatar').click();
     });
 
-
     function createNewProduct(){
 
-        var formData = new FormData();
-                formData.append('image', $('#image')[0].files[0]); // Adjunta el archivo de imagen
-                formData.append('name', $('#name').val()); // Adjunta el nombre del producto
-                formData.append('price', $('#price').val()); // Adjunta el precio del producto
-                formData.append('category', $('#category').val()); // Adjunta la categoría del producto
-                formData.append('description', $('#description').val()); // Adjunta la descripción del producto
-                formData.append('_token', '{{ csrf_token() }}');
+        const image = $('#image')[0].files[0];
+        const name = $('#name').val();
+        const price = $('#price').val();
+        const category = $('#category').val();
+        const description = $('#description').val();
+        console.log(price);
+        // validate fields
+        // if (!image || !name || !price || !category || !description) {
+        //     alert('Por favor llena todos los campos');
+        //     return false;
+        // }
 
-                // Realiza la solicitud AJAX
-                $.ajax({
-                    url: '{{ route('dashboard.products.create') }}',
-                    method: 'POST',
-                    data: formData,
-                    processData: false, // Evita que jQuery procese los datos
-                    contentType: false, // Evita que jQuery establezca el tipo de contenido
-                    success: function(response) {
-                        console.log(response);
-                        // Maneja la respuesta exitosa aquí
-                    },
-                    error: function(error) {
-                        console.log(error);
-                        // Maneja el error aquí
-                    },
-                });
+        var formData = new FormData();
+        formData.append('image', image); // Adjunta el archivo de imagen
+        formData.append('name', name); // Adjunta el nombre del producto
+        formData.append('price', price); // Adjunta el precio del producto
+        formData.append('category', category); // Adjunta la categoría del producto
+        formData.append('description', description); // Adjunta la descripción del producto
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
+
+
+        // Realiza la solicitud AJAX
+        // $.ajax({
+        //     url: '{{ route('dashboard.products.create') }}',
+        //     method: 'POST',
+        //     data: formData,
+        //     processData: false, // Evita que jQuery procese los datos
+        //     contentType: false, // Evita que jQuery establezca el tipo de contenido
+        //     success: function(response) {
+        //         console.log(response);
+        //         // Maneja la respuesta exitosa aquí
+        //     },
+        //     error: function(error) {
+        //         console.log(error);
+        //         // Maneja el error aquí
+        //     },
+        // });
+    }
+
+
+    // PRICE VALIDATION
+    function formatPrice(input) {
+        // Reemplazar cualquier caracter que no sea un número o un punto por una cadena vacía
+        input.value = input.value.replace(/[^\d.]/g, '');
+
+        // Separar el número en parte entera y parte decimal
+        var parts = input.value.split('.');
+        if (parts.length > 2) {
+            // Si hay más de un punto, elimina los adicionales
+            input.value = parts[0] + '.' + parts[1];
+        } else if (parts.length === 2) {
+            // Si hay parte decimal, asegúrate de que no tenga más de dos dígitos
+            parts[1] = parts[1].slice(0, 2);
+            input.value = parts.join('.');
+        }
     }
 
 </script>
