@@ -15,7 +15,7 @@ class TakeAwayController extends Controller
 
         foreach ($categorys as $category) {
             // Consultar los productos asociados a la categoría actual
-            $products = DB::select('select id,name,description,price,availability from products where availability = 1 and category_id = ?', [$category->id]);
+            $products = DB::select('select id,name,description,price,availability,image_url from products where availability = 1 and category_id = ?', [$category->id]);
             //Almacenar los alergenos asociados a los productos
             foreach ($products as $product) {
                 $product->allergens = DB::select('select allergens.name from allergens inner join products_allergens on allergens.id = products_allergens.allergen_id where products_allergens.product_id = ?', [$product->id]);

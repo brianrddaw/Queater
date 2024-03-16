@@ -24,6 +24,7 @@
         @foreach ($products as  $product)
             <div class="card flex flex-col w-full h-[200px] bg-walter-300 border border-red-500">
                 <div class="flex justify-between">
+                    <img src="{{"/storage/" .$product->image_url }}" alt="{{ $product->name }}" class="w-1/3 h-full object-cover rounded-l-lg">
                     <h3>{{ $product->name }}</h3>
 
 

@@ -66,8 +66,8 @@ class DashboardController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->image_url = $request->image_url;
+        $product->category_id = $request->category;
+        $product->image_url = $imagePath;
         $product->save();
 
         echo "Producto creado: Nombre: ". $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;

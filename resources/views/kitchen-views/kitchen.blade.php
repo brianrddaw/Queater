@@ -63,7 +63,8 @@
 
                                         </div>
                                     </div>
-                                    <img src="{{ asset('imgs/burguer.webp') }}" alt="" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
+
+                                    <img src="{{"/storage/" .$orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
                                 </div>
                                 <div class="ingredients-container hidden bg-walter-200 h-fit p-4 pl-0 m-4 rounded text-lg w-full">
                                     {{ $orderLine['product']['description'] }}
@@ -134,8 +135,7 @@
 
                                         </div>
                                     </div>
-                                    <img src="{{ asset('imgs/burguer.webp') }}" alt="" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
-                                </div>
+                                    <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">                                </div>
                                     <div class="ingredients-container hidden bg-gray-200 h-fit p-4 m-4 rounded text-lg w-full">
 
                                         ${orderLine.product.description}

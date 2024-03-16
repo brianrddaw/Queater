@@ -50,7 +50,7 @@
 
         }
 
-        function addToOrder(id, price, name)
+        function addToOrder(id, price, name, image_url)
         {
 
             if (order[id])
@@ -72,7 +72,7 @@
 
                 };
 
-                addToOrderHtml(order[id]);
+                addToOrderHtml(order[id], image_url);
             }
 
             cartProductsQuantity ++;
@@ -90,7 +90,7 @@
         }
 
 
-        function addToOrderHtml(product) {
+        function addToOrderHtml(product, image_url) {
 
             // Obtener el contenedor del carrito
             var cartCtn = $('#cart-products-container');
@@ -99,7 +99,7 @@
             var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card max-w-[600px] grid grid-cols-10 items-center rounded  min-h-14 h-16 bg-orange-50 drop-shadow-lg text-orange-950 text-xs"></div>');
 
             // IMG
-            var productImg = $('<img class="col-span-2 w-16 h-16 object-fit border-2 border-orange-500 bg-orange-500 rounded-l object-cover" src="{{ asset('imgs/burguer.webp') }}" alt="">');
+            var productImg = $('<img class="col-span-2 w-16 h-16 object-fit border-2 border-orange-500 bg-orange-500 rounded-l object-cover" src="/storage/'+ image_url + '" alt="">');
 
             // INFO CONTAINER
             var productInfo = $('<div class="flex flex-col justify-between pl-1 py-1 text-base m w-full h-full col-span-6 "></div>');
