@@ -3,7 +3,7 @@
 @section('title', 'User')
 @section('content')
 
-    <main class="flex w-full h-[calc(100vh-3.25rem)] place-content-center items-center ">
+    <main class="flex w-full h-[calc(100vh-3.5rem)] place-content-center items-center ">
 
         <section class="w-fit h-fit flex flex-col justify-center items-center gap-5  mb-8">
 

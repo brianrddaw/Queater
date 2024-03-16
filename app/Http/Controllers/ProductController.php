@@ -19,5 +19,18 @@ class ProductController extends Controller
     //     return view('prueba', ['products' => $products]);
     // }
 
+    //Funcion para crear nuevos productos.
+    public function createProduct($name, $description, $price, $category_id, $image_url)
+    {
+        $product = new Product();
+        $product->name = $name;
+        $product->description = $description;
+        $product->price = $price;
+        $product->category_id = $category_id;
+        $product->image_url = $image_url;
+        $product->save();
+
+    }
+
 
 }

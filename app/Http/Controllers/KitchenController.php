@@ -35,6 +35,7 @@ class KitchenController extends Controller
                         'name' => $orderLine->product->name,
                         'description' => $orderLine->product->description,
                         'price' => $orderLine->product->price,
+                        'image_url' => $orderLine->product->image_url,
                     ]
                 ];
             }
@@ -83,6 +84,7 @@ class KitchenController extends Controller
                         'name' => $orderLine->product->name,
                         'description' => $orderLine->product->description,
                         'price' => $orderLine->product->price,
+                        'image_url' => $orderLine->product->image_url,
                     ]
                 ];
             }

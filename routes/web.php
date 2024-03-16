@@ -12,22 +12,26 @@ use App\Http\Controllers\DashboardController;
 // MAIN ROUTES
 
 
+
+//////////////////////////
+//                      //
+//        User          //
+//                      //
+//////////////////////////
+
 // USER ROUTES
 Route::get('/', [MainUserController::class, 'index'])->name('user.main');
-
 //Ruta para obtener los productos.
 Route::get('/eat-here', [EatHereController::class, 'eatHere'])->name('eat-here.main');
-
 //Ruta para obtener los productos.
 Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
 
-//Llama a un controlador enviando la id del producto.
-Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
-
+//FIXME: La ruta de cash deberia controlarse en el controlador de cash
 //Ruta para obtener los productos.
 Route::get('/cash', function () {
     return view('cash-views.cash');
 })->name('cash.main');
+
 
 
 //////////////////////////
@@ -35,6 +39,7 @@ Route::get('/cash', function () {
 //        Kitchen       //
 //                      //
 //////////////////////////
+
 Route::get('/kitchen', [KitchenController::class, 'index'])->name('kitchen.main');
 //Enviar los pedidos con el estado new.
 Route::get('/kitchen/orders/new', [KitchenController::class, 'sendNewOrders'])->name('kitchen.orders.new');
@@ -43,16 +48,13 @@ Route::post('/kitchen/orders/change-status', [KitchenController::class, 'changeO
 //Hacer el pedido
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
 
-
-
-
 //////////////////////////
 //                      //
 //         Login        //
 //                      //
 //////////////////////////
 
-
+//FIXME: La ruta de login deberia controlarse en el controlador de login
 //Ruta para el login.
 Route::get('/login', function () {
     return view('login-views.login',['route' => 'login']);
@@ -98,3 +100,19 @@ Route::get('/dashboard/categories', [DashboardController::class, 'showCategories
 
 //Ruta para obtener las mesas en dashboard.
 Route::get('/dashboard/tables', [DashboardController::class, 'showTables'])->name('dashboard.tables');
+
+//Ruta para crear un nuevo producto.
+Route::post('/dashboard/products/create', [DashboardController::class, 'createNewProduct'])->name('dashboard.products.create');
+
+
+
+
+//////////////////////////
+//                      //
+//       Products       //
+//                      //
+//////////////////////////
+
+//Llama a un controlador enviando la id del producto.
+Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
+

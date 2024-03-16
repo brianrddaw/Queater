@@ -11,23 +11,26 @@
 @section('content')
     {{-- Si hay un usuario logeado muestra la cocina, sino muestra el loggin --}}
     @if (Auth::check())
-    <div class="container mx-auto text-walter-200">
-        <div class="mb-10 bg-orange-500  py-8 px-4 flex items-center">
-            <div class="w-full flex items-center bg-walter-200 rounded px-2">
+
+        {{-- SEARCH --}}
+        <div class="w-full mb-10 bg-walter-300 px-4 flex items-center">
+            <div class="w-full flex items-center bg-walter-300 rounded pY-4">
                 <input type="text" id="search" placeholder="Buscar pedido..." class="w-full p-2 bg-transparent focus:outline-none text-orange-950">
 
-                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="text-orange-950 w-6 h-6">
-                    <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
+                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"  class="text-gray-500 w-8 h-8">
+                    <path fill-rule="evenodd"  d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
                 </svg>
             </div>
         </div>
 
-        <section class="flex flex-col px-4">
+        {{-- SECTION --}}
+        <section class="flex flex-col px-4 ">
 
+            {{-- ORDERS LIST --}}
             <ul id="orders-ctn" class="select-none text-orange-950">
                 @foreach ($orders as $order)
                 <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg ">
-                    <div class="flex text-lg flex-row justify-between items-center font-semibold p-4  rounded-t-lg bg-orange-500">
+                    <div class="flex text-lg flex-row justify-between items-center font-semibold p-4  rounded-t-lg bg-orange-500 text-orange-50">
                         <div>
                             <strong>Pedido: </strong>
                             {{ $order['id'] }}
@@ -60,7 +63,8 @@
 
                                         </div>
                                     </div>
-                                    <img src="{{ asset('imgs/burguer.webp') }}" alt="" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
+
+                                    <img src="{{"/storage/" .$orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
                                 </div>
                                 <div class="ingredients-container hidden bg-walter-200 h-fit p-4 pl-0 m-4 rounded text-lg w-full">
                                     {{ $orderLine['product']['description'] }}
@@ -76,13 +80,14 @@
                 @endforeach
             </ul>
 
+            {{-- LOG OUT --}}
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <input type="hidden" name="route" value='kitchen.main'>
-                <button type="submit" class="bg-orange-950 rounded min-w-40 p-4 hover:bg-orange-900 text-orange-50 font-bold text-xl">Salir</button>
+                <button type="submit" class="bg-orange-500 rounded min-w-40 p-4 active:bg-orange-400 text-orange-50 font-bold text-xl">Salir</button>
             </form>
         </section>
-    </div>
+
     @else
         @include('login-views.login',['route' => 'kitchen.main', 'title' => 'cocina'])
     @endif
@@ -130,8 +135,7 @@
 
                                         </div>
                                     </div>
-                                    <img src="{{ asset('imgs/burguer.webp') }}" alt="" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
-                                </div>
+                                    <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">                                </div>
                                     <div class="ingredients-container hidden bg-gray-200 h-fit p-4 m-4 rounded text-lg w-full">
 
                                         ${orderLine.product.description}

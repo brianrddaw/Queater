@@ -18,10 +18,13 @@ return new class extends Migration
             $table->string('description'); //Descripcion del producto
             $table->float('price'); //Precio del producto
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade'); //Identificador del pedido
+            $table->string('image_url')->default('products_images/hamburguesa.webp'); //URL de la imagen del producto
             $table->boolean('availability')->default(true); //Disponibilidad del producto
             $table->timestamps();
         });
     }
+
+
 
     /**
      * Reverse the migrations.
