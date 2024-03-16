@@ -4,11 +4,11 @@
 
 @section('content')
     @if (Auth::check())
-    <main class=" w-full h-[calc(100vh-3.5rem)] grid grid-cols-10 overflow-hidden">
-        <aside class="bg-walter-400 col-span-3 text-left h-[calc(100vh-3.5rem)] flex flex-col sticky">
-            <h2 class="text-lg text-orange-950 font-bold capitalize  py-4 pl-4 border border-b-black">dashboard</h2>
+    <main class=" w-full h-[calc(100vh-3.5rem)] grid grid-cols-10">
+        <aside class="bg-walter-400 col-span-3 text-left h-auto flex flex-col ">
+            <h2 class="text-lg text-orange-950 font-bold capitalize  py-4 pl-4 ">dashboard</h2>
             {{-- Navegaciones de la barra lateral --}}
-            <nav class="flex flex-col text-orange-950 border border-b-black">
+            <nav class="flex flex-col text-orange-950 border-b-2 border-orange-950">
                 <div class="flex flex-col nav-parent">
                     <div class="nav-parent-title flex flex-wrap items-center justify-between p-4 bg-orange-100 ">
                         <h2 class="font-bold ">Navegación</h2>
@@ -27,7 +27,7 @@
                 </div>
             </nav>
 
-            <nav class="flex flex-col text-orange-950 border border-b-black">
+            <nav class="flex flex-col text-orange-950 border-b-2 border-orange-950">
                 <div class="flex flex-col nav-parent">
                     <div class="nav-parent-title flex flex-wrap items-center justify-between p-4 bg-orange-100 ">
                         <h2 class="font-bold ">Navegación</h2>
@@ -61,9 +61,8 @@
             </form>
         </aside>
 
-        <section class="flex w-full h-[calc(100vh-3.5rem)] bg-gray-100 col-span-7 ">
+        <section class="flex flex-col w-full h-[calc(100vh-3.5rem)] bg-gray-100 col-span-7 ">
             {{-- Contenido de la dashboard --}}
-
 
             @if (!empty(trim($__env->yieldContent('dashboard-content'))))
                 @yield('dashboard-content')
