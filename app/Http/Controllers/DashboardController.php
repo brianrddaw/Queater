@@ -62,15 +62,15 @@ class DashboardController extends Controller
         $imagePath = $image->storeAs('products_images', $nombreArchivo, 'public');
 
 
-        // $product = new Product();
-        // $product->name = $request->name;
-        // $product->description = $request->description;
-        // $product->price = $request->price;
-        // $product->category_id = $request->category_id;
-        // $product->image_url = $request->image_url;
-        // $product->save();
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->category_id = $request->category_id;
+        $product->image_url = $request->image_url;
+        $product->save();
 
-        echo "Producto creado: Nombre: ". $product->name . "\nDescripcion: " . $product->description . "\nPrecio: " . $product->price . "\nCategoria: " . $product->category_id . "\nImagen: " . $product->image_url;
+        echo "Producto creado: Nombre: ". $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;
     }
 
 }

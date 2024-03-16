@@ -43,7 +43,7 @@
         Swal.fire({
             title: 'Agregar Producto',
             html: `
-                <form enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.create') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
                     @csrf
                     <div class="grid grid-rows-2 h-full gap-4">
 
@@ -131,36 +131,47 @@
 
         // validate fields
         if (!image || !name || !price || !category || !description) {
-            return false;
+            return Swal.fire(
+                    'Error!',
+                    'Debes completar todos los campos para agregar un producto.',
+                    'error'
+                );;
         }
 
         var formData = new FormData();
         formData.append('image', image); // Adjunta el archivo de imagen
         formData.append('name', name.toString()); // Adjunta el nombre del producto
-        formData.append('price', price); // Adjunta el precio del producto
-        formData.append('category', category); // Adjunta la categoría del producto
+        formData.append('price', parseFloat(price)); // Adjunta el precio del producto
+        formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
         formData.append('description', description.toString()); // Adjunta la descripción del producto
         formData.append('_token', '{{ csrf_token() }}');
 
         // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
-
-
-        //Realiza la solicitud AJAX
         $.ajax({
             url: '{{ route('dashboard.products.create') }}',
-            method: 'POST',
+            type: 'POST',
             data: formData,
-            processData: false, // Evita que jQuery procese los datos
-            contentType: false, // Evita que jQuery establezca el tipo de contenido
+            processData: false,
+            contentType: false,
             success: function(response) {
                 console.log(response);
-                // Maneja la respuesta exitosa aquí
+                Swal.fire(
+                    'Agregado!',
+                    'El producto ha sido agregado exitosamente.',
+                    'success'
+                );
             },
             error: function(error) {
                 console.log(error);
-                // Maneja el error aquí
-            },
+                Swal.fire(
+                    'Error!',
+                    'Ha ocurrido un error al intentar agregar el producto.',
+                    'error'
+                );
+            }
         });
+
+
     }
 
 
