@@ -5,7 +5,7 @@
 
 <div class="w-full h-full ">
 
-    <div class="flex items-center   w-full h-[3.75rem]  ">
+    <div class="flex items-center  w-full h-[3.75rem] overflow-scroll">
         {{-- SEARCH --}}
         <div class="flex items-center justify-center p-4 w-full h-full bg-zinc-200 text-orange-950">
 
@@ -17,47 +17,13 @@
             </button>
         </div>
         {{-- ADD BUTTON --}}
-        <button class="bg-zinc-200 min-w-fit h-full p-4 border-l-4 border-walter-950 active:bg-zinc-300 font-bold text-orange-950 uppercase" onclick="addProduct()">Añadir</button>
+        <button class="bg-zinc-200 min-w-fit h-full p-4 border-l-4 border-walter-950 active:bg-zinc-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
     </div>
 
-    <div class="w-full h-full flex flex-wrap p-4 gap-4">
-
-        <form action="" method="post" class="w-[500px] h-[400px] mx-auto p-2 border border-red-500">
-            @csrf
-            <div class="grid grid-rows-2 border border-blue-500 h-full">
-
-                {{-- IMG && INFO --}}
-                <div class="grid grid-cols-2 ">
-                    <div class="w-full ">
-                        <img src="../imgs/burguer.webp" alt="" class="border border-indigo-500 object-cover h-48 w-full">
-
-                    </div>
-                    <div class="border border-yellow-500">
-                        <input type="text" name="" id="name" placeholder="Nombre...">
-                        <input type="number" name="" id="price" placeholder="Price...">
-                        <select name="" id="category">
-                            @foreach ($categories as  $category)
-
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-
-                            @endforeach
-                        </select>
-                    </div>
-
-                </div>
-
-                {{-- DESCRIPCIÓN --}}
-                <div class=" w-full border border-pink-500">
-
-                    <p>3</p>
-                </div>
-
-            </div>
-
-        </form>
+    <div class="w-full h-full flex flex-wrap p-4 gap-4 ">
 
 
-        {{-- @foreach ($products as  $product)
+        @foreach ($products as  $product)
             <div class="card flex flex-col bg-walter-300  drop-shadow-[0_4px_3px_rgba(0,0,0,.3)] w-full h-32">
                 <div class="flex justify-between">
                     <h3>{{ $product->name }}</h3>
@@ -65,7 +31,7 @@
 
                 </div>
             </div>
-        @endforeach --}}
+        @endforeach
 
     </div>
 
@@ -76,8 +42,52 @@
 
 <script>
 
-    function addProduct() {
-
+    function showAddProductForm() {
+        Swal.fire({
+            title: 'Agregar Producto',
+            html: `
+                <form action="" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                    @csrf
+                    <div class="grid grid-rows-2 h-full">
+                        <div class="grid grid-cols-2">
+                            <div class="w-full">
+                                <img src="../imgs/burguer.webp" alt="" class="object-contain h-48 w-full">
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <input type="text" name="name" id="name" placeholder="Nombre..." class="w-full p-2 border border-orange-950 no-underline outline-none">
+                                <input type="number" name="price" id="price" placeholder="Precio..." class="w-full p-2 border border-orange-950 no-underline outline-none">
+                                <div class="flex items-center w-full pr-2  ">
+                                    <select name="category" id="category" class="w-full pr-2 bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
+                                        @foreach ($categories as  $category)
+                                        <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col w-full h-full bg-walter-400 gap-2 p-4 ">
+                            <p class="text-left text-lg pl-4 font-bold uppercase">Descripción</p>
+                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 h  no-underline outline-none border border-walter-400 resize-none text-md"></textarea>
+                        </div>
+                    </div>
+                </form>
+            `,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonText: 'Agregar',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Aquí puedes manejar la lógica para enviar el formulario si el usuario confirma
+                Swal.fire(
+                    'Agregado!',
+                    'El producto ha sido agregado exitosamente.',
+                    'success'
+                );
+            }
+        });
     }
 
 </script>
