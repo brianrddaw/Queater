@@ -22,12 +22,47 @@
 
     <div class="flex  flex-wrap w-[100%] h-[calc(100vh-7.25rem)] p-6 gap-4  overflow-y-scroll">
         @foreach ($products as  $product)
-            <div class="card flex flex-col w-full h-[200px] bg-walter-300 border border-red-500">
-                <div class="flex justify-between">
-                    <h3>{{ $product->name }}</h3>
+            <div class="card flex flex-col justify-between w-full h-fit bg-walter-300 border rounded p-2 gap-6 text-orange-950">
+
+                    <div class="flex">
+
+                        <div class="flex w-full justify-between">
 
 
-                </div>
+                            <div class="flex gap-10">
+                                <img src="../imgs/burguer.webp" alt="" class="w-20 h-20 bg-orange-500 rounded-full">
+                                <span class="pt-2 flex flex-col justify-between">
+                                    <h3 class="font-bold">{{ $product->name }}</h3>
+                                    <div class="flex gap-4">
+                                        <p>Precio</p>
+                                        <p class="font-bold">{{ $product->price }} €</p>
+                                    </div>
+
+                                </span>
+
+                            </div>
+
+                            <span class="w-28 flex flex-col gap-2 justify-between items-start">
+
+                                <p class="flex justify-center items-center gap-2 text-sm font-bold bg-orange-500 p-2 rounded">Categoria</p>
+                                <p>{{ $product->category->name }}</p>
+
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bg-walter-400 p-2 rounded">
+
+                        <span class="ml-auto">
+                            {{ $product->description }}
+                        </span>
+
+                    </div>
+                    <div class="ml-auto flex gap-2">
+                        <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded">Editar</button>
+                        <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded">Eliminar</button>
+                    </div>
+
+
             </div>
         @endforeach
     </div>
@@ -128,6 +163,8 @@
         const price = $('#price').val();
         const category = $('#category').val();
         const description = $('#description').val();
+
+
 
         // validate fields
         if (!image || !name || !price || !category || !description) {
