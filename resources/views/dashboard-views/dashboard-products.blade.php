@@ -31,7 +31,7 @@
 
 
                             <div class="flex gap-10">
-                                <img src="/storage/{{ $product->image_url }}" alt="{{ $product->name }}" class="w-20 h-20 bg-orange-500 rounded-full">
+                                <img src="/storage/{{ $product->image_url }}" alt="" class="w-20 h-20 bg-orange-500 rounded-full">
                                 <span class="pt-2 flex flex-col justify-between">
                                     <h3 class="font-bold">{{ $product->name }}</h3>
                                     <div class="flex gap-4">
@@ -59,7 +59,7 @@
 
                     </div>
                     <div class="ml-auto flex gap-2">
-                        <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded" onclick="showEditProduct({{ $product->id }})">Editar</button>
+                        <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded" onclick="showEditProduct({{ $product }})">Editar</button>
                         <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded">Eliminar</button>
                     </div>
 
@@ -75,7 +75,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-
     function showAddProductForm() {
         Swal.fire({
             title: 'Agregar Producto',
@@ -216,8 +215,97 @@
     }
 
     function showEditProduct(product) {
-        console.log(product);
+        const image_url = product.image_url;
+        const name = product.name;
+        const description = product.description;
+        const price = product.price;
+        const category_id = product.category_id;
+        console.log(
+
+            category_id
+
+        );
+
+        Swal.fire({
+            title: 'Editar Producto',
+            html: `
+                <form action="{{ route('dashboard.products.create') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                    @method('PUT')
+                    @csrf
+                    <div class="grid grid-rows-2 h-full gap-4">
+
+
+                        <div class="grid grid-cols-2 gap-4">
+
+                            <div class="flex flex-col items-center justify-center p-2 w-[12.5rem] bg-walter-200 rounded-lg h-full">
+                                <label for="image" class="cursor-pointer">
+                                    <img src="/storage/`+ image_url + `" alt="" class="w-fit  object-cover ">
+
+                                </label>
+                                <input type="file" id="image" name="image" accept="image/*" style="display: none;" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    placeholder="`+name+`"
+                                    value="`+name+`"
+                                    class="w-full p-2 bg-walter-200 rounded no-underline outline-none">
+                                <input
+                                    type="text"
+                                    name="price"
+                                    id="price"
+                                    placeholder="`+price+`"
+                                    value="`+price+`"
+                                    class="w-full p-2 bg-walter-200 rounded no-underline outline-none"
+                                    oninput="formatPrice(this)"
+                                />
+
+
+
+                                <div class="flex items-center w-full pr-2  ">
+                                    <select name="category" id="category"  value="`+category_id+`" class="w-full p-2  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
+                                        <option class="appearance-none w-full border-none bg-transparent" value="`+category_id+`">`+category_id+`</option>
+                                        @foreach ($categories as  $category)
+                                            <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col w-full h-full bg-walter-200 ">
+                            <p class="text-left text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
+                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md">`+description+`</textarea>
+                        </div>
+                    </div>
+                </form>
+            `,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonText: 'Agregar',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#f97306',
+            position:'top-end',
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Obtén la información del formulario
+                editProduct();
+
+                // Swal.fire(
+                //     'Agregado!',
+                //     'El producto ha sido agregado exitosamente.',
+                //     'success'
+                // );
+
+            }
+        });
     }
+
+
 
     function editProduct(product) {
         console.log(product);

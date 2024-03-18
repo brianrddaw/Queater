@@ -115,4 +115,4 @@ Route::post('/dashboard/products/create', [DashboardController::class, 'createNe
 
 //Llama a un controlador enviando la id del producto.
 Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
-Route::put('/product/{product}', [ProductController::class, 'update'])->name('product.update');
+Route::put('/product/{product}', [ProductController::class, 'updateProduct'])->name('product.update');
