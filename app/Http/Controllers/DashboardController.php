@@ -44,38 +44,33 @@ class DashboardController extends Controller
     {
 
         // $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+        //     'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Adjust validation rules as needed
         //     'name' => 'required|string',
         //     'price' => 'required|numeric',
         //     'category' => 'required|exists:categories,id', // Assuming you have a categories table
-        //     'description' => 'nullable|string',
+        //     'description' => 'string',
         // ]);
-
-
-
 
         $name = $request->name;
         $price = $request->price;
         $category = $request->category;
         $description = $request->description;
-        $image = $request->image;
+        $image = $request->file('image');
 
 
-
-        $imagePath = $request->file('image')->store('products_images',$name, 'public');
-
-        echo "Producto creado: " . $name;
+        $nombreArchivo = $name . '.' . $image->getClientOriginalExtension();
+        $imagePath = $image->storeAs('products_images', $nombreArchivo, 'public');
 
 
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->category_id = $request->category;
+        $product->image_url = $imagePath;
+        $product->save();
 
-
-        // $product = new Product();
-        // $product->name = $request->name;
-        // $product->description = $request->description;
-        // $product->price = $request->price;
-        // $product->category_id = $request->category_id;
-        // $product->image_url = $request->image_url;
-        // $product->save();
+        echo "Producto creado: Nombre: ". $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;
     }
 
     public function updateProduct(Request $request, Product $product){

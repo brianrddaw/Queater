@@ -1,6 +1,6 @@
 <div class="product-card gap-2 rounded-lg p-4 w-[300px] bg-gray-100 text-orange-950 drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
     <div class="flex h-10 ">
-        <img class="relative bottom-16 right-16 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]" src="../imgs/burguer.webp" alt="product_image">
+        <img class="relative bottom-16 right-16 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]" src="{{"/storage/" .$product->image_url }}" alt="{{ $product->name }}">
 
         {{-- INFO BUTTON--}}
         <div class="info-button flex gap-1 items-center cursor-pointer">
@@ -20,7 +20,7 @@
     <div class="flex items-end justify-between h-fit mt-2">
         <p class="text-lg h-fit leading-none">{{ $product->price }} €</p>
 
-        <button onclick="addToOrder({{ $product->id }},{{ $product->price }},'{{ $product->name }}')" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded active:bg-orange-400 active:scale-105">
+        <button onclick="addToOrder({{ $product->id }},{{ $product->price }},'{{ $product->name }}','{{ $product->image_url }}')" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-2 rounded active:bg-orange-400 active:scale-105">
             Añadir
         </button>
     </div>
