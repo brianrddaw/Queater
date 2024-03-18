@@ -207,7 +207,7 @@
                     'Error!',
                     'Debes completar todos los campos para agregar un producto.',
                     'error'
-                );;
+                );
         }
 
         var formData = new FormData();
@@ -258,7 +258,7 @@
         Swal.fire({
             title: 'Editar Producto',
             html: `
-                <form action="{{ route('dashboard.products.create') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
                     @method('PUT')
                     @csrf
                     <div class="grid grid-rows-2 h-full gap-4">
@@ -295,8 +295,7 @@
 
 
                                 <div class="flex items-center w-full pr-2  ">
-                                    <select name="category" id="category"  value="`+category_name+`" class="w-full p-2  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
-                                        <option class="appearance-none w-full border-none bg-transparent" value="`+category_name+`">`+category_name+`</option>
+                                    <select name="category" id="category"  value="`+category_name+`" selected="`+category_name+`" class="w-full p-2  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
                                         @foreach ($categories as  $category)
                                             <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -313,7 +312,7 @@
             `,
             showCancelButton: true,
             allowOutsideClick: false,
-            confirmButtonText: 'Agregar',
+            confirmButtonText: 'Editar',
             cancelButtonText: 'Cancelar',
             cancelButtonColor: '#d33',
             confirmButtonColor: '#f97306',
@@ -321,8 +320,13 @@
 
         }).then((result) => {
             if (result.isConfirmed) {
+                const image = $('#image')[0].files[0];
+                const name = $('#name').val();
+                const price = $('#price').val();
+                const category = $('#category').val();
+                const description = $('#description').val();
                 // Obtén la información del formulario
-                editProduct();
+                editProduct(image, name, price, category, description);
 
                 // Swal.fire(
                 //     'Agregado!',
@@ -336,8 +340,44 @@
 
 
 
-    function editProduct(product) {
-        console.log(product);
+    function editProduct(image, name, price, category, description) {
+
+        var formData = new FormData();
+
+        if (image) {
+            formData.append('image', image); // Adjunta el archivo de imagen
+        }
+        formData.append('name', name.toString()); // Adjunta el nombre del producto
+        formData.append('price', parseFloat(price)); // Adjunta el precio del producto
+        formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
+        formData.append('description', description.toString()); // Adjunta la descripción del producto
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
+        $.ajax({
+            url: '{{ route('dashboard.products.update') }}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                Swal.fire(
+                    'Agregado!',
+                    'El producto ha sido editado exitosamente.',
+                    'success'
+                );
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire(
+                    'Error!',
+                    'Ha ocurrido un error al intentar editar el producto.',
+                    'error'
+                );
+            }
+        });
+
     }
 
 

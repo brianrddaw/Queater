@@ -104,6 +104,9 @@ Route::get('/dashboard/tables', [DashboardController::class, 'showTables'])->nam
 //Ruta para crear un nuevo producto.
 Route::post('/dashboard/products/create', [DashboardController::class, 'createNewProduct'])->name('dashboard.products.create');
 
+//Actualizar producto con nuevos valores
+Route::post('/dashboard/products/update', [DashboardController::class, 'updateProduct'])->name('dashboard.products.update');
+
 
 
 
@@ -115,4 +118,3 @@ Route::post('/dashboard/products/create', [DashboardController::class, 'createNe
 
 //Llama a un controlador enviando la id del producto.
 Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
-Route::put('/product/{product}', [ProductController::class, 'updateProduct'])->name('product.update');
