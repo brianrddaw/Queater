@@ -252,11 +252,8 @@
         const description = product.description;
         const price = product.price;
         const category_id = product.category_id;
-        console.log(
+        const category_name = product.category_name;
 
-            category_id
-
-        );
 
         Swal.fire({
             title: 'Editar Producto',
@@ -298,8 +295,8 @@
 
 
                                 <div class="flex items-center w-full pr-2  ">
-                                    <select name="category" id="category"  value="`+category_id+`" class="w-full p-2  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
-                                        <option class="appearance-none w-full border-none bg-transparent" value="`+category_id+`">`+category_id+`</option>
+                                    <select name="category" id="category"  value="`+category_name+`" class="w-full p-2  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
+                                        <option class="appearance-none w-full border-none bg-transparent" value="`+category_name+`">`+category_name+`</option>
                                         @foreach ($categories as  $category)
                                             <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
