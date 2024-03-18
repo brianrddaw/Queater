@@ -168,28 +168,18 @@
 
         $('#image').on('change', function() {
             console.log('image changed');
-            const file = this.files;
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imageForLabel.attr('src', e.target.result);
-                    imageForLabel.removeClass('hidden');
-                    svgLabel.addClass('hidden');
-                }
-                reader.readAsDataURL(file[0]);
-            }else{
-                imageForLabel.addClass('hidden');
-                svgLabel.removeClass('hidden');
+            if (this.files.length > 0) { // Verifica si se ha seleccionado al menos un archivo
+                const imageUrl = URL.createObjectURL(this.files[0]); // Crea una URL de objeto para el archivo seleccionado
+                $('#image-for-label').attr('src', imageUrl); // Establece la URL de objeto como fuente de la imagen
+                $('#image-for-label').removeClass('hidden'); // Muestra la imagen
+                $('#svg-label').addClass('hidden'); // Oculta el elemento SVG
+            } else {
+                $('#image-for-label').addClass('hidden'); // Oculta la imagen
+                $('#svg-label').removeClass('hidden'); // Muestra el elemento SVG
             }
         });
     }
 
-
-
-    // Agregar evento de clic de imagen al elemento SVG
-    document.querySelector('svg').addEventListener('click', function() {
-        document.getElementById('avatar').click();
-    });
 
     function createNewProduct(){
 
