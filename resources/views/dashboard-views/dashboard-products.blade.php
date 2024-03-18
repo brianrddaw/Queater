@@ -86,11 +86,12 @@
 
                         <div class="grid grid-cols-2 gap-4">
 
-                            <div class="flex flex-col items-center justify-center p-2 w-full bg-walter-200 rounded-lg h-full">
-                                <label for="image" class="cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14 text-walter-900 h-full active:scale-110 hover:cursor-pointer active:text-walter-950">
+                            <div class="flex flex-col items-center justify-center p-2 w-[12.5rem] bg-walter-200 rounded-lg h-full">
+                                <label for="image" class="cursor-pointer" id="">
+                                    <svg id="svg-label" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14 text-walter-900 h-full active:scale-110 hover:cursor-pointer active:text-walter-950">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
+                                    <img id="image-for-label" src="" alt="Imagen del producto" class="aspect-square w-full bg-orange-500 hidden">
                                 </label>
                                 <input type="file" id="image" name="image" accept="image/*" style="display: none;" />
                             </div>
@@ -138,6 +139,7 @@
             position:'top-end',
 
         }).then((result) => {
+
             if (result.isConfirmed) {
                 // Obtén la información del formulario
                 createNewProduct();
@@ -148,6 +150,36 @@
                 //     'success'
                 // );
 
+            }
+        });
+        addEventToForm();
+    }
+
+
+    // Agregar evento de cambio de imagen al elemento input
+    function addEventToForm(){
+        console.log('adding event to form')
+
+        //Se declaran las variables de los elementos del DOM que se usan.
+        const image = $('#image');
+        const svgLabel = $('#svg-label');
+        const imageForLabel = $('#image-for-label');
+
+
+        $('#image').on('change', function() {
+            console.log('image changed');
+            const file = this.files;
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageForLabel.attr('src', e.target.result);
+                    imageForLabel.removeClass('hidden');
+                    svgLabel.addClass('hidden');
+                }
+                reader.readAsDataURL(file[0]);
+            }else{
+                imageForLabel.addClass('hidden');
+                svgLabel.removeClass('hidden');
             }
         });
     }
