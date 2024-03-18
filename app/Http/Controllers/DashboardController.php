@@ -78,4 +78,19 @@ class DashboardController extends Controller
         // $product->save();
     }
 
+    public function updateProduct(Request $request, Product $product){
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'category' => 'required',
+            'description' => 'nullable',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // editar producto en la base de datos
+        $product->update($validatedData);
+
+    }
+
 }

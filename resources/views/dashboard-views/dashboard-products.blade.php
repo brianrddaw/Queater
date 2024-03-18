@@ -7,9 +7,9 @@
 
     <div class="flex items-center w-full h-[3.75rem]">
         {{-- SEARCH --}}
-        <div class="flex items-center justify-center p-4 w-full h-full bg-zinc-200 text-orange-950">
+        <div class="flex items-center justify-center p-4 w-full h-full bg-walter-400 text-orange-950">
 
-            <input type="search" id="" name="" placeholder="Buscar  producto..." class=" w-full  h-full bg-transparent focus:outline-none"/>
+            <input type="search" id="" name="" placeholder="Buscar  producto..." class=" w-full  h-full bg-transparent focus:outline-none "/>
             <button class="drop-shadow-lg ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -17,12 +17,12 @@
             </button>
         </div>
         {{-- ADD BUTTON --}}
-        <button class="bg-zinc-200 min-w-fit h-full p-4 border-l-4 border-walter-950 active:bg-zinc-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
+        <button class="bg-walter-400 min-w-fit h-full p-4 border-l-4  active:bg-walter-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
     </div>
 
     <div class="flex  flex-wrap w-[100%] h-[calc(100vh-7.25rem)] p-6 gap-4  overflow-y-scroll">
         @foreach ($products as  $product)
-            <div class="card flex flex-col justify-between w-full h-fit bg-walter-300 border rounded p-2 gap-6 text-orange-950">
+            <div class="card flex flex-col justify-between w-full h-fit bg-walter-300 border rounded p-2 py-6 gap-6 text-orange-950">
 
                     <div class="flex">
 
@@ -58,7 +58,7 @@
 
                     </div>
                     <div class="ml-auto flex gap-2">
-                        <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded">Editar</button>
+                        <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded" onclick="showEditProduct({{ $product->id }})">Editar</button>
                         <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded">Eliminar</button>
                     </div>
 
@@ -151,6 +151,8 @@
         });
     }
 
+
+
     // Agregar evento de clic de imagen al elemento SVG
     document.querySelector('svg').addEventListener('click', function() {
         document.getElementById('avatar').click();
@@ -181,6 +183,14 @@
 
     }
 
+    function showEditProduct(product) {
+        console.log(product);
+    }
+
+    function editProduct(product) {
+        console.log(product);
+    }
+
 
     // PRICE VALIDATION
     function formatPrice(input) {
@@ -202,5 +212,12 @@
 
 
 </script>
+
+<style>
+    input[type="search"]::-webkit-search-decoration,
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-results-button,
+    input[type="search"]::-webkit-search-results-decoration { display: none; }
+</style>
 
 @endsection
