@@ -31,7 +31,7 @@
 
 
                             <div class="flex gap-10">
-                                <img src="../imgs/burguer.webp" alt="" class="w-20 h-20 bg-orange-500 rounded-full">
+                                <img src="/storage/{{ $product->image_url }}" alt="{{ $product->name }}" class="w-20 h-20 bg-orange-500 rounded-full">
                                 <span class="pt-2 flex flex-col justify-between">
                                     <h3 class="font-bold">{{ $product->name }}</h3>
                                     <div class="flex gap-4">
