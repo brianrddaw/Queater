@@ -7,9 +7,9 @@
 
     <div class="flex items-center w-full h-[3.75rem]">
         {{-- SEARCH --}}
-        <div class="flex items-center justify-center p-4 w-full h-full bg-zinc-200 text-orange-950">
+        <div class="flex items-center justify-center p-4 w-full h-full bg-walter-400 text-orange-950">
 
-            <input type="search" id="" name="" placeholder="Buscar  producto..." class=" w-full  h-full bg-transparent focus:outline-none"/>
+            <input type="search" id="" name="" placeholder="Buscar  producto..." class=" w-full  h-full bg-transparent focus:outline-none "/>
             <button class="drop-shadow-lg ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -17,18 +17,54 @@
             </button>
         </div>
         {{-- ADD BUTTON --}}
-        <button class="bg-zinc-200 min-w-fit h-full p-4 border-l-4 border-walter-950 active:bg-zinc-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
+        <button class="bg-walter-400 min-w-fit h-full p-4 border-l-4  active:bg-walter-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
     </div>
 
     <div class="flex  flex-wrap w-[100%] h-[calc(100vh-7.25rem)] p-6 gap-4  overflow-y-scroll">
         @foreach ($products as  $product)
-            <div class="card flex flex-col w-full h-[200px] bg-walter-300 border border-red-500">
-                <div class="flex justify-between">
-                    <img src="{{"/storage/" .$product->image_url }}" alt="{{ $product->name }}" class="w-1/3 h-full object-cover rounded-l-lg">
-                    <h3>{{ $product->name }}</h3>
+
+            <div class="card flex flex-col justify-between w-full h-fit bg-walter-300 border rounded p-2 py-6 gap-6 text-orange-950">
+
+                    <div class="flex">
+
+                        <div class="flex w-full justify-between">
 
 
-                </div>
+                            <div class="flex gap-10">
+                                <img src="../imgs/burguer.webp" alt="" class="w-20 h-20 bg-orange-500 rounded-full">
+                                <span class="pt-2 flex flex-col justify-between">
+                                    <h3 class="font-bold">{{ $product->name }}</h3>
+                                    <div class="flex gap-4">
+                                        <p>Precio</p>
+                                        <p class="font-bold">{{ $product->price }} €</p>
+                                    </div>
+
+                                </span>
+
+                            </div>
+
+                            <span class="w-28 flex flex-col gap-2 justify-between items-start">
+
+                                <p class="flex justify-center items-center gap-2 text-sm font-bold bg-orange-500 p-2 rounded">Categoria</p>
+                                <p>{{ $product->category->name }}</p>
+
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bg-walter-400 p-2 rounded">
+
+                        <span class="ml-auto">
+                            {{ $product->description }}
+                        </span>
+
+                    </div>
+                    <div class="ml-auto flex gap-2">
+                        <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded" onclick="showEditProduct({{ $product->id }})">Editar</button>
+                        <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded">Eliminar</button>
+                    </div>
+
+
+
             </div>
         @endforeach
     </div>
@@ -117,6 +153,8 @@
         });
     }
 
+
+
     // Agregar evento de clic de imagen al elemento SVG
     document.querySelector('svg').addEventListener('click', function() {
         document.getElementById('avatar').click();
@@ -129,6 +167,8 @@
         const price = $('#price').val();
         const category = $('#category').val();
         const description = $('#description').val();
+
+
 
         // validate fields
         if (!image || !name || !price || !category || !description) {
@@ -175,6 +215,14 @@
 
     }
 
+    function showEditProduct(product) {
+        console.log(product);
+    }
+
+    function editProduct(product) {
+        console.log(product);
+    }
+
 
     // PRICE VALIDATION
     function formatPrice(input) {
@@ -196,5 +244,12 @@
 
 
 </script>
+
+<style>
+    input[type="search"]::-webkit-search-decoration,
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-results-button,
+    input[type="search"]::-webkit-search-results-decoration { display: none; }
+</style>
 
 @endsection
