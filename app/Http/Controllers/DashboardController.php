@@ -23,6 +23,10 @@ class DashboardController extends Controller
     {
 
         $products = Product::all();
+        //Enviar el nombre de la categoria por cada producto
+        foreach ($products as $product) {
+            $product->category_name = Category::find($product->category_id)->name;
+        }
         $categories = Category::all();
         return view('dashboard-views.dashboard-products',['products' => $products, 'categories' => $categories]);
     }
