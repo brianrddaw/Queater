@@ -254,6 +254,9 @@
         const category_id = product.category_id;
         const category_name = product.category_name;
 
+        console.log("Name: ", name,"\nDescription: ", description, "\nPrice: ", price, "\nCategory: ", category_name, "\nImage: ", image_url);
+        //convietrte las categorias a json
+        console.log("Categories: ", @json($categories));
 
         Swal.fire({
             title: 'Editar Producto',
@@ -267,9 +270,11 @@
                         <div class="grid grid-cols-2 gap-4">
 
                             <div class="flex flex-col items-center justify-center p-2 w-[12.5rem] bg-walter-200 rounded-lg h-full">
-                                <label for="image" class="cursor-pointer">
-                                    <img src="/storage/`+ image_url + `" alt="" class="w-fit  object-cover ">
-
+                                <label for="image" class="cursor-pointer" id="">
+                                    <svg id="svg-label" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden w-14 h-14 text-walter-900 h-full active:scale-110 hover:cursor-pointer active:text-walter-950">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                    <img id="image-for-label" src="/storage/`+image_url+`" alt="Imagen del producto" class="aspect-square w-full bg-orange-500">
                                 </label>
                                 <input type="file" id="image" name="image" accept="image/*" style="display: none;" />
                             </div>
@@ -295,17 +300,25 @@
 
 
                                 <div class="flex items-center w-full pr-2  ">
-                                    <select name="category" id="category"  value="`+category_name+`" selected="`+category_name+`" class="w-full p-2  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
-                                        @foreach ($categories as  $category)
-                                            <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <select name="category" id="category" class="w-full p-2  selected="${category_name}" value="${category_id}"  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
+                                    <option class="appearance-none w-full border-none bg-transparent" value="${category_id}">${category_name}</option>`+
+                                    function(){
+                                        let categories = @json($categories);
+                                        let options = '';
+                                        categories.forEach(category2 => {
+                                            if(category2.id != category_id){
+                                                options += `<option class="appearance-none w-full border-none bg-transparent" value="${category2.id}">${category2.name}</option>`;
+                                            }
+                                        });
+                                        return options;
+                                    }()
+                                +`</select>
                                 </div>
                             </div>
                         </div>
                         <div class="flex flex-col w-full h-full bg-walter-200 ">
                             <p class="text-left text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
-                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md">`+description+`</textarea>
+                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md"></textarea>
                         </div>
                     </div>
                 </form>
