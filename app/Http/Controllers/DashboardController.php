@@ -47,14 +47,6 @@ class DashboardController extends Controller
     public function createNewProduct(Request $request)
     {
 
-        // $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Adjust validation rules as needed
-        //     'name' => 'required|string',
-        //     'price' => 'required|numeric',
-        //     'category' => 'required|exists:categories,id', // Assuming you have a categories table
-        //     'description' => 'string',
-        // ]);
-
         $name = $request->name;
         $price = $request->price;
         $category = $request->category;
@@ -62,33 +54,36 @@ class DashboardController extends Controller
         $image = $request->file('image');
 
 
+
         $nombreArchivo = $name . '.' . $image->getClientOriginalExtension();
         $imagePath = $image->storeAs('products_images', $nombreArchivo, 'public');
 
 
         $product = new Product();
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->category_id = $request->category;
+        $product->name = $name;
+        $product->description = $description;
+        $product->price = $price;
+        $product->category_id = $category;
         $product->image_url = $imagePath;
         $product->save();
 
         echo "Producto creado: Nombre: ". $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;
     }
 
-    public function updateProduct(Request $request, Product $product){
-
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'category' => 'required',
-            'description' => 'nullable',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+    public function updateProduct(Request $request){
 
         // editar producto en la base de datos
-        $product->update($validatedData);
+        echo "Producto creado: Id: " . $request->id . "\n Nombre: " . $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;
+
+        $product = Product::find($request->id);
+        $product->name = $request->name;
+        $product->price = $request->price;
+        // $product->image_url = $request->imagePath;
+        // $product->category_id = $request->category_id;
+        $product->description = $request->description;
+
+
+        $product->save();
 
     }
 
