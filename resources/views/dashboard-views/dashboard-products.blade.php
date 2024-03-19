@@ -193,12 +193,12 @@
 
     function createNewProduct(){
 
+        // creamos las constantes
         const image = $('#image')[0].files[0];
         const name = $('#name').val();
         const price = $('#price').val();
         const category = $('#category').val();
         const description = $('#description').val();
-
 
 
         // validate fields
@@ -247,12 +247,15 @@
     }
 
     function showEditProduct(product) {
+
         const image_url = product.image_url;
         const name = product.name;
         const description = product.description;
         const price = product.price;
         const category_id = product.category_id;
         const category_name = product.category_name;
+
+
 
 
         Swal.fire({
@@ -315,7 +318,7 @@
                         </div>
                         <div class="flex flex-col w-full h-full bg-walter-200 ">
                             <p class="text-left text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
-                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md"></textarea>
+                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md">${description}</textarea>
                         </div>
                     </div>
                 </form>
@@ -330,13 +333,16 @@
 
         }).then((result) => {
             if (result.isConfirmed) {
+                const product_id = product.id;
                 const image = $('#image')[0].files[0];
                 const name = $('#name').val();
                 const price = $('#price').val();
-                const category = $('#category').val();
+                const category_id = $('#category').val();
                 const description = $('#description').val();
+
+
                 // Obtén la información del formulario
-                editProduct(image, name, price, category, description);
+                editProduct(product_id, image, name, price, category_id, description);
 
                 // Swal.fire(
                 //     'Agregado!',
@@ -350,7 +356,7 @@
 
 
 
-    function editProduct(image, name, price, category, description) {
+    function editProduct(product_id, image, name, price, category, description) {
 
         var formData = new FormData();
 
@@ -358,6 +364,7 @@
         if (image) {
             formData.append('image', image); // Adjunta el archivo de imagen
         }
+        formData.append('id', product_id);
         formData.append('name', name.toString()); // Adjunta el nombre del producto
         formData.append('price', parseFloat(price)); // Adjunta el precio del producto
         formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
