@@ -254,9 +254,6 @@
         const category_id = product.category_id;
         const category_name = product.category_name;
 
-        console.log("Name: ", name,"\nDescription: ", description, "\nPrice: ", price, "\nCategory: ", category_name, "\nImage: ", image_url);
-        //convietrte las categorias a json
-        console.log("Categories: ", @json($categories));
 
         Swal.fire({
             title: 'Editar Producto',
@@ -356,6 +353,7 @@
     function editProduct(image, name, price, category, description) {
 
         var formData = new FormData();
+
 
         if (image) {
             formData.append('image', image); // Adjunta el archivo de imagen
