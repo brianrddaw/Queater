@@ -60,7 +60,7 @@
                     </div>
                     <div class="ml-auto flex gap-2">
                         <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded" onclick="showEditProduct({{ $product }})">Editar</button>
-                        <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded">Eliminar</button>
+                        <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded"  onclick="showDeleteProduct({{ $product->id }})">Eliminar</button>
                     </div>
 
 
@@ -397,6 +397,69 @@
         });
 
     }
+
+    function showDeleteProduct(product_id){
+
+        Swal.fire({
+            title: 'Eliminar Producto',
+            html: `
+                <form action="{{ route('dashboard.products.update') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            `,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonText: 'confirmar',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#f97306',
+            position:'top-end',
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('ahora se ejecutará delete product');
+                deleteProduct(product_id);
+            }
+
+
+
+        });
+
+
+
+
+    }
+
+    function deleteProduct(product_id) {
+
+        // una vez le pasamos la id, la usamos en la URL que proviene del arichivo web cuya ruta es /dashboard/products/delete/{id}
+        $.ajax({
+            url: '/dashboard/products/delete/' + product_id,
+            type: 'DELETE',
+            data: {
+                '_token': '{{ csrf_token() }}',
+            },
+            success: function(response) {
+                console.log(response);
+                Swal.fire(
+                    'Eliminado!',
+                    'El producto ha sido eliminado exitosamente.',
+                    'success'
+                );
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire(
+                    'Error!',
+                    'Ha ocurrido un error al intentar eliminar el producto.',
+                    'error'
+                );
+            }
+        });
+    }
+
+
 
 
     // PRICE VALIDATION

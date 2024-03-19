@@ -72,8 +72,7 @@ class DashboardController extends Controller
 
     public function updateProduct(Request $request){
 
-        // editar producto en la base de datos
-        echo "Producto creado: Id: " . $request->id . "\n Nombre: " . $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;
+        // echo "Producto creado: Id: " . $request->id . "\n Nombre: " . $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;
 
         $product = Product::find($request->id);
         $product->name = $request->name;
@@ -86,5 +85,22 @@ class DashboardController extends Controller
         $product->save();
 
     }
+
+
+
+
+    public function deleteProduct($id) {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+
+        $product->delete();
+
+        return response()->json(['message' => 'Producto eliminado correctamente']);
+    }
+
+
 
 }
