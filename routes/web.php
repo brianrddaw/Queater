@@ -107,6 +107,8 @@ Route::post('/dashboard/products/create', [DashboardController::class, 'createNe
 //Actualizar producto con nuevos valores
 Route::post('/dashboard/products/update', [DashboardController::class, 'updateProduct'])->name('dashboard.products.update');
 
+Route::delete('/dashboard/products/delete/{id}', [DashboardController::class, 'deleteProduct'])->name('dashboard.products.delete');
+
 
 
 
