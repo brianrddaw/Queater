@@ -9,7 +9,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TakeAwayController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\DashboardController;
-// MAIN ROUTES
 
 
 
@@ -31,8 +30,6 @@ Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-a
 Route::get('/cash', function () {
     return view('cash-views.cash');
 })->name('cash.main');
-
-
 
 //////////////////////////
 //                      //
@@ -66,7 +63,6 @@ Route::post('/login', [UserController::class, 'login'])->name('login');
 //Ruta para el logout.
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-
 //////////////////////////
 //                      //
 //         Session      //
@@ -81,7 +77,6 @@ Route::get('/close-session', [MainUserController::class, 'closeSession'])->name(
 
 //Ruta para obtener el id de la session.
 Route::get('/get-session-id', [MainUserController::class, 'getSessionId'])->name('get.session.id');
-
 
 //////////////////////////
 //                      //
@@ -107,10 +102,8 @@ Route::post('/dashboard/products/create', [DashboardController::class, 'createNe
 //Actualizar producto con nuevos valores
 Route::post('/dashboard/products/update', [DashboardController::class, 'updateProduct'])->name('dashboard.products.update');
 
+//Eliminar producto
 Route::delete('/dashboard/products/delete/{id}', [DashboardController::class, 'deleteProduct'])->name('dashboard.products.delete');
-
-
-
 
 //////////////////////////
 //                      //

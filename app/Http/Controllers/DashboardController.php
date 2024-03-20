@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
-    public function index()
 
-    {
+    //Funcion para mostrar el dashboard.
+    public function index(){
         return view('dashboard-views.dashboard');
     }
 
-    public function showProducts()
-    {
+    //Funcion para mostrar dashboard con todos los productos .
+    public function showProducts(){
 
         $products = Product::all();
         //Enviar el nombre de la categoria por cada producto
@@ -32,33 +32,31 @@ class DashboardController extends Controller
     }
 
 
+    //TODO: Hacer logica y views para las categorias en dashboard
     //Funcion para mostrar las categorias.
-    public function showCategories()
-    {
+    public function showCategories(){
         return view('dashboard-views.dashboard-categories');
     }
 
+    //TODO: Hacer logica y views para las mesas en dashboard
     //Funcion para mostrar las mesas.
-    public function showTables()
-    {
+    public function showTables(){
         return view('dashboard-views.dashboard-tables');
     }
 
-    public function createNewProduct(Request $request)
-    {
-
+    //Funcion para crear un nuevo producto.
+    public function createNewProduct(Request $request){
+        //Se recogen los datos enviados por el formulario.
         $name = $request->name;
         $price = $request->price;
         $category = $request->category;
         $description = $request->description;
         $image = $request->file('image');
 
+        //Se guarda la imagen en la carpeta public/products_images con el nombre del producto y su extension.
+        $imagePath = $image->storeAs('products_images', $name . '.' . $image->getClientOriginalExtension(), 'public');
 
-
-        $nombreArchivo = $name . '.' . $image->getClientOriginalExtension();
-        $imagePath = $image->storeAs('products_images', $nombreArchivo, 'public');
-
-
+        //Se crea un nuevo producto con los datos recogidos.
         $product = new Product();
         $product->name = $name;
         $product->description = $description;
@@ -67,26 +65,40 @@ class DashboardController extends Controller
         $product->image_url = $imagePath;
         $product->save();
 
-        echo "Producto creado: Nombre: ". $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;
+        echo "Producto creado: Nombre: ". $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category . "\nImagen: " . $imagePath;
     }
 
+    //Funcion para actualizar un producto.
     public function updateProduct(Request $request){
 
-        // echo "Producto creado: Id: " . $request->id . "\n Nombre: " . $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category_id . "\nImagen: " . $request->imagePath;
+        //Se recogen los datos enviados por el formulario.
+        $id = $request->id;
+        $name = $request->name;
+        $price = $request->price;
+        $category = $request->category;
+        $description = $request->description;
 
-        $product = Product::find($request->id);
-        $product->name = $request->name;
-        $product->price = $request->price;
-        // $product->image_url = $request->imagePath;
-        // $product->category_id = $request->category_id;
-        $product->description = $request->description;
+        //Si se recibe una imagen se guarda en la carpte public/products_images con el nombre del producto y su extension.
+        if($request->file('image')){
+            $image = $request->file('image');
+            $imagePath = $image->storeAs('products_images', $name . '.' . $image->getClientOriginalExtension(), 'public');
+            echo "Imagen recibida: " . $imagePath;
+        }
+        else{
+            $imagePath = Product::find($id)->image_url;
+            echo "No se recibio una imagen: " . $imagePath;
+        };
 
-
+        $product = Product::find($id);
+        $product->name = $name;
+        $product->price = $price;
+        $product->category_id = $category;
+        $product->description = $description;
+        $product->image_url = $imagePath;
         $product->save();
 
+        echo "Producto actalizado";
     }
-
-
 
 
     public function deleteProduct($id) {
