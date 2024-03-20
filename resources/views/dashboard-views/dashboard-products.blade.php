@@ -141,14 +141,8 @@
         }).then((result) => {
 
             if (result.isConfirmed) {
-                // Obtén la información del formulario
-                createNewProduct();
 
-                // Swal.fire(
-                //     'Agregado!',
-                //     'El producto ha sido agregado exitosamente.',
-                //     'success'
-                // );
+                createNewProduct();
 
             }
         });
@@ -165,31 +159,20 @@
         const svgLabel = $('#svg-label');
         const imageForLabel = $('#image-for-label');
 
-
         $('#image').on('change', function() {
             console.log('image changed');
-            const file = this.files;
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imageForLabel.attr('src', e.target.result);
-                    imageForLabel.removeClass('hidden');
-                    svgLabel.addClass('hidden');
-                }
-                reader.readAsDataURL(file[0]);
-            }else{
-                imageForLabel.addClass('hidden');
-                svgLabel.removeClass('hidden');
+            if (this.files.length > 0) { // Verifica si se ha seleccionado al menos un archivo
+                const imageUrl = URL.createObjectURL(this.files[0]); // Crea una URL de objeto para el archivo seleccionado
+                $('#image-for-label').attr('src', imageUrl); // Establece la URL de objeto como fuente de la imagen
+                $('#image-for-label').removeClass('hidden'); // Muestra la imagen
+                $('#svg-label').addClass('hidden'); // Oculta el elemento SVG
+            } else {
+                $('#image-for-label').addClass('hidden'); // Oculta la imagen
+                $('#svg-label').removeClass('hidden'); // Muestra el elemento SVG
             }
         });
     }
 
-
-
-    // Agregar evento de clic de imagen al elemento SVG
-    document.querySelector('svg').addEventListener('click', function() {
-        document.getElementById('avatar').click();
-    });
 
     function createNewProduct(){
 
@@ -231,7 +214,10 @@
                     'Agregado!',
                     'El producto ha sido agregado exitosamente.',
                     'success'
-                );
+                ).then(() => {
+                    // Recargar la página después de cerrar el mensaje de éxito
+                    window.location.reload();
+                });
             },
             error: function(error) {
                 console.log(error);
@@ -239,10 +225,12 @@
                     'Error!',
                     'Ha ocurrido un error al intentar agregar el producto.',
                     'error'
-                );
+                ).then(() => {
+                    // Recargar la página después de cerrar el mensaje de éxito
+                    window.location.reload();
+                });
             }
         });
-
 
     }
 
@@ -255,8 +243,7 @@
         const category_id = product.category_id;
         const category_name = product.category_name;
 
-
-
+        const id = product.id;
 
         Swal.fire({
             title: 'Editar Producto',
@@ -331,40 +318,46 @@
             confirmButtonColor: '#f97306',
             position:'top-end',
 
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const product_id = product.id;
-                const image = $('#image')[0].files[0];
-                const name = $('#name').val();
-                const price = $('#price').val();
-                const category_id = $('#category').val();
-                const description = $('#description').val();
+            }).then((result) => {
 
-
-                // Obtén la información del formulario
-                editProduct(product_id, image, name, price, category_id, description);
-
-                // Swal.fire(
-                //     'Agregado!',
-                //     'El producto ha sido agregado exitosamente.',
-                //     'success'
-                // );
-
-            }
-        });
+                if (result.isConfirmed) {
+                    editProduct(id);
+                }
+            });
+        addEventToForm();
     }
 
+    function editProduct(id) {
+
+        // creamos las constantes
+
+        const image = $('#image')[0].files[0];
+        const name = $('#name').val();
+        const price = $('#price').val();
+        const category = $('#category').val();
+        const description = $('#description').val();
+
+        //Condición para saber si se ha cambiado la imagen
+        let imgaChange = image ? true : false;
+
+        // validate fields
+        if (!name || !price || !category || !description) {
+            return Swal.fire(
+                'Error!',
+                'Todos los campos deben estar completos para editar un producto.',
+                'error'
+            );
+        }
 
 
-    function editProduct(product_id, image, name, price, category, description) {
-
+        // Se crea un objeto FormData para enviar los datos del formulario
         var formData = new FormData();
 
-
-        if (image) {
+        //Se verifica si hay una imagen nueva y sino pues no se envia la imagen
+        if(imgaChange){
             formData.append('image', image); // Adjunta el archivo de imagen
         }
-        formData.append('id', product_id);
+        formData.append('id', id); // Adjunta el id del producto
         formData.append('name', name.toString()); // Adjunta el nombre del producto
         formData.append('price', parseFloat(price)); // Adjunta el precio del producto
         formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
@@ -381,25 +374,29 @@
             success: function(response) {
                 console.log(response);
                 Swal.fire(
-                    'Agregado!',
+                    'Editado!',
                     'El producto ha sido editado exitosamente.',
                     'success'
-                );
+                ).then(() => {
+                    // Recargar la página después de cerrar el mensaje de éxito
+                    window.location.reload();
+                });
             },
             error: function(error) {
                 console.log(error);
                 Swal.fire(
                     'Error!',
-                    'Ha ocurrido un error al intentar editar el producto.',
+                    'Ha ocurrido un error al intentar agregar el producto.',
                     'error'
-                );
+                ).then(() => {
+                    // Recargar la página después de cerrar el mensaje de éxito
+                    window.location.reload();
+                });
             }
         });
-
     }
 
     function showDeleteProduct(product_id){
-
         Swal.fire({
             title: 'Eliminar Producto',
             html: `
@@ -415,24 +412,14 @@
             cancelButtonColor: '#d33',
             confirmButtonColor: '#f97306',
             position:'top-end',
-
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log('ahora se ejecutará delete product');
                 deleteProduct(product_id);
             }
-
-
-
         });
-
-
-
-
     }
-
     function deleteProduct(product_id) {
-
         // una vez le pasamos la id, la usamos en la URL que proviene del arichivo web cuya ruta es /dashboard/products/delete/{id}
         $.ajax({
             url: '/dashboard/products/delete/' + product_id,
@@ -446,7 +433,10 @@
                     'Eliminado!',
                     'El producto ha sido eliminado exitosamente.',
                     'success'
-                );
+                ).then(() => {
+                    // Recargar la página después de cerrar el mensaje de éxito
+                    window.location.reload();
+                });
             },
             error: function(error) {
                 console.log(error);
@@ -454,13 +444,13 @@
                     'Error!',
                     'Ha ocurrido un error al intentar eliminar el producto.',
                     'error'
-                );
+                ).then(() => {
+                    // Recargar la página después de cerrar el mensaje de éxito
+                    window.location.reload();
+                });
             }
         });
     }
-
-
-
 
     // PRICE VALIDATION
     function formatPrice(input) {
@@ -478,8 +468,6 @@
             input.value = parts.join('.');
         }
     }
-
-
 
 </script>
 
