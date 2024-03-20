@@ -60,7 +60,7 @@
                     </div>
                     <div class="ml-auto flex gap-2">
                         <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded" onclick="showEditProduct({{ $product }})">Editar</button>
-                        <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded">Eliminar</button>
+                        <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded"  onclick="showDeleteProduct({{ $product->id }})">Eliminar</button>
                     </div>
 
 
@@ -183,12 +183,12 @@
 
     function createNewProduct(){
 
+        // creamos las constantes
         const image = $('#image')[0].files[0];
         const name = $('#name').val();
         const price = $('#price').val();
         const category = $('#category').val();
         const description = $('#description').val();
-
 
 
         // validate fields
@@ -197,7 +197,7 @@
                     'Error!',
                     'Debes completar todos los campos para agregar un producto.',
                     'error'
-                );;
+                );
         }
 
         var formData = new FormData();
@@ -237,6 +237,7 @@
     }
 
     function showEditProduct(product) {
+
         const image_url = product.image_url;
         const name = product.name;
         const description = product.description;
@@ -244,14 +245,14 @@
         const category_id = product.category_id;
         const category_name = product.category_name;
 
-        console.log("Name: ", name,"\nDescription: ", description, "\nPrice: ", price, "\nCategory: ", category_name, "\nImage: ", image_url);
-        //convietrte las categorias a json
-        console.log("Categories: ", @json($categories));
+
+
 
         Swal.fire({
             title: 'Editar Producto',
             html: `
-            <form action="{{ route('dashboard.products.create') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                    @method('PUT')
                     @csrf
                     <div class="grid grid-rows-2 h-full gap-4">
 
@@ -307,14 +308,14 @@
                         </div>
                         <div class="flex flex-col w-full h-full bg-walter-200 ">
                             <p class="text-left text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
-                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md"></textarea>
+                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md">${description}</textarea>
                         </div>
                     </div>
                 </form>
             `,
             showCancelButton: true,
             allowOutsideClick: false,
-            confirmButtonText: 'Agregar',
+            confirmButtonText: 'Editar',
             cancelButtonText: 'Cancelar',
             cancelButtonColor: '#d33',
             confirmButtonColor: '#f97306',
@@ -322,8 +323,16 @@
 
         }).then((result) => {
             if (result.isConfirmed) {
+                const product_id = product.id;
+                const image = $('#image')[0].files[0];
+                const name = $('#name').val();
+                const price = $('#price').val();
+                const category_id = $('#category').val();
+                const description = $('#description').val();
+
+
                 // Obtén la información del formulario
-                editProduct();
+                editProduct(product_id, image, name, price, category_id, description);
 
                 // Swal.fire(
                 //     'Agregado!',
@@ -337,9 +346,110 @@
 
 
 
-    function editProduct(product) {
-        console.log(product);
+    function editProduct(product_id, image, name, price, category, description) {
+
+        var formData = new FormData();
+
+
+        if (image) {
+            formData.append('image', image); // Adjunta el archivo de imagen
+        }
+        formData.append('id', product_id);
+        formData.append('name', name.toString()); // Adjunta el nombre del producto
+        formData.append('price', parseFloat(price)); // Adjunta el precio del producto
+        formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
+        formData.append('description', description.toString()); // Adjunta la descripción del producto
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
+        $.ajax({
+            url: '{{ route('dashboard.products.update') }}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                Swal.fire(
+                    'Agregado!',
+                    'El producto ha sido editado exitosamente.',
+                    'success'
+                );
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire(
+                    'Error!',
+                    'Ha ocurrido un error al intentar editar el producto.',
+                    'error'
+                );
+            }
+        });
+
     }
+
+    function showDeleteProduct(product_id){
+
+        Swal.fire({
+            title: 'Eliminar Producto',
+            html: `
+                <form action="{{ route('dashboard.products.update') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            `,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonText: 'confirmar',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#f97306',
+            position:'top-end',
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('ahora se ejecutará delete product');
+                deleteProduct(product_id);
+            }
+
+
+
+        });
+
+
+
+
+    }
+
+    function deleteProduct(product_id) {
+
+        // una vez le pasamos la id, la usamos en la URL que proviene del arichivo web cuya ruta es /dashboard/products/delete/{id}
+        $.ajax({
+            url: '/dashboard/products/delete/' + product_id,
+            type: 'DELETE',
+            data: {
+                '_token': '{{ csrf_token() }}',
+            },
+            success: function(response) {
+                console.log(response);
+                Swal.fire(
+                    'Eliminado!',
+                    'El producto ha sido eliminado exitosamente.',
+                    'success'
+                );
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire(
+                    'Error!',
+                    'Ha ocurrido un error al intentar eliminar el producto.',
+                    'error'
+                );
+            }
+        });
+    }
+
+
 
 
     // PRICE VALIDATION
