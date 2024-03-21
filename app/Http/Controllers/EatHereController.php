@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 
 class EatHereController extends Controller
 {
+
     public function eatHere(){
         $categorys = DB::select('select id,name,position from categories order by position');
+
+
 
         //Array para almacenar los productos por categoría
         $productsByCategory = [];
@@ -28,7 +32,11 @@ class EatHereController extends Controller
         }
 
         return view('user-views.menu',
+
         ['productsByCategory' => $productsByCategory,
-        'takeAway' => 0]);
+        'takeAway' => 0],
+
+
+    );
     }
 }
