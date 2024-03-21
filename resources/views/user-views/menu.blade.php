@@ -7,6 +7,11 @@
     <a href="{{ route('logout') }}" class="border-b-2 border-red-500 text-xl m-auto ">Cerrar sesión</a> --}}
 @endsection
 @section('content')
+
+    {{-- slidebar --}}
+    @include ('user-views.components.slide-bar-component', ['categories' => $productsByCategory])
+
+
     <main  class="eat-here-main pb-20">
 
         @foreach ($productsByCategory as $category => $products)
