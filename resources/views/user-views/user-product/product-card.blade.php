@@ -8,7 +8,7 @@
 
 
         {{-- INFO BUTTON--}}
-        <div class="info-button flex gap-1 items-center cursor-pointer">
+        <div class="info-button flex gap-1 items-center cursor-pointer ml-auto">
 
             <p class="text-lg">info</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="info-close-svg w-6 h-6">
@@ -43,8 +43,7 @@
         <div class="flex gap-2 text-sm ">
             @foreach ($product->allergens as $allergen)
 
-
-                {{ $allergen->name }}
+                <img  class="allergen  cursor-pointer object-cover w-6 h-6 rounded-full"  src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}">
 
             @endforeach
         </div>
