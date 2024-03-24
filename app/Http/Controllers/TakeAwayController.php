@@ -18,7 +18,13 @@ class TakeAwayController extends Controller
             $products = DB::select('select id,name,description,price,availability,image_url from products where availability = 1 and category_id = ?', [$category->id]);
             //Almacenar los alergenos asociados a los productos
             foreach ($products as $product) {
-                $product->allergens = DB::select('select allergens.name from allergens inner join products_allergens on allergens.id = products_allergens.allergen_id where products_allergens.product_id = ?', [$product->id]);
+                $product->allergens = DB::select('
+                SELECT allergens.name, allergens.img_url
+                FROM allergens
+                INNER JOIN products_allergens ON allergens.id = products_allergens.allergen_id
+                WHERE products_allergens.product_id = ?
+                ',
+                [$product->id]);
             }
 
             // Almacenar los productos en el array asociativo
