@@ -1,6 +1,11 @@
 <div class="product-card gap-2 rounded-lg p-4 w-[300px] bg-gray-100 text-orange-950 drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
     <div class="flex h-10 ">
-        <img class="relative bottom-16 right-16 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]" src="{{"/storage/" .$product->image_url }}" alt="{{ $product->name }}">
+
+        {{-- IMG --}}
+        <div class="flex items-center justify-center overflow-hidden w-24 h-24 relative bottom-16 right-2 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
+            <img  class="object-cover w-20 h-20 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
+        </div>
+
 
         {{-- INFO BUTTON--}}
         <div class="info-button flex gap-1 items-center cursor-pointer">

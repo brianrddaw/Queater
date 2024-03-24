@@ -129,19 +129,40 @@ class ProductsSeeder extends Seeder
             ],
         ];
         $allergens = [
-            ['name' => 'Gluten'],
-            ['name' => 'Huevo'],
-            ['name' => 'Lactosa'],
-            ['name' => 'Nueces'],
-            ['name' => 'Pescado'],
-            ['name' => 'Mariscos'],
-            ['name' => 'Soya'],
+            ['name' => 'Gluten', 'img_url' => 'allergens_images/gluten.webp'],
+
+            ['name' => 'Crustaceos', 'img_url' => 'allergens_images/crustaceos.webp'],
+
+            ['name' => 'Huevo', 'img_url' => 'allergens_images/huevos.webp'],
+
+            ['name' => 'Pescado', 'img_url' => 'allergens_images/pescado.webp'],
+
+            ['name' => 'Cacahuete', 'img_url' => 'allergens_images/cacahuete.webp'],
+
+            ['name' => 'Soja', 'img_url' => 'allergens_images/soja.webp'],
+
+            ['name' => 'Lácteos', 'img_url' => 'allergens_images/Lacteos.webp'],
+
+            ['name' => 'Frutos de cáscara','img_url' => 'allergens_images/frutos_de_cascara.webp'],
+
+            ['name' => 'Apio', 'img_url' => 'allergens_images/apio.webp'],
+
+            ['name' => 'Mostaza', 'img_url' => 'allergens_images/mostaza.webp'],
+
+            ['name' => 'Sésamo', 'img_url' => 'allergens_images/sesamo.webp'],
+
+            ['name' => 'Dióxido de azufre y sulfitos', 'img_url' => 'allergens_images/dioxido_de_azufre_y_sulfitos.webp'],
+
+            ['name' => 'Moluscos', 'img_url' => 'allergens_images/moluscos.webp'],
+
+            ['name' => 'Altramuces', 'img_url' => 'allergens_images/altramuces.webp'],
         ];
 
         $allerrgens_products = [
             [
             'product_id' => '1',
             'allergen_id' => '1'
+
             ],
             [
             'product_id' => '1',
