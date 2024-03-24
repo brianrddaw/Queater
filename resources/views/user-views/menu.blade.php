@@ -312,16 +312,6 @@
         }
 
 
-
-        .product-card img{
-            width: fit-content;
-            height: 6rem;
-            width: 6rem;
-            object-fit: contain;
-            margin: 0 auto;
-        }
-
-
         .product-card-info {
             display: none;
             overflow: hidden;

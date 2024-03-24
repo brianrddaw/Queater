@@ -31,7 +31,9 @@
 
 
                             <div class="flex gap-10">
-                                <img src="/storage/{{ $product->image_url }}" alt="" class="w-20 h-20 bg-orange-500 rounded-full">
+                                <div class="flex items-center justify-center overflow-hidden w-20 h-20 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
+                                    <img  class="object-cover w-20 h-20 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
+                                </div>
                                 <span class="pt-2 flex flex-col justify-between">
                                     <h3 class="font-bold">{{ $product->name }}</h3>
                                     <div class="flex gap-4">
@@ -45,8 +47,8 @@
 
                             <span class="w-28 flex flex-col gap-2 justify-between items-start">
 
-                                <p class="flex justify-center items-center gap-2 text-sm font-bold bg-orange-500 p-2 rounded">Categoria</p>
-                                <p>{{ $product->category->name }}</p>
+                                <p class="w-full flex justify-center items-center gap-2 text-sm font-bold bg-orange-500 p-2 rounded text-orange-50 ">Categoria</p>
+                                <p class="font-bold">{{ $product->category->name }}</p>
 
                             </span>
                         </div>
@@ -79,21 +81,24 @@
         Swal.fire({
             title: 'Agregar Producto',
             html: `
-                <form action="{{ route('dashboard.products.create') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.create') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full  h-fit mx-auto  rounded-lg  text-orange-950">
                     @csrf
-                    <div class="grid grid-rows-2 h-full gap-4">
+                    <div class="flex flex-col h-full gap-10">
 
+                        <div class="grid grid-cols-2 gap-4 h-fit">
 
-                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex flex-col items-center justify-center p-2 w-[12.5rem] h-[12.5rem] bg-walter-200 rounded-full">
 
-                            <div class="flex flex-col items-center justify-center p-2 w-[12.5rem] bg-walter-200 rounded-lg h-full">
                                 <label for="image" class="cursor-pointer" id="">
+
                                     <svg id="svg-label" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14 text-walter-900 h-full active:scale-110 hover:cursor-pointer active:text-walter-950">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
-                                    <img id="image-for-label" src="" alt="Imagen del producto" class="aspect-square w-full bg-orange-500 hidden">
+                                    <img id="image-for-label" src="" alt="Imagen del producto" class=" w-full h-full object-cover rounded-full bg-orange-500 hidden">
                                 </label>
                                 <input type="file" id="image" name="image" accept="image/*" style="display: none;" />
+                                <p class="text-2xl text-walter-900  absolute top-56">96x96</p>
+
                             </div>
 
                             <div class="flex flex-col gap-2">
@@ -113,9 +118,8 @@
                                 />
 
 
-
-                                <div class="flex items-center w-full pr-2  ">
-                                    <select name="category" id="category" class="w-full p-2  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
+                                <div class="flex items-center w-full pr-2 mt-auto">
+                                    <select name="category" id="category" class="w-full   bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
                                         @foreach ($categories as  $category)
                                         <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -123,9 +127,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-col w-full h-full bg-walter-200 ">
-                            <p class="text-left text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
-                            <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md"></textarea>
+
+                        <div class=" allergens-container flex flex-wrap gap-2 w-full h-fit">
+                            @foreach ($allergens as $allergen)
+                                <img  class="allergen border-4 border-walter-900 cursor-pointer object-cover w-12 h-12 rounded-full" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}">
+                            @endforeach
+                        </div>
+                        <div class="flex flex-col w-full h-fit bg-walter-200">
+                            <p class="bg-orange-400 text-left text-orange-50 text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
+                            <textarea  name="description" id="description" rows="7"  class="w-full h-full p-2 no-underline outline-none bg-walter-200 resize-none text-md"></textarea>
                         </div>
                     </div>
                 </form>

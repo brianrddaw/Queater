@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Allergen;
 use App\Models\Order;
 use App\Models\OrdersLine;
 use App\Models\Session;
@@ -23,12 +24,14 @@ class DashboardController extends Controller
     public function showProducts(){
 
         $products = Product::all();
+        $categories = Category::all();
+        $allergens = Allergen::all();
+
         //Enviar el nombre de la categoria por cada producto
         foreach ($products as $product) {
             $product->category_name = Category::find($product->category_id)->name;
         }
-        $categories = Category::all();
-        return view('dashboard-views.dashboard-products',['products' => $products, 'categories' => $categories]);
+        return view('dashboard-views.dashboard-products',['products' => $products, 'categories' => $categories, 'allergens' => $allergens]);
     }
 
 
