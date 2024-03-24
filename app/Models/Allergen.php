@@ -9,7 +9,7 @@ class Allergen extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'img_url'];
 
     public function productAllergens()
     {
