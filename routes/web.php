@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TakeAwayController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CashController;
 
 
 
@@ -25,11 +26,8 @@ Route::get('/eat-here', [EatHereController::class, 'eatHere'])->name('eat-here.m
 //Ruta para obtener los productos.
 Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
 
-//FIXME: La ruta de cash deberia controlarse en el controlador de cash
 //Ruta para obtener los productos.
-Route::get('/cash', function () {
-    return view('cash-views.cash');
-})->name('cash.main');
+Route::get('/cash',[CashController::class, 'index'])->name('cash.main');
 
 //////////////////////////
 //                      //
@@ -50,12 +48,6 @@ Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.or
 //         Login        //
 //                      //
 //////////////////////////
-
-//FIXME: La ruta de login deberia controlarse en el controlador de login
-//Ruta para el login.
-Route::get('/login', function () {
-    return view('login-views.login',['route' => 'login']);
-})->name('login.main');
 
 //Ruta para el uso del controlador "login".
 Route::post('/login', [UserController::class, 'login'])->name('login');
