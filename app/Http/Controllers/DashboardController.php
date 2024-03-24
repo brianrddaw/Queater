@@ -35,7 +35,10 @@ class DashboardController extends Controller
     //TODO: Hacer logica y views para las categorias en dashboard
     //Funcion para mostrar las categorias.
     public function showCategories(){
-        return view('dashboard-views.dashboard-categories');
+
+        $categories = Category::all();
+
+        return view('dashboard-views.dashboard-categories',['categories' => $categories]);
     }
 
     //TODO: Hacer logica y views para las mesas en dashboard
@@ -112,7 +115,4 @@ class DashboardController extends Controller
 
         return response()->json(['message' => 'Producto eliminado correctamente']);
     }
-
-
-
 }
