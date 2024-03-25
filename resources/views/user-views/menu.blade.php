@@ -101,7 +101,7 @@
             var cartCtn = $('#cart-products-container');
 
             // Crear la tarjeta
-            var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card max-w-[600px] grid grid-cols-10 items-center rounded  min-h-14 h-16 bg-orange-50 drop-shadow-lg text-orange-950 text-xs"></div>');
+            var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card max-w-[600px] grid grid-cols-10 items-center rounded  min-h-16 h-16 bg-orange-50 drop-shadow-lg text-orange-950 text-xs"></div>');
 
             // IMG
             var productImg = $('<img class="col-span-2 w-16 h-16 object-fit border-2 border-orange-500 bg-orange-500 rounded-l object-cover" src="/storage/'+ image_url + '" alt="">');
