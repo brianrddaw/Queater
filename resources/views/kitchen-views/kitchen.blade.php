@@ -24,7 +24,7 @@
         </div>
 
         {{-- SECTION --}}
-        <section class="flex flex-col px-4 ">
+        <section class="flex flex-col px-4 pb-4">
 
             {{-- ORDERS LIST --}}
             <ul id="orders-ctn" class="select-none text-orange-950">
@@ -66,7 +66,7 @@
 
                                     <img src="{{"/storage/" .$orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-20 h-20 ml-auto bg-orange-500 rounded-full">
                                 </div>
-                                <div class="ingredients-container hidden bg-walter-200 h-fit p-4 pl-0 m-4 rounded text-lg w-full">
+                                <div class="ingredients-container hidden bg-walter-400 p-4 h-fit  m-4 rounded text-lg w-full">
                                     {{ $orderLine['product']['description'] }}
                                 </div>
                             </li>
@@ -99,7 +99,7 @@
             data.forEach(order => {
                 const orderContainer = `
                 <div class="order-container bg-gray-100 rounded-lg  mb-4 drop-shadow-lg ">
-                    <div class="flex text-lg flex-row justify-between items-center font-semibold p-4  rounded-t-lg bg-orange-400">
+                    <div class="flex text-lg flex-row justify-between items-center font-semibold p-4 text-white rounded-t-lg bg-orange-500">
                         <div>
                             <strong>Pedido: </strong>
                             ${order.id}
