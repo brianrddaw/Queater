@@ -97,6 +97,20 @@ Route::post('/dashboard/products/update', [DashboardController::class, 'updatePr
 //Eliminar producto
 Route::delete('/dashboard/products/delete/{id}', [DashboardController::class, 'deleteProduct'])->name('dashboard.products.delete');
 
+//Crear nueva categoria
+Route::post('/dashboard/categories/create', [DashboardController::class, 'createNewCategory'])->name('dashboard.categories.create');
+
+//Actualizar categoria
+Route::post('/dashboard/categories/update', [DashboardController::class, 'updateCategory'])->name('dashboard.categories.update');
+
+//Eliminar categoria
+Route::delete('/dashboard/categories/delete/{id}', [DashboardController::class, 'deleteCategory'])->name('dashboard.categories.delete');
+
+
+
+
+
+
 //////////////////////////
 //                      //
 //       Products       //

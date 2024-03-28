@@ -118,4 +118,60 @@ class DashboardController extends Controller
 
         return response()->json(['message' => 'Producto eliminado correctamente']);
     }
+
+
+    ////////////////////////////////
+    //                            //
+    //         Categories         //
+    //                            //
+    ////////////////////////////////
+
+    //FIXME: Hacer logica para las categorias en dashboard
+    //Funcion para crear una nueva categoria.
+    public function createNewCategory(Request $request){
+        //Se recogen los datos enviados por el formulario.
+        $name = $request->name;
+        $position = $request->position;
+
+        //Se crea una nueva categoria con los datos recogidos.
+        // $category = new Category();
+        // $category->name = $name;
+        // $category->save();
+
+        echo "Categoria creada: Nombre: ". $request->name. "\nPosicion: " . $request->position;
+    }
+
+
+    //Funcion para editar una categoria.
+    //TODO: Hacer logica para editar una categoria.
+
+
+
+    //Funcion para eliminar una categoria.
+    public function deleteCategory($id) {
+        $category = Category::find($id);
+
+        if (!$category) {
+            return response()->json(['message' => 'Categoria no encontrada'], 404);
+        }
+        //Seleccion las categorias que tienen una posicion mayor a la categoria que se va a eliminar y se excluye la categoria guardada.
+        $categories = Category::where('position', '>', $category->position)->get();
+
+        //Se disminuye la posicion de las categorias que tienen una posicion mayor a la categoria que se va a eliminar.
+        foreach ($categories as $CategoryToChange) {
+            $CategoryToChange->position = $CategoryToChange->position - 1;
+            $CategoryToChange->save();
+        }
+
+        $category->delete();
+
+        return response()->json(['message' => 'Categoria eliminada correctamente',
+                                 'category' => $category->name,
+                                 'other_categories' => $categories
+                                ]);
+    }
+
+
+
+
 }
