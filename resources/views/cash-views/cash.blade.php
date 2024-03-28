@@ -97,7 +97,6 @@
 
 
         function addTableToCanvas(){
-            alert('mesa');
             const canvas = $('#canvas');
             const mesa = `
             <div class="draggable flex flex-col items-center w-fit h-fit">

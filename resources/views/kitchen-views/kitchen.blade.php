@@ -242,6 +242,7 @@
 
     }
 
+
     function ingredientsDisplay(card){
 
         const ingredientsContainer = $(card).closest('.order-line').find('.ingredients-container');
