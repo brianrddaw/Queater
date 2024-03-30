@@ -8,6 +8,11 @@ use App\Models\Category;
 use App\Models\Allergen;
 use App\Models\ProductsAllergens;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
+use App\Models\OrdersLine;
+use App\Models\Session;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class DashboardController extends Controller
@@ -27,14 +32,27 @@ class DashboardController extends Controller
         $categories = Category::all();
         $allergens = Allergen::all();
 
+        $allergensByProducts = DB::select('select id from products;');
+        foreach ($allergensByProducts as $allergenByProduct) {
+            $allergenByProduct->allergens = DB::select('select allergens.id, allergens.name, allergens.img_url from allergens inner join products_allergens on allergens.id = products_allergens.allergen_id where products_allergens.product_id = ?', [$allergenByProduct->id]);
+        }
+
         //Enviar el nombre de la categoria por cada producto
         foreach ($products as $product) {
             $product->allergens = ProductsAllergens::where('product_id', $product->id)->with('allergen')->get()->pluck('allergen');
         }
 
+        foreach ($products as $product) {
+            $product->category_name = Category::find($product->category_id)->name;
+        }
 
 
-        return view('dashboard-views.dashboard-products',['products' => $products, 'categories' => $categories, 'allergens' => $allergens]);
+
+        return view('dashboard-views.dashboard-products',['products' => $products,
+        'categories' => $categories,
+        'allergens' => $allergens,
+        'allergensByProducts' => $allergensByProducts],
+        );
     }
 
 
@@ -129,27 +147,17 @@ class DashboardController extends Controller
     //                            //
     ////////////////////////////////
 
-    //FIXME: No se si funciona bien, no se ha probado.
+    //FIXME: Hacer logica para las categorias en dashboard
     //Funcion para crear una nueva categoria.
     public function createNewCategory(Request $request){
         //Se recogen los datos enviados por el formulario.
         $name = $request->name;
         $position = $request->position;
 
-        //Se seleccionan las categorias que tienen una posicion mayor o igual a la categoria que se va a crear.
-        $categories = Category::where('position', '>=', $position)->get();
-
-        //Se aumenta la posicion de las categorias que tienen una posicion mayor o igual a la categoria que se va a crear.
-        foreach ($categories as $CategoryToChange) {
-            $CategoryToChange->position = $CategoryToChange->position + 1;
-            $CategoryToChange->save();
-        }
-
         //Se crea una nueva categoria con los datos recogidos.
-        $category = new Category();
-        $category->name = $name;
-        $category->position = $position;
-        $category->save();
+        // $category = new Category();
+        // $category->name = $name;
+        // $category->save();
 
         echo "Categoria creada: Nombre: ". $request->name. "\nPosicion: " . $request->position;
     }
@@ -157,19 +165,6 @@ class DashboardController extends Controller
 
     //Funcion para editar una categoria.
     //TODO: Hacer logica para editar una categoria.
-    public function updateCategory(Request $request){
-        //Se recogen los datos enviados por el formulario.
-        $id = $request->id;
-        $name = $request->name;
-        $position = $request->position;
-
-        $category = Category::find($id);
-        $category->name = $name;
-        $category->position = $position;
-        $category->save();
-
-        echo "Categoria actualizada";
-    }
 
 
 

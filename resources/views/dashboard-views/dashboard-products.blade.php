@@ -127,10 +127,10 @@
                                 />
 
 
-                                <div class="flex items-center w-full pr-2 mt-auto">
-                                    <select name="category" id="category" class="w-full   bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
+                                <div class="flex items-center w-full pr-2">
+                                    <select name="category" id="category" class="w-full   bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2 mt-2">
                                         @foreach ($categories as  $category)
-                                        <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -163,24 +163,28 @@
 
                 createNewProduct();
 
+            }else{
+                allergensArray = [];
             }
         });
         addEventToForm();
     }
 
     // ADD ALLERGENS LOGIC
+
     let allergensArray = [];
-
     function addAllergen(allergenId, allergenName){
-
         const img = $(`#allergen${allergenId}`);
         const index = allergensArray.indexOf(allergenId);
+
         if (index !== -1) { // Verifica si el elemento está presente en el array
+            console.log('removing allergen');
             allergensArray.splice(index, 1); // Elimina el elemento del array
             img.removeClass('allergen-active');
         } else {
             allergensArray.push(allergenId); // Si no está presente, añádelo al array
             img.addClass('allergen-active');
+            console.log('adding allergen');
         }
 
         console.log(allergensArray);
@@ -273,23 +277,26 @@
     }
 
     function showEditProduct(product) {
-
+        const product_id = product.id;
         const image_url = product.image_url;
         const name = product.name;
         const description = product.description;
         const price = product.price;
         const category_id = product.category_id;
         const category_name = product.category_name;
+        console.log(product);
 
         const id = product.id;
 
         Swal.fire({
             title: 'Editar Producto',
             html: `
-                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-fit mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-fit mx-auto  rounded-lg  text-orange-950">
                     @method('PUT')
                     @csrf
-                    <div class="grid grid-rows-2 h-full gap-4">
+                    <div class="flex flex-col h-full gap-4">
+                    <div class="flex flex-col h-full gap-4">
 
 
                         <div class="grid grid-cols-2 gap-4">
@@ -326,21 +333,31 @@
 
                                 <div class="flex items-center w-full pr-2  ">
                                     <select name="category" id="category" class="w-full p-2  selected="${category_name}" value="${category_id}"  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
-                                    <option class="appearance-none w-full border-none bg-transparent" value="${category_id}">${category_name}</option>`+
-                                    function(){
-                                        let categories = @json($categories);
-                                        let options = '';
-                                        categories.forEach(category2 => {
-                                            if(category2.id != category_id){
-                                                options += `<option class="appearance-none w-full border-none bg-transparent" value="${category2.id}">${category2.name}</option>`;
-                                            }
-                                        });
-                                        return options;
-                                    }()
-                                +`</select>
+                                    <option class="appearance-none w-full border-none bg-transparent" value="${category_id}">${category_name}</option>
+                                    `+
+                                        function(){
+                                            let categories = @json($categories);
+                                            let options = '';
+                                            categories.forEach(category2 => {
+                                                if(category2.id != category_id){
+                                                    options += `<option class="appearance-none w-full border-none bg-transparent" value="${category2.id}">${category2.name}</option>`;
+                                                }
+                                            });
+                                            return options;
+                                        }()
+                                    +`
+                                    </select>
                                 </div>
                             </div>
                         </div>
+
+                        <div class=" allergens-container flex flex-wrap gap-2 w-full h-fit">
+                            @foreach ($allergens as $allergen)
+                                <img id="allergen{{ $allergen->id }}" class="allergen  cursor-pointer object-cover w-12 h-12 rounded-full grayscale" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}" onclick="addAllergen('{{ $allergen->id }}', '{{ $allergen->name }}')">
+                            @endforeach
+                        </div>
+
+
                         <div class="flex flex-col w-full h-full bg-walter-200 ">
                             <p class="text-left text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
                             <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md">${description}</textarea>
@@ -360,6 +377,14 @@
 
                 if (result.isConfirmed) {
                     editProduct(id);
+                } else{
+
+                    allergensArray = [];
+                }
+
+                if (result.isDismissed) {
+                    //Vacia la lista de alergenos
+                    allergensArray = [];
                 }
             });
         addEventToForm();
