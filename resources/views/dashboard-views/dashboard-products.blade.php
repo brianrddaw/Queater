@@ -171,18 +171,20 @@
     }
 
     // ADD ALLERGENS LOGIC
-    let allergensArray = [];
 
+    let allergensArray = [];
     function addAllergen(allergenId, allergenName){
         const img = $(`#allergen${allergenId}`);
         const index = allergensArray.indexOf(allergenId);
 
         if (index !== -1) { // Verifica si el elemento está presente en el array
+            console.log('removing allergen');
             allergensArray.splice(index, 1); // Elimina el elemento del array
             img.removeClass('allergen-active');
         } else {
             allergensArray.push(allergenId); // Si no está presente, añádelo al array
             img.addClass('allergen-active');
+            console.log('adding allergen');
         }
 
         console.log(allergensArray);
@@ -275,7 +277,7 @@
     }
 
     function showEditProduct(product) {
-
+        const product_id = product.id;
         const image_url = product.image_url;
         const name = product.name;
         const description = product.description;
@@ -289,8 +291,10 @@
             title: 'Editar Producto',
             html: `
                 <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-fit mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-fit mx-auto  rounded-lg  text-orange-950">
                     @method('PUT')
                     @csrf
+                    <div class="flex flex-col h-full gap-4">
                     <div class="flex flex-col h-full gap-4">
 
 
@@ -377,6 +381,10 @@
                     allergensArray = [];
                 }
 
+                if (result.isDismissed) {
+                    //Vacia la lista de alergenos
+                    allergensArray = [];
+                }
             });
         addEventToForm();
     }

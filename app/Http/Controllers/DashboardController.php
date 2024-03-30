@@ -8,6 +8,12 @@ use App\Models\Category;
 use App\Models\Allergen;
 use App\Models\ProductsAllergens;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
+use App\Models\OrdersLine;
+use App\Models\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+
 
 class DashboardController extends Controller
 {
@@ -26,14 +32,22 @@ class DashboardController extends Controller
         $categories = Category::all();
         $allergens = Allergen::all();
 
+        $allergensByProducts = DB::select('select id from products;');
+        foreach ($allergensByProducts as $allergenByProduct) {
+            $allergenByProduct->allergens = DB::select('select allergens.id, allergens.name, allergens.img_url from allergens inner join products_allergens on allergens.id = products_allergens.allergen_id where products_allergens.product_id = ?', [$allergenByProduct->id]);
+        }
+        //convierte el array a string y hace un echo.
+        echo json_encode($allergensByProducts);
 
         //Enviar el nombre de la categoria por cada producto
         foreach ($products as $product) {
             $product->allergens = ProductsAllergens::where('product_id', $product->id)->with('allergen')->get()->pluck('allergen');
         }
-
-
-        return view('dashboard-views.dashboard-products',['products' => $products, 'categories' => $categories, 'allergens' => $allergens]);
+        return view('dashboard-views.dashboard-products',['products' => $products,
+        'categories' => $categories,
+        'allergens' => $allergens,
+        'allergensByProducts' => $allergensByProducts],
+        );
     }
 
 
