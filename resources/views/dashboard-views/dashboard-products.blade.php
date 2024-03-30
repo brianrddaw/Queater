@@ -127,8 +127,8 @@
                                 />
 
 
-                                <div class="flex items-center w-full pr-2 mt-auto">
-                                    <select name="category" id="category" class="w-full   bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
+                                <div class="flex items-center w-full pr-2">
+                                    <select name="category" id="category" class="w-full   bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2 mt-2">
                                         @foreach ($categories as  $category)
                                             <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -284,6 +284,7 @@
         const price = product.price;
         const category_id = product.category_id;
         const category_name = product.category_name;
+        console.log(product);
 
         const id = product.id;
 
