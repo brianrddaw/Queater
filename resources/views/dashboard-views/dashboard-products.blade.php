@@ -130,7 +130,7 @@
 
                         <div class=" allergens-container flex flex-wrap gap-2 w-full h-fit">
                             @foreach ($allergens as $allergen)
-                                <img  class="allergen border-4 border-walter-900 cursor-pointer object-cover w-12 h-12 rounded-full" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}">
+                                <img id="allergen{{ $allergen->id }}" class="allergen  cursor-pointer object-cover w-12 h-12 rounded-full grayscale" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}" onclick="addAllergen('{{ $allergen->id }}', '{{ $allergen->name }}')">
                             @endforeach
                         </div>
                         <div class="flex flex-col w-full h-fit bg-walter-200">
@@ -157,6 +157,25 @@
             }
         });
         addEventToForm();
+    }
+
+    // ADD ALLERGENS LOGIC
+    let allergensArray = [];
+
+    function addAllergen(allergenId, allergenName){
+
+        const img = $(`#allergen${allergenId}`);
+        const index = allergensArray.indexOf(allergenId);
+        if (index !== -1) { // Verifica si el elemento está presente en el array
+            allergensArray.splice(index, 1); // Elimina el elemento del array
+            img.removeClass('allergen-active');
+        } else {
+            allergensArray.push(allergenId); // Si no está presente, añádelo al array
+            img.addClass('allergen-active');
+        }
+
+        console.log(allergensArray);
+
     }
 
 
@@ -482,6 +501,12 @@
 </script>
 
 <style>
+
+    .allergen-active{
+        filter: grayscale(0);
+        transition: all 0.2s ease;
+    }
+
     input[type="search"]::-webkit-search-decoration,
     input[type="search"]::-webkit-search-cancel-button,
     input[type="search"]::-webkit-search-results-button,
