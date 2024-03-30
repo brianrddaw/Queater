@@ -30,7 +30,9 @@
             </div>
             <div class="card grid grid-cols-3 w-full rounded">
                 <button class="bg-walter-400 p-4 w-full font-bold text-green-600 col-span-2" onclick="editCategorie({{ $category->id }}, '{{ $category->name }}', '{{ $category->description }}', {{ $category->position }})">Editar</button>
+
                 <button class="bg-walter-400 p-4 w-full font-bold text-red-600" onclick="showDeleteCategory({{ $category->id }})">Eliminar</button>
+
             </div>
         </div>
         @endforeach
@@ -197,5 +199,6 @@ function deleteCategory(category_id) {
         }
     });
 }
+
 
 </script>

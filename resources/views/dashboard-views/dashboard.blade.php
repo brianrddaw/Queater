@@ -3,6 +3,12 @@
 @section('title', 'Dashboard')
 
 @section('content')
+@section('navegacion')
+
+    <a href="{{ route('cash.main') }}">cash</a>
+    <a href="{{ route('kitchen.main') }}">kitchen</a>
+@endsection
+
     @if (Auth::check())
     <main class=" w-full h-[calc(100vh-3.5rem)] grid grid-cols-10">
         <aside class="bg-walter-400 col-span-3 text-left h-auto flex flex-col ">

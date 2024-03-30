@@ -2,6 +2,10 @@
 
 @section('title', 'Cash')
 @section('content')
+@section('navegacion')
+    <a href="{{ route('dashboard.main') }}">dasboard</a>
+    <a href="{{ route('kitchen.main') }}">kitchen</a>
+@endsection
 
     <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-4  flex flex-col gap-6">
         <section class="flex gap-2">

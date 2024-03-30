@@ -3,9 +3,8 @@
 @section('title', 'Kitchen')
 
 @section('navegacion')
-    <a href="{{ route('user.main') }}" class="">User</a>
-    <a href="{{ route('dashboard.main') }}" class="">Dashboard</a>
-    <a href="{{ route('kitchen.main') }}" class="">Kitchen</a>
+    <a href="{{ route('cash.main') }}">cash</a>
+    <a href="{{ route('dashboard.main') }}">dashboard</a>
 @endsection
 
 @section('content')
