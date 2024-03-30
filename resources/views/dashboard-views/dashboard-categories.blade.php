@@ -21,16 +21,16 @@
     <section class="flex flex-wrap w-[100%] h-fit p-3 gap-3">
 
         @foreach($categories as $category)
-        <div class="card flex flex-col w-[calc(50%-0.4rem)]  bg-walter-300  rounded drop-shadow-xl	">
-            <div class="flex justify-center items-center w-full h-32 overflow-hidden ">
-                <img src="/storage/categories_images/batidos.webp" alt="" class="w-full rounded-t opacity-70">
+        <div class="card flex flex-col w-[calc(50%-0.4rem)]  bg-walter-300  rounded drop-shadow-xl">
+            <div class="flex justify-center items-center w-full h-32">
+                <img src="/storage/categories_images/batidos.webp" alt="" class="w-full h-full object-cover rounded-t opacity-70">
                 <h3 class="card-title absolute text-2xl font-bold text-orange-950">
                     {{ $category->name }}
                 </h3>
             </div>
             <div class="card grid grid-cols-3 w-full rounded">
                 <button class="bg-walter-400 p-4 w-full font-bold text-green-600 col-span-2" onclick="editCategorie({{ $category->id }}, '{{ $category->name }}', '{{ $category->description }}', {{ $category->position }})">Editar</button>
-                <button class="bg-red-400 text-red-900 m-w-fit w-full p-2 ml-auto rounded-r font-bold" onclick="deleteCategorie({{ $category->id }})">Eliminar</button>
+                <button class="bg-red-400 text-red-900 m-w-fit w-full p-2 ml-auto rounded-r font-bold" onclick="deleteCategory()">Eliminar</button>
             </div>
 
 
@@ -52,7 +52,8 @@
         console.log('editCategory: ', arguments);
     }
 
-    function deleteCategory(category_id) {
+    function deleteCategory() {
+
         $.ajax({
             url: '/dashboard/categories/delete/' + category_id,
             type: 'DELETE',
