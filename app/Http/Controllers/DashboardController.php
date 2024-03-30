@@ -26,14 +26,6 @@ class DashboardController extends Controller
         $categories = Category::all();
         $allergens = Allergen::all();
 
-        // crea un diccionario clave id de productos y valor de todos sus alergenos
-
-        $productsAllergens = [];
-
-        foreach ($products as $product) {
-            $productsAllergens[$product->id] = DB::select ('select img_url,id from allergens where id in (select allergen_id from products_allergens where product_id = ?)', [$product->id]);
-        }
-
 
         //Enviar el nombre de la categoria por cada producto
         foreach ($products as $product) {
@@ -41,7 +33,7 @@ class DashboardController extends Controller
         }
 
 
-        return view('dashboard-views.dashboard-products',['products' => $products, 'categories' => $categories, 'allergens' => $allergens, 'productsAllergens' => $productsAllergens]);
+        return view('dashboard-views.dashboard-products',['products' => $products, 'categories' => $categories, 'allergens' => $allergens]);
     }
 
 

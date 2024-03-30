@@ -163,6 +163,8 @@
 
                 createNewProduct();
 
+            }else{
+                allergensArray = [];
             }
         });
         addEventToForm();
@@ -172,9 +174,9 @@
     let allergensArray = [];
 
     function addAllergen(allergenId, allergenName){
-
         const img = $(`#allergen${allergenId}`);
         const index = allergensArray.indexOf(allergenId);
+
         if (index !== -1) { // Verifica si el elemento está presente en el array
             allergensArray.splice(index, 1); // Elimina el elemento del array
             img.removeClass('allergen-active');
@@ -286,7 +288,7 @@
         Swal.fire({
             title: 'Editar Producto',
             html: `
-                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-fit mx-auto  rounded-lg  text-orange-950">
                     @method('PUT')
                     @csrf
                     <div class="flex flex-col h-full gap-4">
@@ -341,16 +343,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-col bg-walter-400 p-2 gap-2 rounded">
 
-                            <span class="flex gap-4">
-
-                                @foreach ($productsAllergens as $allergen)
-                                    {{ $allergen->allergen->name }}
-                                @endforeach
-
-                            </span>
-
+                        <div class=" allergens-container flex flex-wrap gap-2 w-full h-fit">
+                            @foreach ($allergens as $allergen)
+                                <img id="allergen{{ $allergen->id }}" class="allergen  cursor-pointer object-cover w-12 h-12 rounded-full grayscale" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}" onclick="addAllergen('{{ $allergen->id }}', '{{ $allergen->name }}')">
+                            @endforeach
                         </div>
 
 
@@ -373,7 +370,11 @@
 
                 if (result.isConfirmed) {
                     editProduct(id);
+                } else{
+
+                    allergensArray = [];
                 }
+
             });
         addEventToForm();
     }
