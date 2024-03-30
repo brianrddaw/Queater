@@ -130,7 +130,7 @@
                                 <div class="flex items-center w-full pr-2 mt-auto">
                                     <select name="category" id="category" class="w-full   bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
                                         @foreach ($categories as  $category)
-                                        <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option class="appearance-none w-full border-none bg-transparent" value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -289,7 +289,7 @@
                 <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
                     @method('PUT')
                     @csrf
-                    <div class="grid grid-rows-2 h-full gap-4">
+                    <div class="flex flex-col h-full gap-4">
 
 
                         <div class="grid grid-cols-2 gap-4">
@@ -341,6 +341,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="flex flex-col bg-walter-400 p-2 gap-2 rounded">
+
+                            <span class="flex gap-4">
+
+                                @foreach ($productsAllergens as $allergen)
+                                    {{ $allergen->allergen->name }}
+                                @endforeach
+
+                            </span>
+
+                        </div>
+
+
                         <div class="flex flex-col w-full h-full bg-walter-200 ">
                             <p class="text-left text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
                             <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md">${description}</textarea>
