@@ -35,10 +35,6 @@
         @endforeach
     </section>
 
-    <button type="button" onclick="createNewCategorie()" class="bg-blue-500 w-20 m-auto" data-toggle="modal" data-target="#createCategoryModal">
-        Crear Categoria
-    </button>
-
 @endsection
 
 <script>
