@@ -126,17 +126,27 @@ class DashboardController extends Controller
     //                            //
     ////////////////////////////////
 
-    //FIXME: Hacer logica para las categorias en dashboard
+    //FIXME: No se si funciona bien, no se ha probado.
     //Funcion para crear una nueva categoria.
     public function createNewCategory(Request $request){
         //Se recogen los datos enviados por el formulario.
         $name = $request->name;
         $position = $request->position;
 
+        //Se seleccionan las categorias que tienen una posicion mayor o igual a la categoria que se va a crear.
+        $categories = Category::where('position', '>=', $position)->get();
+
+        //Se aumenta la posicion de las categorias que tienen una posicion mayor o igual a la categoria que se va a crear.
+        foreach ($categories as $CategoryToChange) {
+            $CategoryToChange->position = $CategoryToChange->position + 1;
+            $CategoryToChange->save();
+        }
+
         //Se crea una nueva categoria con los datos recogidos.
-        // $category = new Category();
-        // $category->name = $name;
-        // $category->save();
+        $category = new Category();
+        $category->name = $name;
+        $category->position = $position;
+        $category->save();
 
         echo "Categoria creada: Nombre: ". $request->name. "\nPosicion: " . $request->position;
     }
@@ -144,6 +154,19 @@ class DashboardController extends Controller
 
     //Funcion para editar una categoria.
     //TODO: Hacer logica para editar una categoria.
+    public function updateCategory(Request $request){
+        //Se recogen los datos enviados por el formulario.
+        $id = $request->id;
+        $name = $request->name;
+        $position = $request->position;
+
+        $category = Category::find($id);
+        $category->name = $name;
+        $category->position = $position;
+        $category->save();
+
+        echo "Categoria actualizada";
+    }
 
 
 
@@ -170,8 +193,4 @@ class DashboardController extends Controller
                                  'other_categories' => $categories
                                 ]);
     }
-
-
-
-
 }
