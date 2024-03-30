@@ -10,6 +10,7 @@ use App\Http\Controllers\TakeAwayController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CashController;
+use App\Http\Controllers\PaymentController;
 
 
 
@@ -25,6 +26,13 @@ Route::get('/', [MainUserController::class, 'index'])->name('user.main');
 Route::get('/eat-here', [EatHereController::class, 'eatHere'])->name('eat-here.main');
 //Ruta para obtener los productos.
 Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
+
+// PAYMENT ROUTE
+
+Route::get('/payment', [PaymentController::class, 'index'])->name('payment.main');
+
+Route::post('/handle-payment-confirmation', [PaymentController::class, 'proccessPayment'])->name('payment.proccessPayment');
+
 
 //Ruta para obtener los productos.
 Route::get('/cash',[CashController::class, 'index'])->name('cash.main');
