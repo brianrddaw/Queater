@@ -134,25 +134,81 @@
         };
 
 
-        const position = { x: 0, y: 0 }
 
-        interact('.draggable').draggable({
-            modifiers: [
-                    interact.modifiers.restrictRect({
-                    restriction: 'parent'
-                })
-                ],
-            listeners: {
 
-                move (event) {
-                position.x += event.dx
-                position.y += event.dy
-
-                event.target.style.transform =
-                    `translate(${position.x}px, ${position.y}px)`
-                },
+        window.dragMoveListener = dragMoveListener;
+        interact('.draggable')
+        .draggable({
+            onmove: dragMoveListener,
+            restrict: {
+            elementRect: {
+                top: 0,
+                left: 0,
+                bottom: 1,
+                right: 1
+            }
             }
         })
+
+
+        function dragMoveListener(event) {
+
+        const boxes = document.getElementsByClassName("draggable");
+
+        const target = event.target
+
+
+        const self = {
+            x: event.target.offsetLeft + event.dx,
+            y: event.target.offsetTop + event.dy,
+            width: event.target.offsetWidth,
+            height: event.target.offsetHeight
+        }
+
+            var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+            var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+
+
+            target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+            target.setAttribute('data-x', x)
+            target.setAttribute('data-y', y)
+
+
+            console.log(`
+            x= ,${target.offsetLeft},\n
+            y= ,${(parseFloat(target.getAttribute('data-x')) || 0)},\n
+            `);
+
+        // }
+        }
+
+        function collides(self, event) {
+        for (const box of boxes) {
+            if (box == event.target) {
+            continue;
+            }
+
+            const other = {
+            x: box.offsetLeft,
+            y: box.offsetTop,
+            width: box.offsetWidth,
+            height: box.offsetHeight
+            }
+
+            const collisionX = Math.max(self.x + self.width, other.x + other.width) - Math.min(self.x, other.x) < self.width + other.width;
+            const collisionY = Math.max(self.y + self.height, other.y + other.height) - Math.min(self.y, other.y) < self.height + other.height;
+
+            if (collisionX && collisionY) {
+            return true;
+            }
+        }
+        return false;
+        }
+
+
+
+
 
     </script>
 

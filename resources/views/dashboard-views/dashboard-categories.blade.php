@@ -1,6 +1,7 @@
 @extends('dashboard-views.dashboard')
 
 @section('dashboard-content')
+
     <div class="flex items-center w-full h-[3.75rem]">
         {{-- SEARCH --}}
         <div class="flex items-center justify-center p-4 w-full h-full bg-walter-400 text-orange-950">
@@ -11,6 +12,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
             </button>
+
         </div>
         {{-- ADD BUTTON --}}
         <button class="bg-walter-400 min-w-fit h-full p-4 border-l-4  active:bg-walter-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
@@ -31,25 +33,55 @@
                 <button class="bg-red-400 text-red-900 m-w-fit w-full p-2 ml-auto rounded-r font-bold" onclick="deleteCategorie({{ $category->id }})">Eliminar</button>
             </div>
 
+
         </div>
         @endforeach
     </section>
+
 
 @endsection
 
 <script>
 
 
-    function createNewCategorie() {
-        console.log('createNewCategorie');
+    function createNewCategory() {
+        console.log('createNewCategory');
     }
 
-    function editCategorie(categoryId, categoryName, categoryDescription, categoryPosition) {
-        console.log('editCategorie: ', arguments);
+    function editCategory(categoryId, categoryName, categoryDescription, categoryPosition) {
+        console.log('editCategory: ', arguments);
     }
 
-    function deleteCategorie() {
-        console.log('deleteCategorie');
+    function deleteCategory(category_id) {
+        $.ajax({
+            url: '/dashboard/categories/delete/' + category_id,
+            type: 'DELETE',
+            data: {
+                '_token': '{{ csrf_token() }}',
+            },
+            success: function(response) {
+                console.log(response);
+                Swal.fire(
+                    'Eliminado!',
+                    'La categoria se ha sido eliminado exitosamente.',
+                    'success'
+                ).then(() => {
+                    // Recargar la página después de cerrar el mensaje de éxito
+                    window.location.reload();
+                });
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire(
+                    'Error!',
+                    'Ha ocurrido un error al intentar eliminar la categoria.',
+                    'error'
+                ).then(() => {
+                    // Recargar la página después de cerrar el mensaje de éxito
+                    window.location.reload();
+                });
+            }
+        });
     }
 
 </script>
