@@ -155,23 +155,30 @@
                 createNewProduct();
 
             }
+
+            if (result.isDismissed) {
+                //Vacia la lista de alergenos
+                allergensArray = [];
+            }
         });
         addEventToForm();
     }
 
     // ADD ALLERGENS LOGIC
-    let allergensArray = [];
 
+    let allergensArray = [];
     function addAllergen(allergenId, allergenName){
 
         const img = $(`#allergen${allergenId}`);
         const index = allergensArray.indexOf(allergenId);
         if (index !== -1) { // Verifica si el elemento está presente en el array
+            console.log('removing allergen');
             allergensArray.splice(index, 1); // Elimina el elemento del array
             img.removeClass('allergen-active');
         } else {
             allergensArray.push(allergenId); // Si no está presente, añádelo al array
             img.addClass('allergen-active');
+            console.log('adding allergen');
         }
 
         console.log(allergensArray);
@@ -264,7 +271,7 @@
     }
 
     function showEditProduct(product) {
-
+        const product_id = product.id;
         const image_url = product.image_url;
         const name = product.name;
         const description = product.description;
@@ -277,10 +284,10 @@
         Swal.fire({
             title: 'Editar Producto',
             html: `
-                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-[400px] mx-auto  rounded-lg  text-orange-950">
+                <form action="{{ route('dashboard.products.update') }}" enctype="multipart/form-data" action="" id="form-new-products" method="post" class="w-full h-fit mx-auto  rounded-lg  text-orange-950">
                     @method('PUT')
                     @csrf
-                    <div class="grid grid-rows-2 h-full gap-4">
+                    <div class="flex flex-col h-full gap-4">
 
 
                         <div class="grid grid-cols-2 gap-4">
@@ -332,6 +339,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class=" allergens-container flex flex-wrap gap-2 w-full h-fit">
+                            @foreach ($allergens as $allergen)
+                                <img id="allergen{{ $allergen->id }}" class="allergen  cursor-pointer object-cover w-12 h-12 rounded-full grayscale" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}" onclick="addAllergen('{{ $allergen->id }}', '{{ $allergen->name }}')">
+                            @endforeach
+                        </div>
                         <div class="flex flex-col w-full h-full bg-walter-200 ">
                             <p class="text-left text-lg pl-4 py-2 font-bold uppercase">Descripción</p>
                             <textarea  name="description" id="description" cols="10" rows="10" class="w-full p-2 no-underline outline-none border-2 border-walter-200 resize-none text-md">${description}</textarea>
@@ -351,6 +363,11 @@
 
                 if (result.isConfirmed) {
                     editProduct(id);
+                }
+
+                if (result.isDismissed) {
+                    //Vacia la lista de alergenos
+                    allergensArray = [];
                 }
             });
         addEventToForm();
