@@ -328,18 +328,20 @@
 
                                 <div class="flex items-center w-full pr-2  ">
                                     <select name="category" id="category" class="w-full p-2  selected="${category_name}" value="${category_id}"  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
-                                    <option class="appearance-none w-full border-none bg-transparent" value="${category_id}">${category_name}</option>`+
-                                    function(){
-                                        let categories = @json($categories);
-                                        let options = '';
-                                        categories.forEach(category2 => {
-                                            if(category2.id != category_id){
-                                                options += `<option class="appearance-none w-full border-none bg-transparent" value="${category2.id}">${category2.name}</option>`;
-                                            }
-                                        });
-                                        return options;
-                                    }()
-                                +`</select>
+                                    <option class="appearance-none w-full border-none bg-transparent" value="${category_id}">${category_name}</option>
+                                    `+
+                                        function(){
+                                            let categories = @json($categories);
+                                            let options = '';
+                                            categories.forEach(category2 => {
+                                                if(category2.id != category_id){
+                                                    options += `<option class="appearance-none w-full border-none bg-transparent" value="${category2.id}">${category2.name}</option>`;
+                                                }
+                                            });
+                                            return options;
+                                        }()
+                                    +`
+                                    </select>
                                 </div>
                             </div>
                         </div>
