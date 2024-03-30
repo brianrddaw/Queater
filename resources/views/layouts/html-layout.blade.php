@@ -7,10 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    {{-- GRÁFICAS --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js">
     <link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
@@ -31,8 +27,8 @@
 
             </button>
 
-            {{-- NAV SLIDE --}}
-                <div class="nav-slide hidden flex-col gap-2 items-center min-w-fit absolute right-0 top-14 z-10 bg-orange-500 overflow-hidden text-ellipsis w-fit">
+            {{-- DROPDOWN NAV --}}
+                <div class="nav-slide hidden flex-col gap-2 items-center min-w-fit absolute right-0 top-14 z-10 bg-orange-500 overflow-hidden text-ellipsis w-fit text-[1rem]">
                     @yield('navegacion')
                 </div>
 

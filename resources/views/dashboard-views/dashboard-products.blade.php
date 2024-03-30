@@ -2,7 +2,10 @@
 @extends('dashboard-views.dashboard')
 
 @section('dashboard-content')
-
+@section('navegacion')
+    <a href="{{ route('kitchen.main') }}">kitchen</a>
+    <a href="{{ route('cash.main') }}">cash</a>
+@endsection
 <div class="flex flex-col w-full h-full">
 
     <div class="flex items-center w-full h-[3.75rem]">
@@ -53,11 +56,17 @@
                             </span>
                         </div>
                     </div>
-                    <div class="bg-walter-400 p-2 rounded">
+                    <div class="flex flex-col bg-walter-400 p-2 gap-2 rounded">
 
-                        <span class="ml-auto">
+                        <span>
                             {{ $product->description }}
                         </span>
+                        <span class="flex gap-4">
+                            @foreach ($product->allergens as $allergen)
+                                <img class="m-w-6 h-6" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}">
+                            @endforeach
+                        </span>
+
 
                     </div>
                     <div class="ml-auto flex gap-2">

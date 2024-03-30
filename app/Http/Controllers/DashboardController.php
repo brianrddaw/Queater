@@ -6,10 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Allergen;
-use App\Models\Order;
-use App\Models\OrdersLine;
-use App\Models\Session;
-use Illuminate\Support\Facades\Storage;
+use App\Models\ProductsAllergens;
+use Illuminate\Support\Facades\DB;
 
 
 class DashboardController extends Controller
@@ -20,6 +18,8 @@ class DashboardController extends Controller
         return view('dashboard-views.dashboard');
     }
 
+
+
     //Funcion para mostrar dashboard con todos los productos .
     public function showProducts(){
 
@@ -29,8 +29,11 @@ class DashboardController extends Controller
 
         //Enviar el nombre de la categoria por cada producto
         foreach ($products as $product) {
-            $product->category_name = Category::find($product->category_id)->name;
+            $product->allergens = ProductsAllergens::where('product_id', $product->id)->with('allergen')->get()->pluck('allergen');
         }
+
+
+
         return view('dashboard-views.dashboard-products',['products' => $products, 'categories' => $categories, 'allergens' => $allergens]);
     }
 
@@ -170,8 +173,5 @@ class DashboardController extends Controller
                                  'other_categories' => $categories
                                 ]);
     }
-
-
-
 
 }

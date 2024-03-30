@@ -2,7 +2,7 @@
 <h1 class="flex items-center justify-center font-bold text-orange-950 text-xl bg-walter-400  h-[3.75rem]">
     Bienvenido al menú de inicio
 </h1>
-<section class="flex flex-col gap-2 w-full h-fit p-2">
+<section class="flex flex-col gap-10 w-full h-fit p-2">
     <div class="chart-container h-fit">
 
         <div class="flex justify-center items-center h-fit w-full p-2">
@@ -24,15 +24,15 @@
 
     </div>
 
-    <div class="flex flex-col w-full h-fit gap-4">
+    <div class="flex w-full h-fit gap-4">
 
-            <a  class="flex items-center w-full h-20 pl-2 font-bold text-orange-950 bg-orange-100 drop-shadow-xl rounded">
+            <a href="{{route('dashboard.products')}}" class="flex items-center justify-center w-full h-20  font-bold text-orange-950 bg-orange-50 drop-shadow-xl rounded">
                 <p>Productos</p>
             </a>
-            <a class="flex items-center w-full h-20 pl-2 font-bold text-orange-950 bg-orange-100 drop-shadow-xl rounded">
+            <a href="{{route('dashboard.categories')}}" class="flex items-center justify-center w-full h-20  font-bold text-orange-950 bg-orange-50 drop-shadow-xl rounded">
                 <p>Categorias</p>
             </a>
-            <a class="flex items-center w-full h-20 pl-2 font-bold text-orange-950 bg-orange-100 drop-shadow-xl rounded">
+            <a href="{{route('dashboard.tables')}}" class="flex items-center justify-center w-full h-20  font-bold text-orange-950 bg-orange-50 drop-shadow-xl rounded">
                 <p>Mesas</p>
             </a>
 
@@ -53,7 +53,7 @@
 <script>
     const data = {
         labels: [
-            'Hamburguesas',
+            'Hamburguesas ',
             'Ensaladas',
             'Batidos',
             'Perkins',
