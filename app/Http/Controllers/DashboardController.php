@@ -32,10 +32,8 @@ class DashboardController extends Controller
         $categories = Category::all();
         $allergens = Allergen::all();
 
-        $allergensByProducts = DB::select('select id from products;');
-        foreach ($allergensByProducts as $allergenByProduct) {
-            $allergenByProduct->allergens = DB::select('select allergens.id, allergens.name, allergens.img_url from allergens inner join products_allergens on allergens.id = products_allergens.allergen_id where products_allergens.product_id = ?', [$allergenByProduct->id]);
-        }
+
+
 
         //Enviar el nombre de la categoria por cada producto
         foreach ($products as $product) {
@@ -46,13 +44,10 @@ class DashboardController extends Controller
             $product->category_name = Category::find($product->category_id)->name;
         }
 
-
-
         return view('dashboard-views.dashboard-products',['products' => $products,
         'categories' => $categories,
-        'allergens' => $allergens,
-        'allergensByProducts' => $allergensByProducts],
-        );
+        'allergens' => $allergens
+        ]);
     }
 
 
@@ -79,6 +74,10 @@ class DashboardController extends Controller
         $category = $request->category;
         $description = $request->description;
         $image = $request->file('image');
+        $allergens = JSON_decode($request->allergens);
+
+        //Se crean las instancias de los productos relacionados con los alergenos en la tabla products_allergens.
+
 
         //Se guarda la imagen en la carpeta public/products_images con el nombre del producto y su extension.
         $imagePath = $image->storeAs('products_images', $name . '.' . $image->getClientOriginalExtension(), 'public');
@@ -92,6 +91,12 @@ class DashboardController extends Controller
         $product->image_url = $imagePath;
         $product->save();
 
+        foreach ($allergens as $allergen) {
+            $productAllergen = new ProductsAllergens();
+            $productAllergen->product_id = $product->id;
+            $productAllergen->allergen_id = $allergen;
+            $productAllergen->save();
+        }
         echo "Producto creado: Nombre: ". $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category . "\nImagen: " . $imagePath;
     }
 
@@ -104,7 +109,19 @@ class DashboardController extends Controller
         $price = $request->price;
         $category = $request->category;
         $description = $request->description;
+        //Guarda los alergenos como array.
+        $allergens = JSON_decode($request->allergens);
 
+        //Crea o elimina isntancias del producto relacionado con el allergeno en la tabla products_allergens.
+        $productAllergen = ProductsAllergens::where('product_id', $id);
+        $productAllergen->delete();
+
+        foreach ($allergens as $allergen) {
+                $productAllergen = new ProductsAllergens();
+                $productAllergen->product_id = $id;
+                $productAllergen->allergen_id = $allergen;
+                $productAllergen->save();
+        }
         //Si se recibe una imagen se guarda en la carpte public/products_images con el nombre del producto y su extension.
         if($request->file('image')){
             $image = $request->file('image');
