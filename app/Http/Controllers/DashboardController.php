@@ -29,7 +29,7 @@ class DashboardController extends Controller
     public function showProducts(){
 
         $products = Product::all();
-        $categories = Category::all();
+        $categories = DB::select('select id,name,position from categories order by position');
         $allergens = Allergen::all();
 
 
@@ -44,9 +44,22 @@ class DashboardController extends Controller
             $product->category_name = Category::find($product->category_id)->name;
         }
 
-        return view('dashboard-views.dashboard-products',['products' => $products,
-        'categories' => $categories,
-        'allergens' => $allergens
+        $productsByCategory = [];
+        foreach ($categories as $category) {
+            $productsByCategory[$category->name] = [];
+            foreach ($products as $product) {
+                if ($product->category_name == $category->name) {
+                    array_push($productsByCategory[$category->name], $product);
+                }
+            }
+        }
+
+
+        return view('dashboard-views.dashboard-products',[
+            // 'products' => $products,
+            'categories' => $categories,
+            'allergens' => $allergens,
+            'productsByCategory' => $productsByCategory
         ]);
     }
 
