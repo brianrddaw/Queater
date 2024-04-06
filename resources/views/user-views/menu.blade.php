@@ -251,7 +251,7 @@
                     $("#error").html(response);
 
                     console.log(response);
-                    window.location.href = "{{ route('user.main') }}";
+                    window.location.href = "{{ route('payment.main') }}";
                 },
                 error: function(xhr, status, error)
                 {

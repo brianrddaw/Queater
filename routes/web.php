@@ -30,7 +30,6 @@ Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-a
 // PAYMENT ROUTE
 
 Route::get('/payment', [PaymentController::class, 'index'])->name('payment.main');
-
 Route::post('/handle-payment-confirmation', [PaymentController::class, 'proccessPayment'])->name('payment.proccessPayment');
 
 
