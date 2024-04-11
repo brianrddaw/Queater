@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrdersLine;
-use App\Models\Session;
 
 class OrderController extends Controller
 {
-
     public function showCart()
     {
         return view('views.user-views.user-cart.user-cart');
     }
-
 
     public function makeOrder(Request $request)
     {
@@ -37,11 +34,7 @@ class OrderController extends Controller
         //Elimnar la session
         // $session = Session::find($_COOKIE['session_id']);
         // $session->delete();
-
-
     }
-
-
 
     // public function putProductToOrder(Request $request)
     // {
