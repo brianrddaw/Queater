@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Laravel\Cashier\Facades\Stripe; // Importa la fachada de Stripe
 
 class UserController extends Controller
 {
@@ -30,17 +29,4 @@ class UserController extends Controller
         return redirect(route($route));
     }
 
-    public function procesarPago(Request $request)
-    {
-        $user = $request->user();
-        $paymentMethod = $user->defaultPaymentMethod();
-
-        // Cargar el método de pago
-        $user->charge(1000, $paymentMethod->id);
-
-        // Si se utiliza suscripciones, crear una suscripción
-        // $user->newSubscription('plan_id', 'plan_name')->create($paymentMethod->id);
-
-        return redirect()->back()->with('success', 'Pago procesado exitosamente.');
-    }
 }

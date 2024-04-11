@@ -10,8 +10,7 @@ use App\Http\Controllers\TakeAwayController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CashController;
-use App\Http\Controllers\PaymentController;
-
+use App\Http\Controllers\StripeController;
 
 
 //////////////////////////
@@ -29,8 +28,9 @@ Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-a
 
 // PAYMENT ROUTE
 
-Route::get('/payment', [PaymentController::class, 'index'])->name('payment.main');
-Route::post('/handle-payment-confirmation', [PaymentController::class, 'proccessPayment'])->name('payment.proccessPayment');
+Route::get('/payment', [StripeController::class, 'index'])->name('payment.index');
+Route::post('/checkout', [StripeController::class, 'checkout'])->name('payment.checkout');
+Route::get('/success', [StripeController::class, 'success'])->name('payment.success');
 
 
 //Ruta para obtener los productos.

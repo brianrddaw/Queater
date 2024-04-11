@@ -34,37 +34,38 @@
     </div>
 
     {{-- BOTON FINALIZAR PEDIDO --}}
-    <button onclick="makeOrder()" class="flex justify-center items-center bottom-4 w-full  py-4 text-orange-50 font-bold row-span-3  mb-2">
-
-        Terminar pedido
-
-    </button>
+    <form id="checkout-form" action="/checkout" method="POST" class="flex justify-center items-center w-full">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="orderTotal" id="order-total-input" value="">
+        <input type="hidden" name="order" id="order-input" value="">
+        <input type="hidden" name="takeAway" id="take-away-input" value="">
+        @csrf
+        <button onclick="setOrderTotalAndSubmitForm()" id="checkout-btn" type="button" class="flex justify-center items-center bottom-4 w-full py-4 text-orange-50 font-bold row-span-3 mb-2">
+            Terminar pedido
+        </button>
+    </form>
 
 </div>
 
 
 <script>
+    const header = document.querySelector('#cart-header');
+    const arrow = document.querySelector('#cart-arrow');
+    const cart = document.querySelector('#cart');
+    let cartIsOpen = false;
 
+    header.addEventListener('click', function(){
 
-        const header = document.querySelector('#cart-header');
-        const arrow = document.querySelector('#cart-arrow');
-        const cart = document.querySelector('#cart');
-        let cartIsOpen = false;
+        if (!cartIsOpen) {
+            cart.style.transform = 'translateY(-90%)';
+        } else {
+            cart.style.transform = 'translateY(0%)';
+        }
+        arrow.classList.toggle('rotate-180');
+        arrow.classList.toggle('animate-bounce');
+        cartIsOpen = !cartIsOpen;
 
+    })
 
-        header.addEventListener('click', function(){
-
-            if (!cartIsOpen) {
-                cart.style.transform = 'translateY(-90%)';
-            } else {
-                cart.style.transform = 'translateY(0%)';
-            }
-            arrow.classList.toggle('rotate-180');
-            arrow.classList.toggle('animate-bounce');
-            cartIsOpen = !cartIsOpen;
-
-        })
-
-
-        const cartProductsContainer = document.querySelector('#cart-products-container');
+    const cartProductsContainer = document.querySelector('#cart-products-container');
 </script>
