@@ -198,7 +198,48 @@ class DashboardController extends Controller
 
 
     //Funcion para editar una categoria.
-    //TODO: Hacer logica para editar una categoria.
+    public function updateCategory(Request $request){
+        //Se recogen los datos enviados por el formulario.
+        $id = $request->id;
+        $name = $request->name;
+        $position = $request->position;
+
+        $category = Category::find($id);
+        //si la posicion cambia se actualizan las posiciones de las categorias.
+
+        if ($category->position != $position) {
+            if($position > $category->position){
+                //Si la posicion de la categoria se cambia a una mayor se disminuye la posicion de las categorias que estan entre la categoria que se va a actualizar y la nueva posicion incluyendo la misma.
+
+                $categories = $categories = Category::where('position', '<=', $position)
+                            ->where('position', '>', $category->position)
+                            ->get();
+
+
+                foreach ($categories as $CategoryToChange) {
+                    $CategoryToChange->position = $CategoryToChange->position - 1;
+                    $CategoryToChange->save();
+                }
+            }else{
+                //Si la posicion de la categoria se cambia a una menor se aumenta la posicion de las categorias que tienen una posicion mayor a la categoria que se va a actualizar.
+
+                $categories = $categories = Category::where('position', '>=', $position)
+                            ->where('position', '<', $category->position)
+                            ->get();
+
+                foreach ($categories as $CategoryToChange) {
+                    $CategoryToChange->position = $CategoryToChange->position + 1;
+                    $CategoryToChange->save();
+                }
+            }
+        }
+
+        $category->name = $name;
+        $category->position = $position;
+        $category->save();
+
+        echo "Categoria actualizada: Id: ".$request->id. "\nNombre: ". $request->name. "\nPosicion: " . $request->position;
+    }
 
 
 

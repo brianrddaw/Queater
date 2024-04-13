@@ -29,7 +29,7 @@
                 </h3>
             </div>
             <div class="card grid grid-cols-3 w-full rounded">
-                <button class="bg-walter-400 p-4 w-full font-bold text-green-600 col-span-2" onclick="editCategorie({{ $category->id }}, '{{ $category->name }}', '{{ $category->description }}', {{ $category->position }})">Editar</button>
+                <button class="bg-walter-400 p-4 w-full font-bold text-green-600 col-span-2" onclick="showEditCategory({{ $category->id }}, '{{ $category->name }}', '{{ $category->description }}', {{ $category->position }})">Editar</button>
 
                 <button class="bg-walter-400 p-4 w-full font-bold text-red-600" onclick="showDeleteCategory({{ $category->id }})">Eliminar</button>
 
@@ -37,6 +37,7 @@
         </div>
         @endforeach
     </section>
+
 
 
 @endsection
@@ -129,6 +130,9 @@ function createNewCategory() {
             );
     }
 
+    toggleLoader()
+
+
     $.ajax({
         url: '/dashboard/categories/create',
         type: 'POST',
@@ -138,6 +142,7 @@ function createNewCategory() {
             'position': position,
         },
         success: function(response) {
+            toggleLoader()
             console.log(response);
             Swal.fire(
                 'Creada!',
@@ -149,6 +154,7 @@ function createNewCategory() {
             });
         },
         error: function(error) {
+            toggleLoader()
             console.log(error);
             Swal.fire(
                 'Error!',
@@ -163,9 +169,102 @@ function createNewCategory() {
 }
 
 
+function showEditCategory(categoryId, categoryName, categoryDescription, categoryPosition) {
+    Swal.fire({
+        title: 'Agregar Categoria',
+        html: `
+            <form  enctype="multipart/form-data" action="" id="form-new-category" method="post" class="w-full  h-fit mx-auto  rounded-lg  text-orange-950">
 
-function editCategory(categoryId, categoryName, categoryDescription, categoryPosition) {
-    console.log('editCategory: ', arguments);
+                <div class="flex flex-col h-full gap-10">
+
+                    <div class="grid grid-cols-2 gap-4 h-fit">
+
+                        <div class="flex flex-col gap-2">
+                            <input type="hidden" name="category" id="category" value="${categoryId}">
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                value="${categoryName}"
+                                placeholder="Nombre..."
+                                class="w-full p-2 bg-walter-200 rounded no-underline outline-none">
+                                <div class="flex items-center w-full pr-2  ">
+                                    <select name="position" id="position" class="w-full p-2  selected="${categoryPosition}" value="${categoryPosition}"  bg-transparent  no-underline outline-none border-b-2 border-orange-950 pb-2">
+                                    <option class="appearance-none w-full border-none bg-transparent" value="${categoryPosition}">${categoryPosition}</option>
+                                    `+
+                                        function(){
+                                            let categories = @json($categories);
+                                            let options = '';
+                                            categories.forEach(category2 => {
+                                                options += `<option class="appearance-none w-full border-none bg-transparent" value="${category2.position}">${category2.position}</option>`;
+                                            });
+                                            return options;
+                                        }()
+                                    +`
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        `,
+        showCancelButton: true,
+        allowOutsideClick: false,
+        confirmButtonText: 'Agregar',
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#f97306',
+        position:'top-end',
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            editCategory();
+        }
+    });
+
+    console.log('showEditCateogry: ', arguments);
+}
+
+function editCategory() {
+
+    // creamos las constantes
+    const categoryId = ($('#category').val()).toString();
+    const categoryName = ($('#name').val()).toString();
+    const categoryPosition = parseInt($('#position').val());
+
+    $.ajax({
+        url: '/dashboard/categories/update',
+        type: 'POST',
+        data: {
+            '_token': '{{ csrf_token() }}',
+            'id': categoryId,
+            'name': categoryName,
+            'position': categoryPosition,
+        },
+        success: function(response) {
+            console.log(response);
+            Swal.fire(
+                'Editado!',
+                'La categoria se ha editado exitosamente.',
+                'success'
+            ).then(() => {
+                // Recargar la página después de cerrar el mensaje de éxito
+                window.location.reload();
+            });
+        },
+        error: function(error) {
+            console.log(error);
+            Swal.fire(
+                'Error!',
+                'Ha ocurrido un error al intentar editar la categoria.',
+                'error'
+            ).then(() => {
+                // Recargar la página después de cerrar el mensaje de éxito
+                window.location.reload();
+            });
+        }
+    });
 }
 
 function deleteCategory(category_id) {
