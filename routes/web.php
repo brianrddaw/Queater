@@ -31,6 +31,8 @@ Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-a
 Route::get('/payment', [StripeController::class, 'index'])->name('payment.index');
 Route::post('/checkout', [StripeController::class, 'checkout'])->name('payment.checkout');
 Route::get('/success', [StripeController::class, 'success'])->name('payment.success');
+Route::get('/getTicket/{id}', [StripeController::class, 'getTicket'])->name('payment.getTicket');
+Route::get('/printTicket/{id}', [StripeController::class, 'printTicket'])->name('payment.printTicket');
 
 
 //Ruta para obtener los productos.
