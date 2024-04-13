@@ -3,11 +3,25 @@
 @section('title', 'User')
 @section('content')
     @include ('user-views.components.slide-bar-component', ['categories' => $productsByCategory])
-
-    <main  class="eat-here-main pb-20">
+    <main class="eat-here-main pb-36">
 
         @foreach ($productsByCategory as $category => $products)
-        <h2 class="text-2xl text-orange-950 font-bold bg-orange-200 w-full text-center py-4 ">{{ $category }}</h2>
+            <h2
+            id="{{ $category }}"
+            class="
+                w-fit
+                text-2xl
+                text-orange-50
+                font-bold
+                bg-orange-500
+                py-2
+                px-8
+                mr-auto
+                rounded-r
+                "
+            >
+                {{ $category }}
+            </h2>
             <ul class="flex flex-col gap-20">
                 @foreach ($products as $product)
                     @if ($product->availability)
@@ -64,7 +78,7 @@
             $('.order-total').text(orderTotal.toFixed(2) + ' €');
 
             if(Object.keys(order).length = 1) {
-                $('#cart').css('transform', 'translateY(0%)');
+                $('#cart').css('transform', 'translateY(-10%)');
             }
             console.log(order);
         }
@@ -233,6 +247,7 @@
             flex-direction: column;
             gap: 5rem;
             align-items: center;
+            background-repeat: repeat;
         }
 
         .product-card {
