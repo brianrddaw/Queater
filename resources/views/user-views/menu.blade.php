@@ -232,11 +232,11 @@
 
         function setOrderTotalAndSubmitForm()
         {
+            document.getElementById('checkout-btn').disabled = true;
             const orderJSON = JSON.stringify({ order: order });;
             document.getElementById('order-input').value = orderJSON;
             document.getElementById("order-total-input").value = orderTotal;
             document.getElementById("take-away-input").value = {{ $takeAway }};
-            console.log(orderJSON);
             document.getElementById("checkout-form").submit();
         }
     </script>

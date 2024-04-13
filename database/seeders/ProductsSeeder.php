@@ -44,6 +44,18 @@ class ProductsSeeder extends Seeder
                 'category_id' => '1',
             ],
             [
+                'name' => 'Hamburguesa clásica',
+                'description' => 'Carne de res, queso cheddar, lechuga, tomate, cebolla, salsa especial',
+                'price' => 8.99,
+                'category_id' => '1',
+            ],
+            [
+                'name' => 'Hamburguesa pescado',
+                'description' => 'Pescado, queso cheddar, lechuga, tomate, cebolla, salsa marina',
+                'price' => 8.99,
+                'category_id' => '1',
+            ],
+            [
                 'name' => 'Ensalada César',
                 'description' => 'Lechuga romana, pollo a la parrilla, crutones, aderezo César',
                 'price' => 9.50,
@@ -60,12 +72,6 @@ class ProductsSeeder extends Seeder
                 'description' => 'Tarta de manzana casera con canela',
                 'price' => 4.99,
                 'category_id' => '4',
-            ],
-            [
-                'name' => 'Hamburguesa clásica',
-                'description' => 'Carne de res, queso cheddar, lechuga, tomate, cebolla, salsa especial',
-                'price' => 8.99,
-                'category_id' => '1',
             ],
             [
                 'name' => 'Ensalada de quinoa',

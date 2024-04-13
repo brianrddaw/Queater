@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrdersLine;
+use App\Http\Controllers\OrderController;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class StripeController extends Controller
 {
+    protected $pdf;
+
+    public function __construct(PDF $pdf)
+    {
+        $this->pdf = $pdf;
+    }
+
 
     public function index()
     {
@@ -52,8 +62,22 @@ class StripeController extends Controller
         $takeAway = $request->input('takeAway');
         $orderData = json_decode($request->input('order'), true);
 
-        $this->_makeOrder($takeAway, $orderData);
-        return view('user-views.user-payments.success');
+        $orderId = $this->_makeOrder($takeAway, $orderData);
+        return redirect()->route('payment.getTicket', ['id' => $orderId])->with('success', '¡Ticket obtenido correctamente!');
+    }
+
+    public function getTicket($orderId)
+    {
+        return view('user-views.user-payments.success', compact('orderId'));
+    }
+
+    public function printTicket(PDF $pdfCreator, $orderId)
+    {
+        $orderController = new OrderController();
+        $resultado = $orderController->getOrderByCondition(['orderId' => $orderId]);
+
+        $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->loadView("user-views.user-payments.ticket", compact('resultado'));
+        return $pdf->download("ticket" . $orderId . ".pdf");
     }
 
     private function _makeOrder($takeAway, $orderData)
@@ -70,6 +94,7 @@ class StripeController extends Controller
             $orderLine->quantity = $product['quantity'];
             $orderLine->save();
         }
+        return $order->id;
     }
 
 }
