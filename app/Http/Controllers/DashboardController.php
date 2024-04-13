@@ -64,16 +64,14 @@ class DashboardController extends Controller
     }
 
 
-    //TODO: Hacer logica y views para las categorias en dashboard
     //Funcion para mostrar las categorias.
     public function showCategories(){
-
-        $categories = Category::all();
+        //Recoge las categorias ordenadas por la posicion.
+        $categories = Category::orderBy('position')->get();
 
         return view('dashboard-views.dashboard-categories',['categories' => $categories]);
     }
 
-    //TODO: Hacer logica y views para las mesas en dashboard
     //Funcion para mostrar las mesas.
     public function showTables(){
         return view('dashboard-views.dashboard-tables');
@@ -177,17 +175,23 @@ class DashboardController extends Controller
     //                            //
     ////////////////////////////////
 
-    //FIXME: Hacer logica para las categorias en dashboard
     //Funcion para crear una nueva categoria.
     public function createNewCategory(Request $request){
         //Se recogen los datos enviados por el formulario.
         $name = $request->name;
         $position = $request->position;
 
+        $categories = Category::where('position', '>=', $position)->get();
+        foreach ($categories as $CategoryToChange) {
+            $CategoryToChange->position = $CategoryToChange->position + 1;
+            $CategoryToChange->save();
+        }
+
         //Se crea una nueva categoria con los datos recogidos.
-        // $category = new Category();
-        // $category->name = $name;
-        // $category->save();
+        $category = new Category();
+        $category->name = $name;
+        $category->position = $position;
+        $category->save();
 
         echo "Categoria creada: Nombre: ". $request->name. "\nPosicion: " . $request->position;
     }
