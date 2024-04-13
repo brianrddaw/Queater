@@ -16,23 +16,6 @@
                     <img src="../imgs/table.webp" alt="" class="w-10 h-10">
                 </div>
             </div>
-            <div class="flex flex-col items-center h-[50vh] w-[20%] bg-gray-50 rounded-lg drop-shadow-md p-2 pt-4">
-
-                <div class="flex flex-col items-center">
-
-                    <img src="../imgs/table.webp" alt="" class="w-10 h-10">
-                    {{-- ADD TABLE --}}
-                    <button onclick="addTableToCanvas()">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-
-                    </button>
-
-                </div>
-            </div>
-
 
         </section>
         <section class="w-full h-fit flex flex-wrap flex-col gap-4">

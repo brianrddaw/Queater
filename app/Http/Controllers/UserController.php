@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-
 class UserController extends Controller
 {
     public function login()
@@ -13,8 +12,6 @@ class UserController extends Controller
         $credentials = request()->only('email', 'password');
         $route = request()->route;
         if(Auth::attempt($credentials)){
-
-
             request()->session()->regenerate();
         }
 
@@ -31,4 +28,5 @@ class UserController extends Controller
 
         return redirect(route($route));
     }
+
 }

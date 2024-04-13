@@ -11,6 +11,7 @@
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
+
 <body class="overflow-x-hidden bg-walter-200">
 
     {{-- Loader --}}
@@ -25,6 +26,10 @@
 
     <header class="flex justify-items-center items-center  bg-orange-500 p-2 h-14 text-zinc-100 ">
         <img src="{{ asset('imgs/letras.webp') }}" alt="" class="pl-2 h-4 mr-auto  ">
+
+<body class="overflow-x-hidden bg-orange-50">
+    <header class="flex justify-items-center items-center  bg-orange-500 p-2 h-14 text-orange-50 ">
+        <img src="{{ asset('imgs/letras.webp') }}" alt="" class="pl-2 h-4 mr-auto">
 
         @if (!empty(trim($__env->yieldContent('navegacion'))))
         <nav class="flex flex-row items-center ml-auto mr-2 ">
@@ -86,6 +91,10 @@
             padding: 0;
             box-sizing: border-box;
             min-width: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         .nav-slide a {

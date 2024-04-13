@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrdersLine;
-use App\Models\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 
 class OrderController extends Controller
 {
-
     public function showCart()
     {
         return view('views.user-views.user-cart.user-cart');
     }
-
 
     public function makeOrder(Request $request)
     {
@@ -37,41 +37,54 @@ class OrderController extends Controller
         //Elimnar la session
         // $session = Session::find($_COOKIE['session_id']);
         // $session->delete();
-
-
     }
 
+    public function getOrderByCondition($condition = null)
+    {
+        // Obtener todos los pedidos con sus líneas de pedido si su estado es diferente a 'ready' o 'delivered
+        $ordersData = Order::with('ordersLine.product')
+        ->where('state', '!=', 'ready')
+        ->where('state', '!=', 'delivered');
 
+        if (!empty($condition['orderId'])) {
+            $ordersData = $ordersData->where('id', $condition['orderId']);
+        }
 
-    // public function putProductToOrder(Request $request)
-    // {
-    //     $order = Order::find($request->order_id);
-    //     $orderLine = new OrdersLine();
-    //     $orderLine->order_id = $order->id;
-    //     $orderLine->product_id = $request->product_id;
-    //     $orderLine->quantity = $request->quantity;
-    //     $orderLine->save();
-    //     echo "Producto añadido al pedido";
-    // }
+        $ordersData = $ordersData->get();
 
-    // public function deleteProductFromOrder(Request $request)
-    // {
-    //     $orderLine = OrdersLine::where('order_id', $request->order_id)->where('product_id', $request->product_id)->first();
-    //     $orderLine->delete();
-    //     echo "Producto eliminado del pedido";
-    // }
+        // Crear un array para almacenar los datos de los pedidos en formato JSON
+        $ordersJson = [];
 
-    // public function getOrder(Request $request)
-    // {
-    //     $order = Order::find($request->order_id);
-    //     $orderLines = OrdersLine::where('order_id', $request->order_id)->get();
-    //     return view('order', ['order' => $order, 'orderLines' => $orderLines]);
-    // }
+        // Recorrer cada pedido y sus líneas de pedido
+        foreach ($ordersData as $order) {
+            $orderLines = [];
+            foreach ($order->ordersLine as $orderLine) {
+                $orderLines[] = [
+                    'id' => $orderLine->id,
+                    'order_id' => $orderLine->order_id,
+                    'product_id' => $orderLine->product_id,
+                    'quantity' => $orderLine->quantity,
+                    'product' => [
+                        'id' => $orderLine->product->id,
+                        'name' => $orderLine->product->name,
+                        'description' => $orderLine->product->description,
+                        'price' => $orderLine->product->price,
+                        'image_url' => $orderLine->product->image_url,
+                    ]
+                ];
+            }
 
-    // public function getTotal(Request $request)
-    // {
-    //     $total = OrdersLine::where('order_id', $request->order_id)->sum('price * quantity');
-    //     return $total;
-    // }
+            $ordersJson[] = [
+                'id' => $order->id,
+                'take_away' => $order->take_away,
+                'state' => $order->state,
+                'created_at' => $order->created_at->toIso8601String(),
+                'updated_at' => $order->updated_at->toIso8601String(),
+                'orders_line' => $orderLines,
+            ];
+        }
+
+        return $ordersJson;
+    }
 
 }
