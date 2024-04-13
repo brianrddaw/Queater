@@ -24,58 +24,62 @@
     </div>
 
     <div class="flex  flex-wrap w-[100%] h-[calc(100vh-7.25rem)] p-6 gap-4  overflow-y-scroll">
-        @foreach ($products as  $product)
+        @foreach ( $productsByCategory as $category => $products)
 
-            <div class="card flex flex-col justify-between w-full h-fit bg-walter-300 border rounded p-2 py-6 gap-6 text-orange-950">
+            <h2 class="text-2xl my-6 text-orange-950 font-bold bg-orange-200 w-full text-center py-4 ">{{ $category }}</h2>
 
-                    <div class="flex">
+            <div class="w-full flex flex-col gap-4">
+                @foreach ($products as  $product)
 
-                        <div class="flex w-full justify-between">
+                    <div class="card flex flex-col justify-between w-full h-fit bg-walter-300 border rounded p-2 py-6 gap-6 text-orange-950">
+
+                            <div class="flex">
+
+                                <div class="flex w-full justify-between">
 
 
-                            <div class="flex gap-10">
-                                <div class="flex items-center justify-center overflow-hidden w-20 h-20 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
-                                    <img  class="object-cover w-20 h-20 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
-                                </div>
-                                <span class="pt-2 flex flex-col justify-between">
-                                    <h3 class="font-bold">{{ $product->name }}</h3>
-                                    <div class="flex gap-4">
-                                        <p>Precio</p>
-                                        <p class="font-bold">{{ $product->price }} €</p>
+                                    <div class="flex gap-10">
+                                        <div class="flex items-center justify-center overflow-hidden w-20 h-20 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
+                                            <img  class="object-cover w-20 h-20 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
+                                        </div>
+                                        <span class="pt-2 flex flex-col justify-between">
+                                            <h3 class="font-bold">{{ $product->name }}</h3>
+                                            <div class="flex gap-4">
+                                                <p>Precio</p>
+                                                <p class="font-bold">{{ $product->price }} €</p>
+                                            </div>
+
+                                        </span>
+
                                     </div>
 
+                                    <span class="w-28 flex flex-col gap-2 justify-between items-start">
+
+                                        <p class="w-full flex justify-center items-center gap-2 text-sm font-bold bg-orange-500 p-2 rounded text-orange-50 ">Categoria</p>
+                                        <p class="font-bold">{{ $product->category->name }}</p>
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col bg-walter-400 p-2 gap-2 rounded">
+
+                                <span>
+                                    {{ $product->description }}
+                                </span>
+                                <span class="flex gap-4">
+                                    @foreach ($product->allergens as $allergen)
+                                        <img class="m-w-6 h-6" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}">
+                                    @endforeach
                                 </span>
 
+
                             </div>
-
-                            <span class="w-28 flex flex-col gap-2 justify-between items-start">
-
-                                <p class="w-full flex justify-center items-center gap-2 text-sm font-bold bg-orange-500 p-2 rounded text-orange-50 ">Categoria</p>
-                                <p class="font-bold">{{ $product->category->name }}</p>
-
-                            </span>
-                        </div>
+                            <div class="ml-auto flex gap-2">
+                                <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded" onclick="showEditProduct({{ $product }})">Editar</button>
+                                <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded"  onclick="showDeleteProduct({{ $product->id }})">Eliminar</button>
+                            </div>
                     </div>
-                    <div class="flex flex-col bg-walter-400 p-2 gap-2 rounded">
-
-                        <span>
-                            {{ $product->description }}
-                        </span>
-                        <span class="flex gap-4">
-                            @foreach ($product->allergens as $allergen)
-                                <img class="m-w-6 h-6" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}">
-                            @endforeach
-                        </span>
-
-
-                    </div>
-                    <div class="ml-auto flex gap-2">
-                        <button class="font-bold text-green-800 p-2 bg-green-400 min-w-fit w-20 rounded" onclick="showEditProduct({{ $product }})">Editar</button>
-                        <button class="font-bold text-red-900 p-2 bg-red-400 min-w-fit w-20 rounded"  onclick="showDeleteProduct({{ $product->id }})">Eliminar</button>
-                    </div>
-
-
-
+                @endforeach
             </div>
         @endforeach
     </div>
@@ -139,7 +143,7 @@
 
                         <div class=" allergens-container flex flex-wrap gap-2 w-full h-fit">
                             @foreach ($allergens as $allergen)
-                                <img id="allergen{{ $allergen->id }}" class="allergen  cursor-pointer object-cover w-12 h-12 rounded-full grayscale" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}" onclick="addAllergen('{{ $allergen->id }}', '{{ $allergen->name }}')">
+                                <img id="allergen{{ $allergen->id }}" class="allergen  cursor-pointer object-cover w-12 h-12 rounded-full grayscale" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}" onclick="addAllergen({{ $allergen->id }})">
                             @endforeach
                         </div>
                         <div class="flex flex-col w-full h-fit bg-walter-200">
@@ -173,16 +177,20 @@
     // ADD ALLERGENS LOGIC
 
     let allergensArray = [];
-    function addAllergen(allergenId, allergenName){
+    function addAllergen(allergenId){
         const img = $(`#allergen${allergenId}`);
+
         const index = allergensArray.indexOf(allergenId);
 
+
         if (index !== -1) { // Verifica si el elemento está presente en el array
+
             console.log('removing allergen');
             allergensArray.splice(index, 1); // Elimina el elemento del array
             img.removeClass('allergen-active');
         } else {
-            allergensArray.push(allergenId); // Si no está presente, añádelo al array
+            //añade el allergrno como entero al array
+            allergensArray.push(allergenId);
             img.addClass('allergen-active');
             console.log('adding allergen');
         }
@@ -224,6 +232,7 @@
         const price = $('#price').val();
         const category = $('#category').val();
         const description = $('#description').val();
+        const allergens = allergensArray;
 
 
         // validate fields
@@ -242,6 +251,7 @@
         formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
         formData.append('description', description.toString()); // Adjunta la descripción del producto
         formData.append('_token', '{{ csrf_token() }}');
+        formData.append('allergens', JSON.stringify(allergens));
 
         // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
         $.ajax({
@@ -284,9 +294,13 @@
         const price = product.price;
         const category_id = product.category_id;
         const category_name = product.category_name;
-        console.log(product);
-
+        const product_allergens = product.allergens;
         const id = product.id;
+
+        //Añade los alergenos al array de alergenos
+        product_allergens.forEach(allergen => {
+            allergensArray.push(allergen.id);
+        });
 
         Swal.fire({
             title: 'Editar Producto',
@@ -352,9 +366,21 @@
                         </div>
 
                         <div class=" allergens-container flex flex-wrap gap-2 w-full h-fit">
-                            @foreach ($allergens as $allergen)
-                                <img id="allergen{{ $allergen->id }}" class="allergen  cursor-pointer object-cover w-12 h-12 rounded-full grayscale" src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}" onclick="addAllergen('{{ $allergen->id }}', '{{ $allergen->name }}')">
-                            @endforeach
+
+                            `+
+                                function(){
+                                    let allergens = @json($allergens);
+                                    let allergens_html = '';
+
+                                    allergens.forEach(allergen => {
+                                        //Detecta si el alergeno esta en el producto y si esta lo activa
+                                        let active = allergensArray.includes(allergen.id) ? 'allergen-active' : '';
+
+                                        allergens_html += `<img id="allergen${allergen.id}" class="allergen ${active} cursor-pointer object-cover w-12 h-12 rounded-full grayscale" src="/storage/${allergen.img_url}" alt="${allergen.name}" onclick="addAllergen(${allergen.id})">`;
+                                    });
+                                    return allergens_html;
+                                }()
+                            +`
                         </div>
 
 
@@ -399,6 +425,7 @@
         const price = $('#price').val();
         const category = $('#category').val();
         const description = $('#description').val();
+        const allergens = allergensArray;
 
         //Condición para saber si se ha cambiado la imagen
         let imgaChange = image ? true : false;
@@ -427,6 +454,8 @@
         formData.append('description', description.toString()); // Adjunta la descripción del producto
         formData.append('_token', '{{ csrf_token() }}');
 
+        //Se añaden los alergenos al formulario como una array
+        formData.append('allergens', JSON.stringify(allergens));
         // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
         $.ajax({
             url: '{{ route('dashboard.products.update') }}',

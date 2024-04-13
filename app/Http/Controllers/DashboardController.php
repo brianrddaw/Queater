@@ -29,13 +29,11 @@ class DashboardController extends Controller
     public function showProducts(){
 
         $products = Product::all();
-        $categories = Category::all();
+        $categories = DB::select('select id,name,position from categories order by position');
         $allergens = Allergen::all();
 
-        $allergensByProducts = DB::select('select id from products;');
-        foreach ($allergensByProducts as $allergenByProduct) {
-            $allergenByProduct->allergens = DB::select('select allergens.id, allergens.name, allergens.img_url from allergens inner join products_allergens on allergens.id = products_allergens.allergen_id where products_allergens.product_id = ?', [$allergenByProduct->id]);
-        }
+
+
 
         //Enviar el nombre de la categoria por cada producto
         foreach ($products as $product) {
@@ -43,26 +41,34 @@ class DashboardController extends Controller
         }
 
 
+        $productsByCategory = [];
+        foreach ($categories as $category) {
+            $productsByCategory[$category->name] = [];
+            foreach ($products as $product) {
+                if ($product->category_name == $category->name) {
+                    array_push($productsByCategory[$category->name], $product);
+                }
+            }
+        }
 
 
-        return view('dashboard-views.dashboard-products',['products' => $products,
-        'categories' => $categories,
-        'allergens' => $allergens,
-        'allergensByProducts' => $allergensByProducts],
-        );
+        return view('dashboard-views.dashboard-products',[
+            // 'products' => $products,
+            'categories' => $categories,
+            'allergens' => $allergens,
+            'productsByCategory' => $productsByCategory
+        ]);
     }
 
 
-    //TODO: Hacer logica y views para las categorias en dashboard
     //Funcion para mostrar las categorias.
     public function showCategories(){
-
-        $categories = Category::all();
+        //Recoge las categorias ordenadas por la posicion.
+        $categories = Category::orderBy('position')->get();
 
         return view('dashboard-views.dashboard-categories',['categories' => $categories]);
     }
 
-    //TODO: Hacer logica y views para las mesas en dashboard
     //Funcion para mostrar las mesas.
     public function showTables(){
         return view('dashboard-views.dashboard-tables');
@@ -76,6 +82,10 @@ class DashboardController extends Controller
         $category = $request->category;
         $description = $request->description;
         $image = $request->file('image');
+        $allergens = JSON_decode($request->allergens);
+
+        //Se crean las instancias de los productos relacionados con los alergenos en la tabla products_allergens.
+
 
         //Se guarda la imagen en la carpeta public/products_images con el nombre del producto y su extension.
         $imagePath = $image->storeAs('products_images', $name . '.' . $image->getClientOriginalExtension(), 'public');
@@ -89,6 +99,12 @@ class DashboardController extends Controller
         $product->image_url = $imagePath;
         $product->save();
 
+        foreach ($allergens as $allergen) {
+            $productAllergen = new ProductsAllergens();
+            $productAllergen->product_id = $product->id;
+            $productAllergen->allergen_id = $allergen;
+            $productAllergen->save();
+        }
         echo "Producto creado: Nombre: ". $request->name . "\nDescripcion: " . $request->description . "\nPrecio: " . $request->price . "\nCategoria: " . $request->category . "\nImagen: " . $imagePath;
     }
 
@@ -101,7 +117,19 @@ class DashboardController extends Controller
         $price = $request->price;
         $category = $request->category;
         $description = $request->description;
+        //Guarda los alergenos como array.
+        $allergens = JSON_decode($request->allergens);
 
+        //Crea o elimina isntancias del producto relacionado con el allergeno en la tabla products_allergens.
+        $productAllergen = ProductsAllergens::where('product_id', $id);
+        $productAllergen->delete();
+
+        foreach ($allergens as $allergen) {
+                $productAllergen = new ProductsAllergens();
+                $productAllergen->product_id = $id;
+                $productAllergen->allergen_id = $allergen;
+                $productAllergen->save();
+        }
         //Si se recibe una imagen se guarda en la carpte public/products_images con el nombre del producto y su extension.
         if($request->file('image')){
             $image = $request->file('image');
@@ -144,24 +172,71 @@ class DashboardController extends Controller
     //                            //
     ////////////////////////////////
 
-    //FIXME: Hacer logica para las categorias en dashboard
     //Funcion para crear una nueva categoria.
     public function createNewCategory(Request $request){
         //Se recogen los datos enviados por el formulario.
         $name = $request->name;
         $position = $request->position;
 
+        $categories = Category::where('position', '>=', $position)->get();
+        foreach ($categories as $CategoryToChange) {
+            $CategoryToChange->position = $CategoryToChange->position + 1;
+            $CategoryToChange->save();
+        }
+
         //Se crea una nueva categoria con los datos recogidos.
-        // $category = new Category();
-        // $category->name = $name;
-        // $category->save();
+        $category = new Category();
+        $category->name = $name;
+        $category->position = $position;
+        $category->save();
 
         echo "Categoria creada: Nombre: ". $request->name. "\nPosicion: " . $request->position;
     }
 
 
     //Funcion para editar una categoria.
-    //TODO: Hacer logica para editar una categoria.
+    public function updateCategory(Request $request){
+        //Se recogen los datos enviados por el formulario.
+        $id = $request->id;
+        $name = $request->name;
+        $position = $request->position;
+
+        $category = Category::find($id);
+        //si la posicion cambia se actualizan las posiciones de las categorias.
+
+        if ($category->position != $position) {
+            if($position > $category->position){
+                //Si la posicion de la categoria se cambia a una mayor se disminuye la posicion de las categorias que estan entre la categoria que se va a actualizar y la nueva posicion incluyendo la misma.
+
+                $categories = $categories = Category::where('position', '<=', $position)
+                            ->where('position', '>', $category->position)
+                            ->get();
+
+
+                foreach ($categories as $CategoryToChange) {
+                    $CategoryToChange->position = $CategoryToChange->position - 1;
+                    $CategoryToChange->save();
+                }
+            }else{
+                //Si la posicion de la categoria se cambia a una menor se aumenta la posicion de las categorias que tienen una posicion mayor a la categoria que se va a actualizar.
+
+                $categories = $categories = Category::where('position', '>=', $position)
+                            ->where('position', '<', $category->position)
+                            ->get();
+
+                foreach ($categories as $CategoryToChange) {
+                    $CategoryToChange->position = $CategoryToChange->position + 1;
+                    $CategoryToChange->save();
+                }
+            }
+        }
+
+        $category->name = $name;
+        $category->position = $position;
+        $category->save();
+
+        echo "Categoria actualizada: Id: ".$request->id. "\nNombre: ". $request->name. "\nPosicion: " . $request->position;
+    }
 
 
 

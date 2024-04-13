@@ -19,21 +19,6 @@ class MenuController extends Controller
 
     public function getMenu(){
 
-        // $categorys = DB::select('select category from products group by category');
-
-        // // Array para almacenar los productos por categoría
-        // $productsByCategory = [];
-
-
-        // foreach ($categorys as $category) {
-        //     // Consultar los productos asociados a la categoría actual
-        //     $products = DB::select('select * from products where category = ?', [$category->category]);
-
-        //     // Almacenar los productos en el array asociativo
-        //     $productsByCategory[$category->category] = $products;
-        // }
-
-
         $productsByCategory = DB::table('products')
         ->join('categorys', 'products.category_id', '=', 'categorys.id')
         ->select('products.*', 'categorys.name as category_name')
