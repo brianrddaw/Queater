@@ -25,7 +25,11 @@ class DashboardController extends Controller
         $allergens = Allergen::all();
 
         foreach ($products as $product) {
-            $product->allergens = ProductsAllergens::where('product_id', $product->id)->with('allergen')->get()->pluck('allergen');
+                $product->allergens = ProductsAllergens::where('product_id', $product->id)->with('allergen')->get()->pluck('allergen');
+        }
+
+        foreach ($products as $product) {
+            $product->category_name = Category::find($product->category_id)->name;
         }
 
         $productsByCategory = [];
