@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <p class="text-3xl font-bold border border-red-500">{{ $orderId }}</p>
+    <p class="text-3xl font-bold border border-red-500">{{ $resultado }}</p>
 
 </body>
 </html>

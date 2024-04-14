@@ -8,7 +8,6 @@ use App\Models\OrdersLine;
 use App\Http\Controllers\OrderController;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-
 class StripeController extends Controller
 {
     protected $pdf;
@@ -66,20 +65,6 @@ class StripeController extends Controller
         return redirect()->route('payment.getTicket', ['id' => $orderId])->with('success', '¡Ticket obtenido correctamente!');
     }
 
-    public function getTicket($orderId)
-    {
-        return view('user-views.user-payments.success', compact('orderId'));
-    }
-
-    public function printTicket(PDF $pdfCreator, $orderId)
-    {
-        $orderController = new OrderController();
-        $resultado = $orderController->getOrderByCondition(['orderId' => $orderId]);
-
-        $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->loadView("user-views.user-payments.ticket", compact('resultado'));
-        return $pdf->download("ticket" . $orderId . ".pdf");
-    }
-
     private function _makeOrder($takeAway, $orderData)
     {
         $orderData = json_decode($orderData, true);
@@ -95,6 +80,20 @@ class StripeController extends Controller
             $orderLine->save();
         }
         return $order->id;
+    }
+
+    public function getTicket($orderId)
+    {
+        return view('user-views.user-payments.success', compact('orderId'));
+    }
+
+    public function printTicket(PDF $pdfCreator, $orderId)
+    {
+        $orderController = new OrderController();
+        $resultado = $orderController->getOrderByCondition(['orderId' => $orderId]);
+
+        $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->loadView("user-views.user-payments.ticket", ['resultado' => json_decode(json_encode($resultado))]);
+        return $pdf->download("ticket" . $orderId . ".pdf");
     }
 
 }

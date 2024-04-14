@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Order;
-use App\Models\OrdersLine;
-use App\Models\Product;
 use App\Http\Controllers\OrderController;
-
 
 class KitchenController extends Controller
 {
@@ -22,12 +18,8 @@ class KitchenController extends Controller
         ]);
     }
 
-
-
-    //controlador que verifica si hay pedidos nuevos
     public function sendNewOrders()
     {
-        // Obtener todos los pedidos con estado 'new'
         $ordersData = Order::with('ordersLine.product')
         ->where('state', 'new')
         ->get();
@@ -36,10 +28,8 @@ class KitchenController extends Controller
             $order->state = 'preparing';
             $order->save();
         }
-        // Crear un array para almacenar los datos de los pedidos en formato JSON
         $ordersJson = [];
 
-        // Recorrer cada pedido y sus líneas de pedido
         foreach ($ordersData as $order) {
             $orderLines = [];
             foreach ($order->ordersLine as $orderLine) {

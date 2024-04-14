@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrdersLine;
-use Barryvdh\DomPDF\Facade\Pdf;
-
-
 
 class OrderController extends Controller
 {
@@ -18,12 +15,10 @@ class OrderController extends Controller
 
     public function makeOrder(Request $request)
     {
-        //Crear pedido
         $order = new Order();
         $order->take_away = $request->takeAway;
         $order->save();
 
-        //Crear lineas de pedido
         foreach($request->products as $product)
         {
             $orderLine = new OrdersLine();
@@ -32,16 +27,10 @@ class OrderController extends Controller
             $orderLine->quantity = $product['quantity'];
             $orderLine->save();
         }
-        echo "Pedido creado: " . json_encode($request->products);
-
-        //Elimnar la session
-        // $session = Session::find($_COOKIE['session_id']);
-        // $session->delete();
     }
 
     public function getOrderByCondition($condition = null)
     {
-        // Obtener todos los pedidos con sus líneas de pedido si su estado es diferente a 'ready' o 'delivered
         $ordersData = Order::with('ordersLine.product')
         ->where('state', '!=', 'ready')
         ->where('state', '!=', 'delivered');
@@ -52,10 +41,8 @@ class OrderController extends Controller
 
         $ordersData = $ordersData->get();
 
-        // Crear un array para almacenar los datos de los pedidos en formato JSON
         $ordersJson = [];
 
-        // Recorrer cada pedido y sus líneas de pedido
         foreach ($ordersData as $order) {
             $orderLines = [];
             foreach ($order->ordersLine as $orderLine) {

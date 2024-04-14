@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -12,14 +11,6 @@ class ProductController extends Controller
         return view('user-views.user-product.product-card', ['product' => $product]);
     }
 
-    //Funcion para devolver todos los productos en un objeto JSON
-    // public function getProducts()
-    // {
-    //     $products = Product::all();
-    //     return view('prueba', ['products' => $products]);
-    // }
-
-    //Funcion para crear nuevos productos.
     public function createProduct($name, $description, $price, $category_id, $image_url)
     {
         $product = new Product();
@@ -31,6 +22,5 @@ class ProductController extends Controller
         $product->save();
 
     }
-
 
 }
