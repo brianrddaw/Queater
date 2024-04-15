@@ -147,7 +147,7 @@ class ProductsSeeder extends Seeder
 
             ['name' => 'Soja', 'img_url' => 'allergens_images/soja.webp'],
 
-            ['name' => 'Lácteos', 'img_url' => 'allergens_images/Lacteos.webp'],
+            ['name' => 'Lácteos', 'img_url' => 'allergens_images/lacteos.webp'],
 
             ['name' => 'Frutos de cáscara','img_url' => 'allergens_images/frutos_de_cascara.webp'],
 
