@@ -3,32 +3,38 @@
 @section('title', 'User')
 @section('content')
     @include ('user-views.components.slide-bar-component', ['categories' => $productsByCategory])
-    <main class="eat-here-main pb-36">
+    <main class="eat-here-main flex flex-col items-center pb-36 bg-orange-100">
 
         @foreach ($productsByCategory as $category => $products)
-            <h2
-            id="{{ $category }}"
-            class="
-                w-fit
-                text-2xl
-                text-orange-50
-                font-bold
-                bg-orange-500
-                py-2
-                px-8
-                mr-auto
-                rounded-r
-                "
-            >
-                {{ $category }}
-            </h2>
-            <ul class="flex flex-col gap-20">
-                @foreach ($products as $product)
-                    @if ($product->availability)
-                        @include('user-views.user-product.product-card', ['product' => $product])
-                    @endif
-                @endforeach
-            </ul>
+            <article class="flex flex-col w-full bg-orange-100 gap-6 py-12">
+                <h2
+                id="{{ $category }}"
+                class="
+                    w-fit
+                    text-2xl
+                    text-orange-50
+                    font-bold
+                    bg-orange-500
+                    py-2
+                    px-8
+                    mb-8
+                    mr-auto
+                    rounded-r
+                    "
+                >
+                    {{ $category }}
+                </h2>
+                <ul class=" items-start justify-start">
+                    <li class="flex flex-wrap w-[80%]  rounded mx-auto justify-between gap-8">
+                        @foreach ($products as $product)
+                            @if ($product->availability)
+                                    @include('user-views.user-product.product-card', ['product' => $product])
+
+                            @endif
+                        @endforeach
+                    </li>
+                </ul>
+            </article>
         @endforeach
 
         @include('user-views.user-cart.user-cart', ['orders' => []])
@@ -220,6 +226,9 @@
                 infoContainer.addClass('active').css('display', 'flex').hide().slideDown(200);
                 infoCloseSvg.css('transform', 'rotate(45deg)');
                 infoCloseSvg.css('color', ' red');
+                $(card).closest('.product-card').css('width', '300px');
+                $(card).closest('.product-card').find('.price-add-container').css('flex-direction', 'row');
+
 
             } else {
                 infoContainer.slideUp(200, function() {
@@ -227,6 +236,9 @@
                     infoCloseSvg.css('color', '');
                 });
                 infoCloseSvg.css('transform', 'rotate(0deg)');
+                $(card).closest('.product-card').css('width', '100px');
+                $(card).closest('.product-card').find('.price-add-container').css('flex-direction', 'column');
+
             }
         }
 
@@ -242,21 +254,9 @@
     </script>
 
     <style>
-        .eat-here-main {
-            display: flex;
-            flex-direction: column;
-            gap: 5rem;
-            align-items: center;
-            background-repeat: repeat;
-        }
-
         .product-card {
-
-            display: flex;
             flex-direction: column;
-            min-width: 15rem;
             height: fit-content;
-
         }
 
         .product-card-info {
@@ -270,7 +270,7 @@
         }
 
         .info-close-svg {
-            transition: all 0.2s ease;
+            transition: all cubic-bezier(0.85, 0.05, 0.25, 1) ease-in-out 0.5s;
         }
     </style>
 @endsection
