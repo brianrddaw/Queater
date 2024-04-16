@@ -6,7 +6,7 @@
     <main class="eat-here-main flex flex-col items-center pb-36 bg-orange-100">
 
         @foreach ($productsByCategory as $category => $products)
-            <article class="flex flex-col w-full bg-orange-100 gap-6 py-12">
+            <article class="flex flex-col w-full bg-orange-100 gap-6 pb-20 pt-6">
                 <h2
                 id="{{ $category }}"
                 class="
@@ -25,7 +25,7 @@
                     {{ $category }}
                 </h2>
                 <ul class=" items-start justify-start">
-                    <li class="flex flex-wrap w-[80%]  rounded mx-auto justify-between gap-8">
+                    <li class="flex flex-wrap  w-[80%]  rounded mx-auto justify-between gap-8">
                         @foreach ($products as $product)
                             @if ($product->availability)
                                     @include('user-views.user-product.product-card', ['product' => $product])
@@ -223,22 +223,26 @@
             const isInfoVisible = infoContainer.hasClass('active');
 
             if (!isInfoVisible) {
-                infoContainer.addClass('active').css('display', 'flex').hide().slideDown(200);
-                infoCloseSvg.css('transform', 'rotate(45deg)');
-                infoCloseSvg.css('color', ' red');
                 $(card).closest('.product-card').css('width', '300px');
-                $(card).closest('.product-card').find('.price-add-container').css('flex-direction', 'row');
 
+                setTimeout(() => {
+                    infoContainer.addClass('active').css('display', 'flex').hide().slideDown(200);
+                    infoCloseSvg.css('transform', 'rotate(45deg)');
+                    infoCloseSvg.css('color', ' red');
+                }, 200);
 
             } else {
+
                 infoContainer.slideUp(200, function() {
                     $(this).removeClass('active').css('display', 'none');
                     infoCloseSvg.css('color', '');
                 });
                 infoCloseSvg.css('transform', 'rotate(0deg)');
-                $(card).closest('.product-card').css('width', '100px');
-                $(card).closest('.product-card').find('.price-add-container').css('flex-direction', 'column');
 
+                $(card).closest('.product-card').css('width', '100px');
+                setTimeout(() => {
+
+                }, 200);
             }
         }
 
@@ -254,9 +258,14 @@
     </script>
 
     <style>
+
+        article:nth-child(even) {
+            background-color: #fff7ed;
+        }
+
         .product-card {
-            flex-direction: column;
             height: fit-content;
+            transition: all .2s ease-in-out;
         }
 
         .product-card-info {
@@ -270,7 +279,7 @@
         }
 
         .info-close-svg {
-            transition: all cubic-bezier(0.85, 0.05, 0.25, 1) ease-in-out 0.5s;
+            transition: all .4s ease;
         }
     </style>
 @endsection

@@ -1,4 +1,4 @@
-<div class="product-card gap-1 flex flex-col w-[100px] min-w-32 items-center  rounded-xl py-3  bg-gray-100 text-orange-950 drop-shadow-[0_4px_3px_rgba(0,0,0,.3)] transition-all">
+<div class="product-card gap-1 flex flex-col w-[100px] min-w-32 items-center  rounded-xl py-3  bg-gray-100 text-orange-950 drop-shadow-[0_4px_3px_rgba(0,0,0,.3)] ">
 
     <div class="flex items-center justify-center overflow-hidden w-24 h-24 bg-orange-950 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
         <img  class="object-cover w-20 h-20 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
@@ -20,7 +20,7 @@
     </span>
 
 
-    <div class="price-add-container flex flex-wrap justify-center items-center gap-3">
+    <div class="price-add-container flex flex-wrap w-fit justify-center items-center gap-3">
         <p class="text-lg h-fit leading-none mt-1">{{ $product->price }} €</p>
 
         <button onclick="addToOrder({{ $product->id }},{{ $product->price }},'{{ $product->name }}','{{ $product->image_url }}')" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-6 w-fit min-h-10 rounded-full active:bg-green-500 active:scale-105">
@@ -33,7 +33,7 @@
     </div>
 
 
-    <div class="product-card-info flex flex-col gap-2 bg-walter-300 p-2 rounded-sm m-2 mb-0">
+    <div class="product-card-info flex flex-col flex-wrap gap-2 bg-walter-300 p-2 rounded-sm m-2 mb-0">
 
         <div class="font-bold">
 
@@ -41,10 +41,10 @@
 
         </div>
 
-        <div class="flex gap-2 text-sm">
+        <div class="flex flex-wrap gap-2 text-sm">
             @foreach ($product->allergens as $allergen)
 
-                <img  class="allergen  cursor-pointer object-cover w-6 h-6 rounded-full"  src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}">
+                <img  class="allergen cursor-pointer object-cover w-6 h-6 rounded-full"  src="{{ "/storage/" . $allergen->img_url }}" alt="{{ $allergen->name }}">
 
             @endforeach
         </div>
