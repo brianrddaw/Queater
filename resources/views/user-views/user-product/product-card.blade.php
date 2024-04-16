@@ -20,20 +20,19 @@
     </span>
 
 
-    <div class="price-add-container flex flex-wrap w-fit justify-center items-center gap-3">
+    <div class="price-add-container flex flex-wrap justify-center items-center w-fit gap-3 mx-7  ">
         <p class="text-lg h-fit leading-none mt-1">{{ $product->price }} €</p>
 
-        <button onclick="addToOrder({{ $product->id }},{{ $product->price }},'{{ $product->name }}','{{ $product->image_url }}')" class="flex items-center text-md text-orange-50 bg-orange-500 py-1 px-6 w-fit min-h-10 rounded-full active:bg-green-500 active:scale-105">
+        <button onclick="addToOrder({{ $product->id }},{{ $product->price }},'{{ $product->name }}','{{ $product->image_url }}')" class="add-to-order-button flex items-center text-md text-orange-50 bg-orange-500 py-1 px-6 w-fit min-h-10 rounded-full">
             Añadir
-            {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-            </svg> --}}
-
         </button>
     </div>
+    {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+    </svg> --}}
 
 
-    <div class="product-card-info flex flex-col flex-wrap gap-2 bg-walter-300 p-2 rounded-sm m-2 mb-0">
+    <div class="product-card-info flex flex-wrap gap-2 bg-walter-300 p-2 rounded-sm m-2 mb-0">
 
         <div class="font-bold">
 

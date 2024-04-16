@@ -11,9 +11,6 @@ use App\Models\Category;
 
 class ProductsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $categorys =
@@ -39,101 +36,115 @@ class ProductsSeeder extends Seeder
         $products = [
             [
                 'name' => 'Hamburguesa de pollo',
-                'description' => 'Lechuga, tomate, salsa barbacoa',
-                'price' => 7.75,
+                'description' => 'Deliciosa hamburguesa de pollo con lechuga, tomate y salsa barbacoa.',
+                'price' => 6.95,
                 'category_id' => '1',
+                'image_url' => 'products_images/hamburguesa_pollo.webp',
             ],
             [
                 'name' => 'Hamburguesa clásica',
-                'description' => 'Carne de res, queso cheddar, lechuga, tomate, cebolla, salsa especial',
-                'price' => 8.99,
+                'description' => 'Una hamburguesa tradicional con carne de res, queso cheddar, lechuga, tomate, cebolla y salsa especial.',
+                'price' => 7.99,
                 'category_id' => '1',
+                'image_url' => 'products_images/hamburguesa_clasica.webp',
             ],
             [
-                'name' => 'Hamburguesa pescado',
-                'description' => 'Pescado, queso cheddar, lechuga, tomate, cebolla, salsa marina',
-                'price' => 8.99,
+                'name' => 'Hamburguesa de pescado',
+                'description' => 'Exquisita hamburguesa de pescado con queso cheddar, lechuga, tomate, cebolla y salsa marina.',
+                'price' => 8.49,
                 'category_id' => '1',
-            ],
-            [
-                'name' => 'Ensalada César',
-                'description' => 'Lechuga romana, pollo a la parrilla, crutones, aderezo César',
-                'price' => 9.50,
-                'category_id' => '2',
-            ],
-            [
-                'name' => 'Refresco de cola',
-                'description' => 'Bebida gaseosa con sabor a cola',
-                'price' => 2.50,
-                'category_id' => '3',
-            ],
-            [
-                'name' => 'Tarta de manzana',
-                'description' => 'Tarta de manzana casera con canela',
-                'price' => 4.99,
-                'category_id' => '4',
-            ],
-            [
-                'name' => 'Ensalada de quinoa',
-                'description' => 'Quinoa, espinacas, aguacate, tomate, garbanzos, aderezo de limón',
-                'price' => 10.25,
-                'category_id' => '2',
-            ],
-            [
-                'name' => 'Agua mineral',
-                'description' => 'Agua mineral natural embotellada',
-                'price' => 1.50,
-                'category_id' => '3',
-            ],
-            [
-                'name' => 'Cheesecake de fresa',
-                'description' => 'Cheesecake con salsa de fresa y base de galleta',
-                'price' => 6.99,
-                'category_id' => '4',
+                'image_url' => 'products_images/hamburguesa_pescado.webp',
             ],
             [
                 'name' => 'Hamburguesa vegetariana',
-                'description' => 'Falafel, aguacate, lechuga, tomate, cebolla caramelizada, tahini',
-                'price' => 9.75,
+                'description' => 'Una opción vegetariana deliciosa con falafel, aguacate, lechuga, tomate, cebolla caramelizada y tahini.',
+                'price' => 7.95,
                 'category_id' => '1',
+                'image_url' => 'products_images/hamburguesa_vegetariana.webp'
+            ],
+
+            [
+                'name' => 'Ensalada griega',
+                'description' => 'Una ensalada refrescante con tomate, pepino, pimiento, cebolla roja, aceitunas, queso feta y aderezo de limón.',
+                'price' => 8.95,
+                'category_id' => '2',
+                'image_url' => 'products_images/ensalada_griega.webp'
             ],
             [
-                'name' => 'Ensalada caprese',
-                'description' => 'Tomate, mozzarella fresca, albahaca, aceite de oliva, vinagre balsámico',
-                'price' => 8.50,
+                'name' => 'Ensalada de pollo',
+                'description' => 'Una ensalada saludable con quinoa, espinacas, aguacate, tomate, garbanzos y aderezo de limón.',
+                'price' => 9.75,
                 'category_id' => '2',
+                'image_url' => 'products_images/ensalada_pollo.webp'
+            ],
+            [
+                'name' => 'Ensalada César',
+                'description' => 'La clásica ensalada César con lechuga romana, pollo a la parrilla, crutones y aderezo César.',
+                'price' => 8.99,
+                'category_id' => '2',
+                'image_url' => 'products_images/ensalada_cesar.webp'
+            ],
+            [
+                'name' => 'Ensalada de marisco',
+                'description' => 'Una deliciosa ensalada con tomate, mozzarella fresca, albahaca, aceite de oliva y vinagre balsámico.',
+                'price' => 9.25,
+                'category_id' => '2',
+                'image_url' => 'products_images/ensalada_marisco.webp'
+            ],
+
+            [
+                'name' => 'Agua mineral',
+                'description' => 'Refrescante agua mineral natural embotellada.',
+                'price' => 1.20,
+                'category_id' => '3',
+                'image_url' => 'products_images/agua_mineral.webp'
+            ],
+            [
+                'name' => 'Refresco de cola',
+                'description' => 'Bebida gaseosa refrescante con sabor a cola.',
+                'price' => 1.80,
+                'category_id' => '3',
+                'image_url' => 'products_images/cola.webp'
             ],
             [
                 'name' => 'Jugo de naranja natural',
-                'description' => 'Jugo de naranja recién exprimido',
-                'price' => 3.25,
+                'description' => 'Delicioso jugo de naranja recién exprimido, natural y lleno de vitaminas.',
+                'price' => 2.50,
                 'category_id' => '3',
-            ],
-            [
-                'name' => 'Tiramisú',
-                'description' => 'Postre italiano con capas de bizcocho, café, mascarpone y cacao',
-                'price' => 7.50,
-                'category_id' => '4',
-            ],
-            [
-                'name' => 'Hamburguesa de salmón',
-                'description' => 'Salmón a la parrilla, espinacas, aguacate, mayonesa de wasabi',
-                'price' => 10.99,
-                'category_id' => '1',
-            ],
-            [
-                'name' => 'Ensalada griega',
-                'description' => 'Tomate, pepino, pimiento, cebolla roja, aceitunas, queso feta, aderezo de limón',
-                'price' => 9.25,
-                'category_id' => '2',
+                'image_url' => 'products_images/zumo_naranja.webp'
             ],
             [
                 'name' => 'Café espresso',
-                'description' => 'Café espresso recién hecho',
-                'price' => 2.00,
+                'description' => 'Café espresso fuerte y aromático recién hecho, perfecto para empezar el día o tomar un descanso.',
+                'price' => 1.80,
                 'category_id' => '3',
+                'image_url' => 'products_images/cafe.webp'
             ],
+
+            [
+                'name' => 'Tarta de manzana',
+                'description' => 'Deliciosa tarta casera de manzana con un toque de canela.',
+                'price' => 3.99,
+                'category_id' => '4',
+                'image_url' => 'products_images/tarta_manzana.webp'
+            ],
+            [
+                'name' => 'Cheesecake de fresa',
+                'description' => 'Cheesecake cremoso con salsa de fresa y una base crujiente de galleta.',
+                'price' => 5.99,
+                'category_id' => '4',
+                'image_url' => 'products_images/cheesecake_fresa.webp'
+            ],
+            [
+                'name' => 'Tiramisú',
+                'description' => 'Postre italiano clásico con capas de bizcocho empapado en café, crema de mascarpone y cacao en polvo.',
+                'price' => 6.50,
+                'category_id' => '4',
+                'image_url' => 'products_images/tiramisu.webp'
+            ],
+
         ];
+
         $allergens = [
             ['name' => 'Gluten', 'img_url' => 'allergens_images/gluten.webp'],
 
@@ -165,202 +176,24 @@ class ProductsSeeder extends Seeder
         ];
 
         $allerrgens_products = [
-            [
-            'product_id' => '1',
-            'allergen_id' => '1'
-
-            ],
-            [
-            'product_id' => '1',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '1',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '2',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '2',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '2',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '2',
-            'allergen_id' => '7'
-            ],
-            [
-            'product_id' => '3',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '3',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '3',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '4',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '4',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '4',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '5',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '5',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '5',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '6',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '6',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '6',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '6',
-            'allergen_id' => '7'
-            ],
-            [
-            'product_id' => '7',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '7',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '7',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '8',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '8',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '8',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '9',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '9',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '9',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '10',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '10',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '10',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '11',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '11',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '11',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '12',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '12',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '12',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '13',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '13',
-            'allergen_id' => '2'
-            ],
-            [
-
-            'product_id' => '13',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '14',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '14',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '14',
-            'allergen_id' => '3'
-            ],
-            [
-            'product_id' => '15',
-            'allergen_id' => '1'
-            ],
-            [
-            'product_id' => '15',
-            'allergen_id' => '2'
-            ],
-            [
-            'product_id' => '15',
-            'allergen_id' => '3'
-            ]
-            ];
-
-
-
-
-
+            ['product_id' => 1, 'allergen_id' => 1],
+            ['product_id' => 2, 'allergen_id' => 1],
+            ['product_id' => 3, 'allergen_id' => 1],
+            ['product_id' => 4, 'allergen_id' => 1],
+            ['product_id' => 4, 'allergen_id' => 7],
+            ['product_id' => 6, 'allergen_id' => 3],
+            ['product_id' => 7, 'allergen_id' => 1],
+            ['product_id' => 7, 'allergen_id' => 7],
+            ['product_id' => 8, 'allergen_id' => 13],
+            ['product_id' => 13, 'allergen_id' => 1],
+            ['product_id' => 13, 'allergen_id' => 7],
+            ['product_id' => 14, 'allergen_id' => 1],
+            ['product_id' => 14, 'allergen_id' => 7],
+            ['product_id' => 14, 'allergen_id' => 8],
+            ['product_id' => 15, 'allergen_id' => 1],
+            ['product_id' => 15, 'allergen_id' => 3],
+            ['product_id' => 15, 'allergen_id' => 6],
+        ];
 
         foreach ($categorys as $category) {
             Category::create($category);

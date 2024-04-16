@@ -9,3 +9,8 @@
 </div>
 
 
+<style>
+    .category:nth-child(even):hover {
+        background-color: #FFEAC1;
+    }
+</style>

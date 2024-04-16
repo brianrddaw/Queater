@@ -6,9 +6,8 @@
     <main class="eat-here-main flex flex-col items-center pb-36 bg-orange-100">
 
         @foreach ($productsByCategory as $category => $products)
-            <article class="flex flex-col w-full bg-orange-100 gap-6 pb-20 pt-6">
+            <article id="{{ $category }}" class="flex flex-col w-full bg-orange-100 gap-6 pb-20 pt-16">
                 <h2
-                id="{{ $category }}"
                 class="
                     w-fit
                     text-2xl
@@ -62,10 +61,11 @@
         function addToOrder(id, price, name, image_url)
         {
             if (order[id]) {
-                order[id].quantity++;
+                return;
+                // order[id].quantity++;
 
-                let productCard = $('#cartProductCard' + id);
-                productCard.find('.product-quantity').text( order[id].quantity );
+                // let productCard = $('#cartProductCard' + id);
+                // productCard.find('.product-quantity').text( order[id].quantity );
             }
             else {
                 order[id] = {
@@ -86,8 +86,31 @@
             if(Object.keys(order).length = 1) {
                 $('#cart').css('transform', 'translateY(-10%)');
             }
-            console.log(order);
+
         }
+
+        function addToOrderAnimation(event) {
+            const button = event.target;
+            const buttonContainer = button.parentElement;
+
+            button.disabled = true;
+            button.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                </svg>
+            `;
+            button.classList.remove('px-6', 'bg-orange-500');
+            button.classList.add('px-2', 'bg-green-600');
+
+
+        }
+
+        const buttons = document.querySelectorAll('.add-to-order-button');
+        buttons.forEach(function(button) {
+            button.addEventListener('click', addToOrderAnimation);
+        });
+
+
 
         function addToOrderHtml(product, image_url)
         {
@@ -258,9 +281,8 @@
     </script>
 
     <style>
-
         article:nth-child(even) {
-            background-color: #fff7ed;
+            background-color: #FFEAC1;
         }
 
         .product-card {
@@ -279,8 +301,13 @@
         }
 
         .info-close-svg {
-            transition: all .4s ease;
+            transition: all .2s ease;
         }
+
+        .add-to-order-button {
+            transition: all .2s ease-out;
+        }
+
     </style>
 @endsection
 
