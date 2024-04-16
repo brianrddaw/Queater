@@ -4,6 +4,8 @@ export default {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
+        "./pages/**/*.{html,js}",
+        "./components/**/*.{html,js}",
     ],
     theme: {
         extend: {
