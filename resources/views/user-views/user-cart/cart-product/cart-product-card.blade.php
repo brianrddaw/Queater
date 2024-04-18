@@ -1,4 +1,4 @@
-<div class="grid grid-cols-9 items-center rounded-lg min-h-14 h-12  bg-orange-50 text-orange-950 text-xs">
+<div class="grid grid-cols-9 items-center rounded-lg min-h-14 h-12 bg-orange-50 text-orange-950 text-xs">
 
     {{-- IMG--}}
     <img class="col-span-2 w-14 h-14 object-fit border-2 border-orange-950 bg-orange-950 rounded-l-lg object-cover " src="{{ asset('imgs/burguer.webp') }}" alt="">

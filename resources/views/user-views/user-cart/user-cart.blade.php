@@ -1,6 +1,6 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[92vh] w-full h-[90vh] bg-orange-50 z-10 grid grid-rows-10 rounded-t text-orange-950 transition-all border-t-4 border-orange-950" >
+<div id="cart" class="user-cart fixed bottom-0 top-[91.5vh] w-full h-[95vh] bg-orange-50 z-10 grid grid-rows-10 rounded-t-xl text-orange-950 transition-all border-t-4 border-orange-950" >
 
-    <div id="cart-header" class="grid grid-cols-3 justify-items-center items-center w-full  h-[8vh] pt-1 row-span-2">
+    <div id="cart-header" class="grid grid-cols-3 justify-items-center items-center w-full  h-[8vh] pt-1 row-span-1">
         <span class="flex gap-2 mr-auto pl-4">
             <p class="font-bold text-md ">Total:</p>
             <p class="order-total font-bold text-md">0 €</p>
@@ -24,7 +24,7 @@
 
     </div>
 
-    <div id="cart-products-container" class=" flex flex-col p-4 row-span-6 w-full gap-3  h-full overflow-scroll">
+    <div id="cart-products-container" class="flex flex-col w-[90%] p-4 mx-auto row-span-5 w-full gap-3  h-full overflow-y-scroll">
     </div>
 
     <form id="checkout-form" action="/checkout" method="POST" class="flex justify-center items-center w-full row-span-4">
@@ -58,9 +58,9 @@
     header.addEventListener('click', function(){
 
         if (!cartIsOpen) {
-            cart.style.transform = 'translateY(-90%)';
+            cart.style.transform = 'translateY(-80%)';
         } else {
-            cart.style.transform = 'translateY(-10%)';
+            cart.style.transform = 'translateY(0%)';
         }
         arrow.classList.toggle('rotate-180');
         arrow.classList.toggle('animate-bounce');

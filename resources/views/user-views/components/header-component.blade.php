@@ -1,4 +1,4 @@
-<header class="flex justify-items-center items-center  bg-tesla-950 p-2 h-14 text-orange-100">
+<header class="flex justify-items-center items-center p-2 h-14 text-orange-100">
         {{-- <img src="{{ asset('imgs/logo.webp') }}" alt="" class="w-8 mr-auto"> --}}
         <div class="flex items-center pr-4 pl-2 h-full">
             <h1 class=" col-span-2 font-bold">Queater</h1>
