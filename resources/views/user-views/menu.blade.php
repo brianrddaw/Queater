@@ -3,7 +3,7 @@
 @section('title', 'User')
 @section('content')
     @include ('user-views.components.slide-bar-component', ['categories' => $productsByCategory])
-    
+
     <main class="eat-here-main flex flex-col items-center bg-stone-100 py-10 pb-20">
 
         @foreach ($productsByCategory as $category => $products)
@@ -13,7 +13,7 @@
                 class="w-fit text-2xl text-orange-50 font-bold bg-orange-500 py-2 px-8 mb-8 mr-auto rounded-r"
                 >
                     {{ $category }}
-            
+
                 </h2>
                 <ul class=" items-start justify-start">
                     <li class="flex flex-wrap  w-[90%]  rounded mx-auto justify-between gap-4">
@@ -207,34 +207,6 @@
                 });
             }
         }
-
-        // function makeOrder()
-        // {
-        //     var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-        //     $.ajax({
-        //         url: '{{ route('make.order') }}',
-        //         method: 'POST',
-        //         data: {
-        //             products: order,
-        //             takeAway: {{ $takeAway }},
-        //         },
-        //         headers: {
-        //             'X-CSRF-TOKEN': csrfToken
-        //         },
-        //         success: function(response)
-        //         {
-        //             $("#error").html(response);
-                    
-        //             window.location.href = "{{ route('payment.checkout') }}";
-        //         },
-        //         error: function(xhr, status, error)
-        //         {
-        //             console.error(xhr.responseText);
-        //         }
-        //     });
-        // }
-
 
         function infoDisplay(card)
         {

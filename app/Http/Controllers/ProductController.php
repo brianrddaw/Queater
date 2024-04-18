@@ -20,7 +20,6 @@ class ProductController extends Controller
         $product->category_id = $category_id;
         $product->image_url = $image_url;
         $product->save();
-
     }
 
 }

@@ -89,10 +89,21 @@ class StripeController extends Controller
 
     public function printTicket(PDF $pdfCreator, $orderId)
     {
-        $orderController = new OrderController();
-        $resultado = $orderController->getOrderByCondition(['orderId' => $orderId]);
+        $order = Order::find($orderId);
+        $orderLines = OrdersLine::with('product')->where('order_id', $orderId)->get();
 
-        $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->loadView("user-views.user-payments.ticket", ['resultado' => json_decode(json_encode($resultado))]);
+        // Inicializar el total en 0
+        $total = 0;
+
+        // Sumar los precios de cada producto
+        foreach ($orderLines as $orderLine) {
+            $total += $orderLine->product->price;
+        }
+
+        $orderController = new OrderController();
+        // $resultado = $orderController->getOrderByCondition(['orderId' => $orderId]);
+
+        $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->setPaper('A5')->loadView("user-views.user-payments.ticket", ['order' => $order,'orderLines' => $orderLines, 'total' => $total]);
         return $pdf->download("ticket" . $orderId . ".pdf");
     }
 
