@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 class EatHereController extends Controller
 {
 
-    public function eatHere(){
+    public function eatHere()
+    {
         $categorys = DB::select('select id,name,position from categories order by position');
-
         $productsByCategory = [];
         $allergens = Allergen::all();
 
@@ -28,14 +28,11 @@ class EatHereController extends Controller
             $productsByCategory[$category->name] = $products;
         }
 
-        return view('user-views.menu',
-
-        ['productsByCategory' => $productsByCategory,
-        'takeAway' => 0,
-        'allergens' => $allergens
-
-        ],
-
-    );
+        return view(
+            'user-views.menu',
+            ['productsByCategory' => $productsByCategory,
+            'takeAway' => 0,
+            'allergens' => $allergens],
+        );
     }
 }

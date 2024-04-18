@@ -43,7 +43,6 @@ class DashboardController extends Controller
         }
 
         return view('dashboard-views.dashboard-products',[
-            // 'products' => $products,
             'categories' => $categories,
             'allergens' => $allergens,
             'productsByCategory' => $productsByCategory

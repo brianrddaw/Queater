@@ -25,7 +25,6 @@
         </section>
 
         <section class="w-fit h-fit flex flex-col justify-center items-center gap-4">
-
             <a href="{{route('eat-here.main')}}"
                 class="
                     flex flex-col
@@ -63,10 +62,7 @@
 
         </section>
 
-
     </main>
-
-
 @endsection
 
 

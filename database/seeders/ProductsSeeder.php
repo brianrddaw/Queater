@@ -62,7 +62,6 @@ class ProductsSeeder extends Seeder
                 'category_id' => '1',
                 'image_url' => 'products_images/hamburguesa_vegetariana.webp'
             ],
-
             [
                 'name' => 'Ensalada griega',
                 'description' => 'Una ensalada refrescante con tomate, pepino, pimiento, cebolla roja, aceitunas, queso feta y aderezo de limón.',
@@ -91,7 +90,6 @@ class ProductsSeeder extends Seeder
                 'category_id' => '2',
                 'image_url' => 'products_images/ensalada_marisco.webp'
             ],
-
             [
                 'name' => 'Agua mineral',
                 'description' => 'Refrescante agua mineral natural embotellada.',

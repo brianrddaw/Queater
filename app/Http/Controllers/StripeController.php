@@ -91,17 +91,11 @@ class StripeController extends Controller
     {
         $order = Order::find($orderId);
         $orderLines = OrdersLine::with('product')->where('order_id', $orderId)->get();
-
-        // Inicializar el total en 0
         $total = 0;
 
-        // Sumar los precios de cada producto
         foreach ($orderLines as $orderLine) {
             $total += $orderLine->product->price;
         }
-
-        $orderController = new OrderController();
-        // $resultado = $orderController->getOrderByCondition(['orderId' => $orderId]);
 
         $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->setPaper('A5')->loadView("user-views.user-payments.ticket", ['order' => $order,'orderLines' => $orderLines, 'total' => $total]);
         return $pdf->download("ticket" . $orderId . ".pdf");

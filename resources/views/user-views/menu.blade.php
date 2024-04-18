@@ -1,5 +1,4 @@
 @extends('layouts.html-layout')
-
 @section('title', 'User')
 @section('content')
     @include ('user-views.components.slide-bar-component', ['categories' => $productsByCategory])
@@ -9,18 +8,14 @@
         @foreach ($productsByCategory as $category => $products)
             <article class="flex flex-col w-full h-full bg-stone-100 pb-10">
                 <span id="{{ $category }}"></span>
-                <h2
-                class="w-fit text-2xl text-orange-50 font-bold bg-orange-500 py-2 px-8 mb-8 mr-auto rounded-r"
-                >
+                <h2 class="w-fit text-2xl text-orange-50 font-bold bg-orange-500 py-2 px-8 mb-8 mr-auto rounded-r">
                     {{ $category }}
-
                 </h2>
                 <ul class=" items-start justify-start">
                     <li class="flex flex-wrap  w-[90%]  rounded mx-auto justify-between gap-4">
                         @foreach ($products as $product)
                             @if ($product->availability)
-                                    @include('user-views.user-product.product-card', ['product' => $product])
-
+                                @include('user-views.user-product.product-card', ['product' => $product])
                             @endif
                         @endforeach
                     </li>
@@ -189,8 +184,7 @@
         function removeFromOrder($productCard)
         {
             const idProduct = $productCard.attr('id').replace('cartProductCard', '');
-
-             if (order[idProduct]) {
+            if (order[idProduct]) {
                 const quantityToRemove = order[idProduct].quantity;
                 cartProductsQuantity -= quantityToRemove;
                 updateCartQuantityText(cartProductsQuantity);
@@ -270,7 +264,7 @@
         .add-to-order-button {
             transition: all .4s ease-out;
         }
-
     </style>
+
 @endsection
 
