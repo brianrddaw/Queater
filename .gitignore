@@ -1,8 +1,14 @@
 /.phpunit.cache
 /node_modules
+<<<<<<< HEAD
 /public/build
 /public/hot
 /public/storage
+=======
+# /public/build
+# /public/hot
+# /public/storage
+>>>>>>> parent of df48234 (comentados mas archivos)
 /storage/*.key
 /vendor
 .env
