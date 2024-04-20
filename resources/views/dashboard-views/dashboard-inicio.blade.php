@@ -1,9 +1,6 @@
-
-
 <section class="flex flex-col gap-10 w-full h-full">
-    <div class="flex flex-col justify-center items-center h-fit w-full max-w-[900px] mx-auto bg-stone-100 rounded-lg shadow-4 py-4">
+    <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[1000px]  bg-stone-100 rounded-lg shadow-4 p-6 mt-6 m-4 ml-6">
         <span class="flex items-center gap-4 bg-orange-500 p-4 w-fit font-bold mr-auto ml-4 rounded-lg shadow-3 text-white">
-
             <p>
                 Ventas de la semana
             </p>
