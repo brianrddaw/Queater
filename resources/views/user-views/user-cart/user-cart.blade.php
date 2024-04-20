@@ -1,4 +1,4 @@
-<div id="cart" class="user-cart fixed bottom-0 top-[91.5vh] w-full h-[95vh] bg-orange-50 z-10 grid grid-rows-10 rounded-t-xl text-orange-950 transition-all border-t-4 border-orange-950" >
+<div id="cart" class="user-cart fixed bottom-0 w-full top-[91vh] h-[95vh] bg-orange-50 z-10 grid grid-rows-10 rounded-t-xl text-orange-950 transition-all border-t-4 border-orange-950" >
 
     <div id="cart-header" class="grid grid-cols-3 justify-items-center items-center w-full  h-[8vh] pt-1 row-span-1">
         <span class="flex gap-2 mr-auto pl-4">
@@ -24,7 +24,7 @@
 
     </div>
 
-    <div id="cart-products-container" class="flex flex-col w-[90%] p-4 mx-auto row-span-5 w-full gap-3  h-full overflow-y-scroll">
+    <div id="cart-products-container" class="flex flex-col w-[90%] p-4 mx-auto row-span-5  gap-3  h-full overflow-y-scroll">
     </div>
 
     <form id="checkout-form" action="/checkout" method="POST" class="flex justify-center items-center w-full row-span-4">
