@@ -3,7 +3,6 @@
 @section('content')
     @include ('user-views.components.slide-bar-component', ['categories' => $productsByCategory])
     <main class="eat-here-main flex flex-col items-center bg-stone-100 py-10 pb-20">
-
         @foreach ($productsByCategory as $category => $products)
             <article class="flex flex-col w-full h-full bg-stone-100 pb-10">
                 <span id="{{ $category }}"></span>
@@ -232,6 +231,7 @@
             document.getElementById('order-input').value = orderJSON;
             document.getElementById("order-total-input").value = orderTotal;
             document.getElementById("take-away-input").value = {{ $takeAway }};
+            document.getElementById("table-id-input").value = {{ $tableId }};
             document.getElementById("checkout-form").submit();
         }
     </script>

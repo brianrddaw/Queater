@@ -32,7 +32,7 @@ class EatHereController extends Controller
             [
                 'productsByCategory' => $productsByCategory,
                 'takeAway' => 0,
-                'mesa' => $table,
+                'tableId' => $table,
             ],
         );
     }

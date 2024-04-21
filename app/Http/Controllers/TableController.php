@@ -28,6 +28,7 @@ class TableController extends Controller
         $number = DB::table('tables')->count() + 1;
         //Crea la nueva mesa en la base de datos usando el modelo
         $table = new Table();
+        $table->id = $number;
         $table->number = $number;
         $table->save();
 

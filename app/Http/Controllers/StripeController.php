@@ -28,6 +28,7 @@ class StripeController extends Controller
         $total = floatval($request->input('orderTotal')) * 100;
         $order = $request->input('order');
         $takeAway = $request->input('takeAway');
+        $tableId = $request->input('tableId');
         $queryParams = http_build_query([
             'takeAway' => $takeAway,
             'order' => json_encode($order),
@@ -59,17 +60,20 @@ class StripeController extends Controller
     public function success(Request $request)
     {
         $takeAway = $request->input('takeAway');
+        $tableId = $request->input('tableId');
         $orderData = json_decode($request->input('order'), true);
 
-        $orderId = $this->_makeOrder($takeAway, $orderData);
-        return redirect()->route('payment.getTicket', ['id' => $orderId])->with('success', '¡Ticket obtenido correctamente!');
+        $orderId = $this->_makeOrder($takeAway, $orderData, $tableId);
+        return redirect()->route('payment.getTicket', ['id' => $orderId]);
     }
 
-    private function _makeOrder($takeAway, $orderData)
+    private function _makeOrder($takeAway, $orderData, $tableId = null)
     {
+
         $orderData = json_decode($orderData, true);
         $order = new Order();
         $order->take_away = $takeAway;
+        $order->table_id = $tableId;
         $order->save();
 
         foreach ($orderData['order'] as $productId => $product) {

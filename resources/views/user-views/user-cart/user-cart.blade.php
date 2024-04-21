@@ -32,6 +32,7 @@
         <input type="hidden" name="orderTotal" id="order-total-input" value="">
         <input type="hidden" name="order" id="order-input" value="">
         <input type="hidden" name="takeAway" id="take-away-input" value="">
+        <input type="hidden" name="tableId" id="table-id-input" value="">
         @csrf
         <button onclick="setOrderTotalAndSubmitForm()" id="checkout-btn" type="button"
             class="
