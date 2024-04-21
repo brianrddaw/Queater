@@ -64,7 +64,11 @@
         <div class="order-details">
             <h2>Detalles del Pedido</h2>
             <p><strong>Número de Orden:</strong> {{ $order->id }}</p>
+            @if($tableId > 0)
+            <p><strong>Mesa:</strong> {{ $tableId }}</p>
+            @endif
             <p><strong>Fecha:</strong> {{ $order->created_at }}</p>
+
         </div>
         <div class="order-items">
             <h2>Productos:</h2>

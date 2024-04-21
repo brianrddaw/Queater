@@ -29,8 +29,10 @@ class StripeController extends Controller
         $order = $request->input('order');
         $takeAway = $request->input('takeAway');
         $tableId = $request->input('tableId');
+
         $queryParams = http_build_query([
             'takeAway' => $takeAway,
+            'tableId' => $tableId,
             'order' => json_encode($order),
         ]);
 
@@ -64,7 +66,7 @@ class StripeController extends Controller
         $orderData = json_decode($request->input('order'), true);
 
         $orderId = $this->_makeOrder($takeAway, $orderData, $tableId);
-        return redirect()->route('payment.getTicket', ['id' => $orderId]);
+        return redirect()->route('payment.getTicket', ['id' => $orderId, 'tableId' => $tableId]);
     }
 
     private function _makeOrder($takeAway, $orderData, $tableId = null)
@@ -86,12 +88,13 @@ class StripeController extends Controller
         return $order->id;
     }
 
-    public function getTicket($orderId)
+    public function getTicket($orderId, $tableId)
     {
-        return view('user-views.user-payments.success', compact('orderId'));
+        echo $orderId;
+        return view('user-views.user-payments.success', ['orderId' => $orderId, 'tableId' => $tableId]);
     }
 
-    public function printTicket(PDF $pdfCreator, $orderId)
+    public function printTicket(PDF $pdfCreator, $orderId, $tableId)
     {
         $order = Order::find($orderId);
         $orderLines = OrdersLine::with('product')->where('order_id', $orderId)->get();
@@ -101,7 +104,7 @@ class StripeController extends Controller
             $total += $orderLine->product->price;
         }
 
-        $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->setPaper('A5')->loadView("user-views.user-payments.ticket", ['order' => $order,'orderLines' => $orderLines, 'total' => $total]);
+        $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->setPaper('A5')->loadView("user-views.user-payments.ticket", ['order' => $order,'orderLines' => $orderLines, 'total' => $total, 'tableId' => $tableId]);
         return $pdf->download("ticket" . $orderId . ".pdf");
     }
 
