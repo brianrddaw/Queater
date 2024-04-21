@@ -15,9 +15,9 @@
 
         <div class="w-full h-fit flex flex-wrap gap-4 mt-6">
             @foreach($categories as $category)
-            <div class="card flex flex-col w-[250px]  bg-stone-200 rounded shadow-xl ">
-                <div class="flex justify-center items-center w-full h-32 bg-blue-300">
-                    <h3 class="card-title absolute text-2xl font-bold text-orange-950 ">
+            <div class="card flex flex-col w-[250px]  bg-stone-200 rounded shadow-lg ">
+                <div class="flex justify-center items-center w-full h-32 bg-orange-500">
+                    <h3 class="card-title absolute text-2xl font-bold text-orange-800 ">
                         {{ $category->name }}
                     </h3>
                 </div>

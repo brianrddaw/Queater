@@ -5,7 +5,7 @@
     <a href="{{ route('kitchen.main') }}">kitchen</a>
     <a href="{{ route('cash.main') }}">cash</a>
 @endsection
-<div class="flex flex-col w-full h-full">
+<div class="flex flex-col w-full h-full gap-6">
 
     <button class="flex justify-center items-center gap-4 bg-stone-200 min-w-fit w-fit h-fit p-4 mt-4 rounded-lg  active:bg-walter-300 font-bold shadow-4  ml-6" onclick="showAddProductForm()">
         <p class="text-orange-950 uppercase" >

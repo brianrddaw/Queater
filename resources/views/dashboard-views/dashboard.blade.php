@@ -10,9 +10,9 @@
 
     @if (Auth::check())
     <main class="w-full h-[calc(100vh-3.5rem)] bg-stone-100 grid grid-cols-10">
-        <aside class="flex flex-col h-auto  col-span-2 text-left m-2">
+        <aside class="flex flex-col h-auto  col-span-2 text-left m-2 border-r-4 border-orange-500 rounded pr-4">
 
-            <nav class="flex flex-col w-full h-full gap-4 p-4 text-orange-950 font-bold whitespace-nowrap">
+            <nav class="flex flex-col w-full h-full gap-4 px-2 text-orange-950 font-bold whitespace-nowrap">
                 <a href="{{ route('dashboard.main') }}" class="flex items-center gap-4 p-4 bg-stone-200 rounded-lg w-full truncate shadow-3">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -50,7 +50,7 @@
                 </a>
             </nav>
 
-            <form action="{{ route('logout') }}" method="post" class="w-full p-2 mt-auto">
+            <form action="{{ route('logout') }}" method="post" class="w-full px-2 mt-auto">
                 @csrf
                 <input type="hidden" name="route" value='dashboard.main'>
                 <button type="submit" class="flex items-center justify-center gap-4 bg-orange-500 w-full rounded p-4 hover:bg-orange-400 text-orange-50 font-bold text-lg bottom-0 relative">
