@@ -1,4 +1,3 @@
-
 @extends('dashboard-views.dashboard')
 
 @section('dashboard-content')
@@ -8,49 +7,37 @@
 @endsection
 <div class="flex flex-col w-full h-full">
 
-    <div class="flex items-center w-full h-[3.75rem]">
-        {{-- SEARCH --}}
-        <div class="flex items-center justify-center p-4 w-full h-full bg-walter-400 text-orange-950">
-
-            <input type="search" id="" name="" placeholder="Buscar  producto..." class=" w-full  h-full bg-transparent focus:outline-none "/>
-            <button class="drop-shadow-lg ">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                </svg>
-            </button>
-        </div>
-        {{-- ADD BUTTON --}}
-        <button class="bg-walter-400 min-w-fit h-full p-4 border-l-4  active:bg-walter-300 font-bold text-orange-950 uppercase" onclick="showAddProductForm()">Añadir</button>
-    </div>
-
-    <div class="flex  flex-wrap w-[100%] h-[calc(100vh-7.25rem)] p-6 gap-4  overflow-y-scroll">
+    <button class="flex justify-center items-center gap-4 bg-stone-200 min-w-fit w-fit h-fit p-4 mt-4 rounded-lg  active:bg-walter-300 font-bold shadow-4  ml-6" onclick="showAddProductForm()">
+        <p class="text-orange-950 uppercase" >
+            Agregar Producto
+        </p>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+    </button>
+    <div class="flex  flex-wrap w-[100%] h-[calc(100vh-7.25rem)] gap-4 overflow-y-scroll px-6">
         @foreach ( $productsByCategory as $category => $products)
 
-            <h2 class="text-2xl my-6 text-orange-950 font-bold bg-orange-200 w-full text-center py-4 ">{{ $category }}</h2>
+            <h2 class="text-2xl my-6 font-bold bg-orange-500 w-full text-center py-4 rounded-lg text-orange-50">{{ $category }}</h2>
 
-            <div class="w-full flex flex-col gap-4">
+            <div class="w-full flex flex-wrap justify-between gap-10">
                 @foreach ($products as  $product)
 
-                    <div class="card flex flex-col justify-between w-full h-fit bg-walter-300 border rounded p-2 py-6 gap-6 text-orange-950">
+                    <div class="card flex flex-col w-[28rem]  max-h[00px] bg-walter-300 border rounded p-2 py-6 gap-6 text-orange-950 sm:mx-auto lg:mx-0">
 
                             <div class="flex">
-
                                 <div class="flex w-full justify-between">
-
-
                                     <div class="flex gap-10">
-                                        <div class="flex items-center justify-center overflow-hidden w-20 h-20 bg-orange-500 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
-                                            <img  class="object-cover w-20 h-20 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
+                                        <div class="flex items-center justify-center w-20 h-20 bg-orange-950 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
+                                            <img  class="object-cover w-16 h-16 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
                                         </div>
-                                        <span class="pt-2 flex flex-col justify-between">
+                                        <span class=" flex flex-col justify-between">
                                             <h3 class="font-bold">{{ $product->name }}</h3>
                                             <div class="flex gap-4">
                                                 <p>Precio</p>
                                                 <p class="font-bold">{{ $product->price }} €</p>
                                             </div>
-
                                         </span>
-
                                     </div>
 
                                     <span class="w-28 flex flex-col gap-2 justify-between items-start">
@@ -107,7 +94,7 @@
                                     <svg id="svg-label" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14 text-walter-900 h-full active:scale-110 hover:cursor-pointer active:text-walter-950">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
-                                    <img id="image-for-label" src="" alt="Imagen del producto" class=" w-full h-full object-cover rounded-full bg-orange-500 hidden">
+                                    <img id="image-for-label" src="" alt="Imagen del producto" class=" w-full h-full object-cover rounded-full bg-orange-950 hidden">
                                 </label>
                                 <input type="file" id="image" name="image" accept="image/*" style="display: none;" />
                                 <p class="text-2xl text-walter-900  absolute top-56">96x96</p>
@@ -159,7 +146,7 @@
             cancelButtonText: 'Cancelar',
             cancelButtonColor: '#d33',
             confirmButtonColor: '#f97306',
-            position:'top-end',
+            position:'center',
 
         }).then((result) => {
 
@@ -226,7 +213,6 @@
 
     function createNewProduct(){
 
-        // creamos las constantes
         const image = $('#image')[0].files[0];
         const name = $('#name').val();
         const price = $('#price').val();
@@ -234,8 +220,6 @@
         const description = $('#description').val();
         const allergens = allergensArray;
 
-
-        // validate fields
         if (!image || !name || !price || !category || !description) {
             return Swal.fire(
                     'Error!',
@@ -245,15 +229,14 @@
         }
 
         var formData = new FormData();
-        formData.append('image', image); // Adjunta el archivo de imagen
-        formData.append('name', name.toString()); // Adjunta el nombre del producto
-        formData.append('price', parseFloat(price)); // Adjunta el precio del producto
-        formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
-        formData.append('description', description.toString()); // Adjunta la descripción del producto
+        formData.append('image', image);
+        formData.append('name', name.toString());
+        formData.append('price', parseFloat(price));
+        formData.append('category',  parseInt(category));
+        formData.append('description', description.toString());
         formData.append('_token', '{{ csrf_token() }}');
         formData.append('allergens', JSON.stringify(allergens));
 
-        // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
         $.ajax({
             url: '{{ route('dashboard.products.create') }}',
             type: 'POST',
@@ -267,7 +250,6 @@
                     'El producto ha sido agregado exitosamente.',
                     'success'
                 ).then(() => {
-                    // Recargar la página después de cerrar el mensaje de éxito
                     window.location.reload();
                 });
             },
@@ -278,7 +260,6 @@
                     'Ha ocurrido un error al intentar agregar el producto.',
                     'error'
                 ).then(() => {
-                    // Recargar la página después de cerrar el mensaje de éxito
                     window.location.reload();
                 });
             }
@@ -297,7 +278,6 @@
         const product_allergens = product.allergens;
         const id = product.id;
 
-        //Añade los alergenos al array de alergenos
         product_allergens.forEach(allergen => {
             allergensArray.push(allergen.id);
         });
@@ -320,7 +300,7 @@
                                     <svg id="svg-label" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden w-14 h-14 text-walter-900 h-full active:scale-110 hover:cursor-pointer active:text-walter-950">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
-                                    <img id="image-for-label" src="/storage/`+image_url+`" alt="Imagen del producto" class="aspect-square w-full bg-orange-500">
+                                    <img id="image-for-label" src="/storage/`+image_url+`" alt="Imagen del producto" class="aspect-square w-full bg-orange-950">
                                 </label>
                                 <input type="file" id="image" name="image" accept="image/*" style="display: none;" />
                             </div>
@@ -397,7 +377,7 @@
             cancelButtonText: 'Cancelar',
             cancelButtonColor: '#d33',
             confirmButtonColor: '#f97306',
-            position:'top-end',
+            position:'center',
 
             }).then((result) => {
 
@@ -409,7 +389,6 @@
                 }
 
                 if (result.isDismissed) {
-                    //Vacia la lista de alergenos
                     allergensArray = [];
                 }
             });
@@ -418,8 +397,6 @@
 
     function editProduct(id) {
 
-        // creamos las constantes
-
         const image = $('#image')[0].files[0];
         const name = $('#name').val();
         const price = $('#price').val();
@@ -427,10 +404,8 @@
         const description = $('#description').val();
         const allergens = allergensArray;
 
-        //Condición para saber si se ha cambiado la imagen
         let imgaChange = image ? true : false;
 
-        // validate fields
         if (!name || !price || !category || !description) {
             return Swal.fire(
                 'Error!',
@@ -439,24 +414,19 @@
             );
         }
 
-
-        // Se crea un objeto FormData para enviar los datos del formulario
         var formData = new FormData();
 
-        //Se verifica si hay una imagen nueva y sino pues no se envia la imagen
         if(imgaChange){
-            formData.append('image', image); // Adjunta el archivo de imagen
+            formData.append('image', image);
         }
-        formData.append('id', id); // Adjunta el id del producto
-        formData.append('name', name.toString()); // Adjunta el nombre del producto
-        formData.append('price', parseFloat(price)); // Adjunta el precio del producto
-        formData.append('category',  parseInt(category)); // Adjunta la categoría del producto
-        formData.append('description', description.toString()); // Adjunta la descripción del producto
+        formData.append('id', id);
+        formData.append('name', name.toString());
+        formData.append('price', parseFloat(price));
+        formData.append('category',  parseInt(category));
+        formData.append('description', description.toString());
         formData.append('_token', '{{ csrf_token() }}');
 
-        //Se añaden los alergenos al formulario como una array
         formData.append('allergens', JSON.stringify(allergens));
-        // Aquí puedes continuar con el envío del formulario, ya sea mediante AJAX u otro método, utilizando formData.
         $.ajax({
             url: '{{ route('dashboard.products.update') }}',
             type: 'POST',
@@ -470,7 +440,6 @@
                     'El producto ha sido editado exitosamente.',
                     'success'
                 ).then(() => {
-                    // Recargar la página después de cerrar el mensaje de éxito
                     window.location.reload();
                 });
             },
@@ -481,7 +450,6 @@
                     'Ha ocurrido un error al intentar agregar el producto.',
                     'error'
                 ).then(() => {
-                    // Recargar la página después de cerrar el mensaje de éxito
                     window.location.reload();
                 });
             }
@@ -503,7 +471,7 @@
             cancelButtonText: 'Cancelar',
             cancelButtonColor: '#d33',
             confirmButtonColor: '#f97306',
-            position:'top-end',
+            position:'center',
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log('ahora se ejecutará delete product');
@@ -512,7 +480,6 @@
         });
     }
     function deleteProduct(product_id) {
-        // una vez le pasamos la id, la usamos en la URL que proviene del arichivo web cuya ruta es /dashboard/products/delete/{id}
         $.ajax({
             url: '/dashboard/products/delete/' + product_id,
             type: 'DELETE',
@@ -526,7 +493,6 @@
                     'El producto ha sido eliminado exitosamente.',
                     'success'
                 ).then(() => {
-                    // Recargar la página después de cerrar el mensaje de éxito
                     window.location.reload();
                 });
             },
@@ -537,25 +503,19 @@
                     'Ha ocurrido un error al intentar eliminar el producto.',
                     'error'
                 ).then(() => {
-                    // Recargar la página después de cerrar el mensaje de éxito
                     window.location.reload();
                 });
             }
         });
     }
 
-    // PRICE VALIDATION
     function formatPrice(input) {
-        // Reemplazar cualquier caracter que no sea un número o un punto por una cadena vacía
         input.value = input.value.replace(/[^\d.]/g, '');
 
-        // Separar el número en parte entera y parte decimal
         var parts = input.value.split('.');
         if (parts.length > 2) {
-            // Si hay más de un punto, elimina los adicionales
             input.value = parts[0] + '.' + parts[1];
         } else if (parts.length === 2) {
-            // Si hay parte decimal, asegúrate de que no tenga más de dos dígitos
             parts[1] = parts[1].slice(0, 2);
             input.value = parts.join('.');
         }
