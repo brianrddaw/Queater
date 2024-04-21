@@ -13,6 +13,7 @@ use App\Http\Controllers\CashController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\LandPageController;
+use App\Http\Controllers\TableController;
 
 //////////////////////////
 //                      //
@@ -34,7 +35,7 @@ Route::get('/', [LandPageController::class, 'index']);
 // USER ROUTES
 //Route::get('/', [MainUserController::class, 'index'])->name('user.main');
 //Ruta para obtener los productos.
-Route::get('/eat-here/{mesa}', [EatHereController::class, 'eatHere'])->name('eat-here.main');
+Route::get('/eat-here/{table}', [EatHereController::class, 'eatHere'])->name('eat-here.main');
 //Ruta para obtener los productos.
 Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
 
@@ -129,6 +130,20 @@ Route::delete('/dashboard/categories/delete/{id}', [DashboardController::class, 
 
 
 
+//////////////////////////
+//                      //
+//        Tables        //
+//                      //
+//////////////////////////
+
+
+
+//Ruta para obtener las mesas en dashboard.
+Route::get('/dashboard/tables', [TableController::class, 'showTables'])->name('dashboard.tables');
+
+//Ruta para crear una nueva mesa.
+Route::get('/dashboard/tables/create', [TableController::class, 'createTable'])->name('dashboard.tables.create');
+
 
 
 
@@ -149,8 +164,9 @@ Route::get('/product/{product}', [ProductController::class, 'index'])->name('pro
 //////////////////////////
 
 //Ruta para generar un código QR.
-Route::get('/generate-qr-code', [QrCodeController::class, 'generateQrCode'])->name('generate.qr.code');
+Route::get('/generate-qr-code/{string}', [QrCodeController::class, 'generateQrCode'])->name('generate.qr.code');
 
 //TODO: Modificar ruta para descargar qrs en especifico.
 //Ruta para descargar un código QR.
-Route::get('/download-qr-code', [QrCodeController::class, 'downloadQrCode'])->name('download.qr.code');
+Route::get('/download-qr-code/{number}', [QrCodeController::class, 'downloadQrCode'])->name('download.qr.code');
+

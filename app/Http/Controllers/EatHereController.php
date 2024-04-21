@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class EatHereController extends Controller
 {
 
-    public function eatHere($mesa)
+    public function eatHere($table)
     {
         $categorys = DB::select('select id,name,position from categories order by position');
         $productsByCategory = [];
@@ -32,7 +32,7 @@ class EatHereController extends Controller
             [
                 'productsByCategory' => $productsByCategory,
                 'takeAway' => 0,
-                'mesa' => $mesa
+                'mesa' => $table,
             ],
         );
     }

@@ -10,31 +10,18 @@ use Illuminate\Support\Facades\Storage;
 
 class QrCodeController extends Controller
 {
-    public function generateQrCode()
+    public function generateQrCode($url, $number)
     {
-        // Change the image format to PNG
-
-        // String to generate the QR code
-        $string = 'holaaaaa';
-
         // Generate the QR code
-        $qr = QrCode::generate($string,storage_path('app/public/qrcodes_images/'). $string . '.svg');
-
-        // Ruta del archivo SVG
-        $svgFilePath = storage_path('app/public/qrcodes_images/'). $string . '.svg';
-
-        // Ruta de salida para el archivo PNG
-        $pngFilePath = storage_path('app/public/qrcodes_images/'). $string . '.png';
-
-
-        //TODO: Crear la mesa en la base de datos y guardar la ruta de la imagen en la base de datos.
+        $qr = QrCode::generate($url, storage_path('app/public/qrcodes_images/table_' . $number . '.svg'));
     }
 
 
+
     //TODO: Crear la función para descargar el archivo SVG en especifico.
-    function downloadQrCode()
+    function downloadQrCode($number)
     {
-        $filePath = 'qrcodes_images/holaaaaa.svg';
+        $filePath = 'qrcodes_images/table_' . $number . '.svg';
 
         // Verificar si el archivo existe
         if (Storage::disk('public')->exists($filePath)) {
