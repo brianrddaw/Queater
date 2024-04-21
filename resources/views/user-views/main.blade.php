@@ -25,7 +25,7 @@
         </section>
 
         <section class="w-fit h-fit flex flex-col justify-center items-center gap-4">
-            <a href="{{route('eat-here.main')}}"
+            <a href="{{ route('eat-here.main', ['mesa' => 1]) }}"
                 class="
                     flex flex-col
                     justify-center

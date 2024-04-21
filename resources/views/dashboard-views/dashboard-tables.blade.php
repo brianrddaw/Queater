@@ -6,11 +6,23 @@
 
         <section class="flex gap-2">
 
+            {{-- //TODO:Crear QR para cada mesa  --}}
+            <div>
+                <img src="/storage/qrcodes_images/holaaaaa.svg" id="svgImage" alt="SVG Image">
+                <form id="printForm">
+                    <button type="button" onclick="printSVG()">Imprimir SVG</button>
+                    <a href="{{ url('/download-qr-code') }}" class="btn btn-primary">Descargar SVG</a>
+                </form>
+            </div>
+
+
             <div id="canvas" class="dragging-container w-full h-[50vh] bg-gray-50 rounded-lg drop-shadow-md">
                 <div class="draggable flex flex-col items-center w-fit h-fit">
                     <p class="text-2xl font-bold">1</p>
                     <img src="../imgs/table.webp" alt="" class="w-10 h-10">
                 </div>
+
+
             </div>
             <div onclick="addTableToCanvas()" class="add-table flex flex-col items-center h-fit w-[20%] bg-gray-50 rounded-lg drop-shadow-md p-2 pt-4">
 
@@ -24,10 +36,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
 
-                    </div>
 
+
+
+                    </div>
                 </div>
             </div>
+
 
 
         </section>
@@ -38,6 +53,22 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 
     <script>
+
+        //Funcion para imrpimir SVGs
+        function printSVG() {
+            var svg = document.getElementById('svgImage').outerHTML;
+            var printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            //printWindow.document.write('<html><head><title>Print SVG</title></head><body>');
+            printWindow.document.write(svg);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+
+
+
 
         function addTableToCanvas(){
             const canvas = $('#canvas');

@@ -2,7 +2,6 @@
 @section('title', 'User')
 @section('content')
     @include ('user-views.components.slide-bar-component', ['categories' => $productsByCategory])
-
     <main class="eat-here-main flex flex-col items-center bg-stone-100 py-10 pb-20">
 
         @foreach ($productsByCategory as $category => $products)

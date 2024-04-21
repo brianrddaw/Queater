@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 class MainUserController extends Controller
 {
-    public function index()
+    public function index($mesa)
     {
-        return view('user-views.main');
+        if ($mesa == 1) {
+            return view('user-views.main');
+        }
     }
 }
