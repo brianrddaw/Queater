@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\Allergen;
 use App\Models\ProductsAllergens;
 use App\Models\Category;
-
+use App\Models\Table;
 
 class ProductsSeeder extends Seeder
 {
@@ -193,6 +193,20 @@ class ProductsSeeder extends Seeder
             ['product_id' => 15, 'allergen_id' => 6],
         ];
 
+        $tables = [
+            // ['number' => 1],
+            // ['number' => 2],
+            // ['number' => 3],
+            // ['number' => 4],
+            // ['number' => 5],
+            // ['number' => 6],
+            // ['number' => 7],
+            // ['number' => 8],
+            // ['number' => 9],
+            // ['number' => 10],
+        ];
+
+
         foreach ($categorys as $category) {
             Category::create($category);
         }
@@ -207,6 +221,10 @@ class ProductsSeeder extends Seeder
 
         foreach ($allerrgens_products as $allergen_product) {
             ProductsAllergens::create($allergen_product);
+        }
+
+        foreach ($tables as $table) {
+            Table::create($table);
         }
     }
 }

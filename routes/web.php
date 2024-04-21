@@ -11,6 +11,19 @@ use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CashController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\LandPageController;
+use App\Http\Controllers\TableController;
+
+//////////////////////////
+//                      //
+//      LandPage        //
+//                      //
+//////////////////////////
+Route::get('/', [LandPageController::class, 'index']);
+
+
+
 
 
 //////////////////////////
@@ -20,9 +33,9 @@ use App\Http\Controllers\StripeController;
 //////////////////////////
 
 // USER ROUTES
-Route::get('/', [MainUserController::class, 'index'])->name('user.main');
+//Route::get('/', [MainUserController::class, 'index'])->name('user.main');
 //Ruta para obtener los productos.
-Route::get('/eat-here', [EatHereController::class, 'eatHere'])->name('eat-here.main');
+Route::get('/eat-here/{table}', [EatHereController::class, 'eatHere'])->name('eat-here.main');
 //Ruta para obtener los productos.
 Route::get('/take-away', [TakeAwayController::class , 'takeAway'])->name('take-away.main');
 
@@ -117,6 +130,20 @@ Route::delete('/dashboard/categories/delete/{id}', [DashboardController::class, 
 
 
 
+//////////////////////////
+//                      //
+//        Tables        //
+//                      //
+//////////////////////////
+
+
+
+//Ruta para obtener las mesas en dashboard.
+Route::get('/dashboard/tables', [TableController::class, 'showTables'])->name('dashboard.tables');
+
+//Ruta para crear una nueva mesa.
+Route::get('/dashboard/tables/create', [TableController::class, 'createTable'])->name('dashboard.tables.create');
+
 
 
 
@@ -128,3 +155,18 @@ Route::delete('/dashboard/categories/delete/{id}', [DashboardController::class, 
 
 //Llama a un controlador enviando la id del producto.
 Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
+
+
+//////////////////////////
+//                      //
+//          QR          //
+//                      //
+//////////////////////////
+
+//Ruta para generar un código QR.
+Route::get('/generate-qr-code/{string}', [QrCodeController::class, 'generateQrCode'])->name('generate.qr.code');
+
+//TODO: Modificar ruta para descargar qrs en especifico.
+//Ruta para descargar un código QR.
+Route::get('/download-qr-code/{number}', [QrCodeController::class, 'downloadQrCode'])->name('download.qr.code');
+

@@ -5,17 +5,22 @@
     <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-4  flex flex-col gap-6">
 
         <section class="flex gap-2">
-
             <div id="canvas" class="dragging-container w-full h-[50vh] bg-gray-50 rounded-lg drop-shadow-md">
-                <div class="draggable flex flex-col items-center w-fit h-fit">
-                    <p class="text-2xl font-bold">1</p>
-                    <img src="../imgs/table.webp" alt="" class="w-10 h-10">
-                </div>
+
+                @foreach ($tables as $table)
+
+                    <div class="draggable flex flex-col items-center w-fit h-fit">
+                        <p class="text-2xl font-bold">{{ $table->number }}</p>
+                        <img src="../imgs/table.webp" alt="" class="w-10 h-10">
+                        <img src="/storage/qrcodes_images/table_{{ $table->number }}.svg" alt="Imagen SVG" class="svg-to-print" id="svg-{{ $table->number }}">
+                        <button type="button" onclick="printSVG('svg-{{ $table->number }}')">Imprimir SVG</button>
+                        <a href="{{ url('/download-qr-code/'.$table->number) }}" class="btn btn-primary">Descargar SVG</a>
+                    </div>
+
+                @endforeach
             </div>
             <div onclick="addTableToCanvas()" class="add-table flex flex-col items-center h-fit w-[20%] bg-gray-50 rounded-lg drop-shadow-md p-2 pt-4">
-
                 <div class="flex flex-col items-center">
-
                     <img src="../imgs/table.webp" alt="" class="w-10 h-10">
                     {{-- ADD TABLE --}}
                     <div>
@@ -23,11 +28,10 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-
                     </div>
-
                 </div>
             </div>
+
 
 
         </section>
@@ -39,23 +43,57 @@
 
     <script>
 
+        function printSVG(svgId) {
+            var svg = document.getElementById(svgId).outerHTML;
+            console.log(svg);
+            var printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            //printWindow.document.write('<html><head><title>Print SVG</title></head><body>');
+            printWindow.document.write(svg);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+
+
         function addTableToCanvas(){
-            const canvas = $('#canvas');
-            const mesa = `
-            <div class="draggable flex flex-col items-center w-fit h-fit">
-                <p class="text-2xl font-bold">1</p>
-                <img src="../imgs/table.webp" alt="" class="w-10 h-10">
-            </div>
 
-            `;
-            canvas.append(mesa);
+            $.ajax({
+                url: '/dashboard/tables/create',
+                type: 'GET',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response){
+                    console.log("Success");
+                    table_number = response.table_number;
+                    console.log("Table number: ",table_number);
 
+                    const canvas = $('#canvas');
+                    const mesa = `
+                        <div class="draggable flex flex-col items-center w-fit h-fit">
+                            <p class="text-2xl font-bold">${table_number}</p>
+                            <img src="../imgs/table.webp" alt="" class="w-10 h-10">
+                            <img src="/storage/qrcodes_images/table_${table_number}.svg" alt="Imagen SVG" class="svg-to-print" id="svg-${table_number}">
+                            <button type="button" onclick="printSVG('svg-${table_number}')">Imprimir SVG</button>
+                            <a href="{{ url('/download-qr-code/${table_number}') }}" class="btn btn-primary">Descargar SVG</a>
+                        </div>
+                    `;
+                    canvas.append(mesa);
+                },
+                error: function(error){
+                    console.log("Error: ",error.responseText);
+                }
+
+            });
         }
 
 
         $(document).ready(function() {
             $('.arrow-icon').click(function() {
                 toggleComments($(this));
+                console.log('click');
             });
         });
 

@@ -27,6 +27,7 @@ class TakeAwayController extends Controller
 
         return view('user-views.menu',
         ['productsByCategory' => $productsByCategory,
-        'takeAway' => 1]);
+        'takeAway' => 1,
+        'tableId' => 0]);
     }
 }

@@ -17,6 +17,9 @@ class OrderController extends Controller
     {
         $order = new Order();
         $order->take_away = $request->takeAway;
+        if ($request->table_number) {
+            $order->table_number = $request->table_number;
+        }
         $order->save();
 
         foreach($request->products as $product)
