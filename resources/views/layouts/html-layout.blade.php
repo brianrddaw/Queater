@@ -27,9 +27,9 @@
                         // NARANJAS
                         "orange-50": "#F9F9F9",
                         // "orange-100": "#F7A288",
-                        "orange-200": "#E5E3E2",
-                        "orange-300": "#F36D26",
-                        "orange-400": "#DA591C",
+                        // "orange-200": "#E5E3E2",
+                        // "orange-300": "#F36D26",
+                        // "orange-400": "#DA591C",
                         "orange-500": "#FF5B19",
                         "orange-600": "#C35013",
                         "orange-700": "#9B460F",
