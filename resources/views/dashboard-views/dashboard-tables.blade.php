@@ -15,6 +15,7 @@
                         <img src="/storage/qrcodes_images/table_{{ $table->number }}.svg" alt="Imagen SVG" class="svg-to-print" id="svg-{{ $table->number }}">
                         <button type="button" onclick="printSVG('svg-{{ $table->number }}')">Imprimir SVG</button>
                         <a href="{{ url('/download-qr-code/'.$table->number) }}" class="btn btn-primary">Descargar SVG</a>
+                        <button type="button" onclick="deleteTable({{ $table->number }})" class="btn btn-primary">Eliminar</button>
                     </div>
 
                 @endforeach
@@ -35,6 +36,21 @@
 
 
         </section>
+        {{-- Si existe el QR take_away.svg se renderiza sino no --}}
+        @if(file_exists(public_path('storage/qrcodes_images/take_away.svg')))
+            <div class="flex flex-col items-center">
+                <h1 class="text-2xl font-bold">QR para llevar</h1>
+                <img src="/storage/qrcodes_images/take_away.svg" alt="Imagen SVG" class="svg-to-print" id="svg-take-away">
+                <button type="button" onclick="printSVG('svg-take-away')">Imprimir SVG</button>
+                <a href="{{ url('/download-qr-code/take-away') }}" class="btn btn-primary">Descargar SVG</a>
+            </div>
+        @else
+            <div class="flex flex-col items-center">
+                <h1 class="text-2xl font-bold">QR para llevar</h1>
+                <p>No hay QR para llevar</p>
+                <button type="button" onclick="addTakeAwayQR()">Generar QR para llevar</button>
+            </div>
+        @endif
     </main>
 
 
@@ -42,6 +58,26 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 
     <script>
+
+
+        function addTakeAwayQR(){
+            $.ajax({
+                url: '/generate-qr-code-take-away',
+                type: 'GET',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response){
+                    console.log("Success");
+                    console.log(response);
+                    location.reload();
+                },
+                error: function(error){
+                    console.log("Error: ",error.responseText);
+                }
+
+            });
+        }
 
         function printSVG(svgId) {
             var svg = document.getElementById(svgId).outerHTML;
@@ -78,6 +114,7 @@
                             <img src="/storage/qrcodes_images/table_${table_number}.svg" alt="Imagen SVG" class="svg-to-print" id="svg-${table_number}">
                             <button type="button" onclick="printSVG('svg-${table_number}')">Imprimir SVG</button>
                             <a href="{{ url('/download-qr-code/${table_number}') }}" class="btn btn-primary">Descargar SVG</a>
+                            <button type="button" onclick="deleteTable(${table_number})" class="btn btn-primary">Eliminar</button>
                         </div>
                     `;
                     canvas.append(mesa);
@@ -88,6 +125,26 @@
 
             });
         }
+
+        function deleteTable(table_number){
+            $.ajax({
+                url: '/dashboard/tables/delete/'+table_number,
+                type: 'DELETE',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response){
+                    console.log("Success");
+                    console.log(response);
+                    location.reload();
+                },
+                error: function(error){
+                    console.log("Error: ",error.responseText);
+                }
+
+            });
+        }
+
 
 
         $(document).ready(function() {

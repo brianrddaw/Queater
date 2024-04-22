@@ -24,8 +24,18 @@ class TableController extends Controller
 
     public function createTable()
     {
-        //El numero de la mesa nueva sera el numero de mesas + 1
-        $number = DB::table('tables')->count() + 1;
+        //El numero de la mesa nueva sera el id de mesa mas bajo posible que no exista en la base de datos
+        //Ejemplo: si exsiste la mesa 2,3,4 el id de la nueva mesa sera 1
+        $number = 1;
+        $tables = Table::all();
+        foreach ($tables as $table) {
+            if ($table->number == $number) {
+                $number++;
+            } else {
+                break;
+            }
+        }
+
         //Crea la nueva mesa en la base de datos usando el modelo
         $table = new Table();
         $table->id = $number;
@@ -40,4 +50,18 @@ class TableController extends Controller
             'table_number' => $number,
         ]);
     }
+
+    public function deleteTable($id)
+    {
+        //Elimina la mesa de la base de datos
+        Table::destroy($id);
+        //Elimina el QR de la mesa
+        $this->qrCodeController->deleteQrCode($id);
+        //Redirige a la vista de mesas
+        return response()->json([
+            'message' => 'Table deleted successfully',
+        ]);
+    }
+
+
 }

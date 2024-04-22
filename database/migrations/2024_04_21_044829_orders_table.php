@@ -16,7 +16,8 @@ return new class extends Migration
             $table->id(); //Identificador del pedido
             $table->boolean('take_away'); //Tipo de pedido (para llevar o para comer aquí)
             $table->string('state')->default("new"); //Estado del pedido (new, pending, ready, delivered)(pending, preparing, ready, delivered)
-            $table->foreignId('table_id')->nullable()->references('id')->on('tables'); //Identificador de la mesa
+            //On delete dejar igual
+            $table->foreignId('table_id'); //Mesa a la que pertenece el pedido
             $table->timestamps(); //Fecha del pedido
         });
     }

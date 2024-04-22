@@ -33,4 +33,18 @@ class QrCodeController extends Controller
         }
 
     }
+
+    public function deleteQrCode($number)
+    {
+        // Delete the QR code
+        Storage::disk('public')->delete('qrcodes_images/table_' . $number . '.svg');
+    }
+
+    public function generateQrCodeTakeAway()
+    {
+        // Generate the QR code
+        $qr = QrCode::generate(route('take-away.main'), storage_path('app/public/qrcodes_images/take_away.svg'));
+    }
+
+
 }

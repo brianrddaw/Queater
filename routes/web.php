@@ -144,6 +144,9 @@ Route::get('/dashboard/tables', [TableController::class, 'showTables'])->name('d
 //Ruta para crear una nueva mesa.
 Route::get('/dashboard/tables/create', [TableController::class, 'createTable'])->name('dashboard.tables.create');
 
+//Ruta para eliminar una mesa.
+Route::delete('/dashboard/tables/delete/{id}', [TableController::class, 'deleteTable'])->name('dashboard.tables.delete');
+
 
 
 
@@ -170,3 +173,8 @@ Route::get('/generate-qr-code/{string}', [QrCodeController::class, 'generateQrCo
 //Ruta para descargar un código QR.
 Route::get('/download-qr-code/{number}', [QrCodeController::class, 'downloadQrCode'])->name('download.qr.code');
 
+//Ruta para eliminar un código QR.
+Route::get('/delete-qr-code/{number}', [QrCodeController::class, 'deleteQrCode'])->name('delete.qr.code');
+
+//Ruta para generar un código QR para llevar.
+Route::get('/generate-qr-code-take-away', [QrCodeController::class, 'generateQrCodeTakeAway'])->name('generate.qr.code.take-away');
