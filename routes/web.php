@@ -24,8 +24,6 @@ Route::get('/', [LandPageController::class, 'index']);
 
 
 
-
-
 //////////////////////////
 //                      //
 //        User          //
@@ -33,7 +31,8 @@ Route::get('/', [LandPageController::class, 'index']);
 //////////////////////////
 
 // USER ROUTES
-//Route::get('/', [MainUserController::class, 'index'])->name('user.main');
+Route::get('/main', [MainUserController::class, 'index'])->name('user.main');
+
 //Ruta para obtener los productos.
 Route::get('/eat-here/{table}', [EatHereController::class, 'eatHere'])->name('eat-here.main');
 //Ruta para obtener los productos.
