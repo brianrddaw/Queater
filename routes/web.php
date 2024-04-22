@@ -178,3 +178,6 @@ Route::get('/delete-qr-code/{number}', [QrCodeController::class, 'deleteQrCode']
 
 //Ruta para generar un código QR para llevar.
 Route::get('/generate-qr-code-take-away', [QrCodeController::class, 'generateQrCodeTakeAway'])->name('generate.qr.code.take-away');
+
+//Ruta para eliminar el código QR para llevar.
+Route::get('/delete-qr-code-take-away', [QrCodeController::class, 'deleteQrCodeTakeAway'])->name('delete.qr.code.take-away');

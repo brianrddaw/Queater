@@ -3,7 +3,6 @@
 @section('content')
     @include ('user-views.components.slide-bar-component', ['categories' => $productsByCategory])
     <main class="eat-here-main flex flex-col items-center bg-stone-100 py-10 pb-20">
-        <h1>{{ $tableId }}
         @foreach ($productsByCategory as $category => $products)
             <article class="flex flex-col w-full h-full bg-stone-100 pb-10">
                 <span id="{{ $category }}"></span>
