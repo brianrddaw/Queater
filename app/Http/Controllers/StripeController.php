@@ -90,7 +90,6 @@ class StripeController extends Controller
 
     public function getTicket($orderId, $tableId)
     {
-        echo $orderId;
         return view('user-views.user-payments.success', ['orderId' => $orderId, 'tableId' => $tableId]);
     }
 
