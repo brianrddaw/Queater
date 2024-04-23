@@ -12,8 +12,9 @@ class KitchenController extends Controller
     {
         $orderController = new OrderController();
         $ordersJson = $orderController->getOrderByCondition();
+        $readyOrdersJson = $orderController->getOrderByCondition(null, true);
         return view('kitchen-views.kitchen', [
-            'orders' => $ordersJson,
+            'orders' => $ordersJson, 'readyOrders' => $readyOrdersJson
         ]);
     }
 
@@ -57,6 +58,7 @@ class KitchenController extends Controller
                 'orders_line' => $orderLines,
             ];
         }
+
         return response()->json($ordersJson);
     }
 

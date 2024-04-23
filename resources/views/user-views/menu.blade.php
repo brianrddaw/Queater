@@ -21,7 +21,6 @@
                 </article>
             @endforeach
 
-
             <div id="cart-header" class="hidden grid-cols-3 fixed bottom-0 justify-items-center items-center w-[100%] h-fit py-4 bg-stone-100 border-t-2 border-r-l-2 border-orange-950 rounded-t z-999">
                 <span class="flex gap-2 mr-auto pl-4 text-sm ">
                     <p class="font-bold">Total:</p>
@@ -265,6 +264,7 @@
         </script>
 
         <style>
+
             article:nth-child(even) {
                 background-color: #e7e5e4;
             }

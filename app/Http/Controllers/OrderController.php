@@ -32,15 +32,21 @@ class OrderController extends Controller
         }
     }
 
-    public function getOrderByCondition($condition = null)
+    public function getOrderByCondition($condition = null, $ready_orders = false)
     {
-        $ordersData = Order::with('ordersLine.product')
-        ->where('state', '!=', 'ready')
-        ->where('state', '!=', 'delivered');
+        $ordersData = Order::with('ordersLine.product');
 
         if (!empty($condition['orderId'])) {
             $ordersData = $ordersData->where('id', $condition['orderId']);
         }
+
+        if (!$ready_orders) {
+            $ordersData = $ordersData->where('state', '!=','ready');
+        } else {
+            $ordersData = $ordersData->where('state', 'ready');
+            $ordersData = $ordersData->where('created_at', '>=', now()->subHours(3));
+        }
+
 
         $ordersData = $ordersData->get();
 
