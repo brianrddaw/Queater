@@ -11,16 +11,7 @@
     {{-- Si hay un usuario logeado muestra la cocina, sino muestra el loggin --}}
     @if (Auth::check())
 
-        {{-- SEARCH --}}
-        <div class="w-full mb-10 bg-walter-300 px-4 flex items-center">
-            <div class="w-full flex items-center bg-walter-300 rounded pY-4">
-                <input type="text" id="search" placeholder="Buscar pedido..." class="w-full p-2 bg-transparent focus:outline-none text-orange-950">
 
-                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"  class="text-gray-500 w-8 h-8">
-                    <path fill-rule="evenodd"  d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
-                </svg>
-            </div>
-        </div>
 
         {{-- SECTION --}}
         <section class="flex flex-col px-4 pb-4">
