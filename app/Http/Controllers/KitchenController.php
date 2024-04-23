@@ -11,10 +11,12 @@ class KitchenController extends Controller
     public function index()
     {
         $orderController = new OrderController();
-        $ordersJson = $orderController->getOrderByCondition();
-        $readyOrdersJson = $orderController->getOrderByCondition(null, true);
+
+        $preparingOrderJson = $orderController->preparingOrderJson();
+        $readyOrdersJson = $orderController->getReadyOrders();
         return view('kitchen-views.kitchen', [
-            'orders' => $ordersJson, 'readyOrders' => $readyOrdersJson
+            'preparingOrders' => $preparingOrderJson,
+            'readyOrders' => $readyOrdersJson
         ]);
     }
 

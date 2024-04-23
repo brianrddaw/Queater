@@ -132,14 +132,14 @@
             function addToOrderHtml(product, image_url)
             {
                 var cartCtn = $('#cart-products-container');
-                var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card flex justify-between mx-auto w-full max-w-[400px] min-w-32 rounded-xl px-3 py-3 bg-stone-100 text-orange-950 drop-shadow-[0_3px_3px_rgba(0,0,0,.3)] text-sm"></div>');
+                var productCard = $('<div id="cartProductCard' + product.id + '"class="cart-product-card flex justify-between mx-auto w-full max-w-[400px] min-w-32 rounded-xl px-3 py-2 bg-stone-100 text-orange-950 drop-shadow-[0_3px_3px_rgba(0,0,0,.3)] text-sm"></div>');
                 var productImg = $('<div class="flex items-center justify-center overflow-hidden w-10 h-10 bg-orange-950 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]"><img class="object-cover w-8 h-8 rounded-full" src="/storage/'+ image_url + '" alt=""></div>');
                 var productInfo = $('<div class="flex flex-col justify-between max-w-[180px] min-w-[180px]"></div>');
                 var productName = $('<p class="font-bold leading-none h-4 min-hfit overflow-hidden whitespace-nowrap text-ellipsis">' + product.name + '</p>');
 
                 productInfo.append(productName);
 
-                var quantity = $('<div class="flex items-center max-w-20 gap-2"></div>');
+                var quantity = $('<div class="flex justify-between items-center max-w-20 gap-2"></div>');
 
                 quantity.append('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 substract-button"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>');
                 quantity.append('<p class="product-quantity flex items-center justify-center leading-none w-4 text-sm text-center tabular-nums">' + product.quantity + '</p>');
@@ -148,7 +148,7 @@
 
                 var productButtons = $('<div class="flex flex-col justify-between"></div>');
                 var deleteIcon = $('<div class="delete-product-button cursor-pointer flex items-center gap-2 ml-auto"></div>');
-                deleteIcon.append('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="red" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>');
+                deleteIcon.append('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="red" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>');
                 productButtons.append(deleteIcon);
                 var productPrice = $('<p class="leading-none max-h-4 overflow-hidden whitespace-nowrap text-ellipsis text-sm ml-auto ">' + product.price + ' €</p>');
 

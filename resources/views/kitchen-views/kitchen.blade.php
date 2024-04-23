@@ -4,6 +4,7 @@
 
 @section('navegacion')
     <a href="{{ route('dashboard.main') }}">dashboard</a>
+    <a href="{{ route('cash.main') }}">cash</a>
 @endsection
 
 @section('content')
@@ -42,13 +43,7 @@
                                                         </strong>
                                                     </div>
 
-                                                    <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
-                                                        <strong>Ingredientes</strong>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="  w-7 h-7 transition-all">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                        </svg>
 
-                                                    </div>
                                                 </div>
                                                 <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
                                                     <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
@@ -67,25 +62,25 @@
 
                 <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[75vh] overflow-y-scroll">
                     <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Pedidos en cola</h2>
-                    @foreach ($orders as $order)
+                    @foreach ($preparingOrders as $preparingOrder)
                         <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
 
                             <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
                                 <div>
                                     <strong>Pedido: </strong>
-                                    {{ $order['id'] }}
+                                    {{ $preparingOrder['id'] }}
                                 </div>
 
                                 <div >
-                                    <strong>{{ $order['take_away'] ? 'Para llevar' : 'Mesa: ' . $order['table_id'] . '' }}</strong>
+                                    <strong>Para llevar</strong>
                                 </div>
 
-                                <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="confirmOrder(this, {{ $order['id'] }})">Hecho</button>
+                                <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="confirmOrder(this, {{ $preparingOrder['id'] }})">Hecho</button>
                             </div>
 
                             <div class="flex items-center px-4 pt-0">
                                 <ul class="flex flex-col w-full">
-                                    @foreach ($order['orders_line'] as $orderLine)
+                                    @foreach ($preparingOrder['orders_line'] as $orderLine)
                                         <li class="order-line flex flex-col items-center py-4 ">
                                             <div class="flex items-center  w-full ">
 
@@ -96,13 +91,13 @@
                                                         </strong>
                                                     </div>
 
-                                                    <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
+                                                    <!-- <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
                                                         <strong>Ingredientes</strong>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="  w-7 h-7 transition-all">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                         </svg>
 
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
                                                     <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
@@ -198,7 +193,6 @@
                 }
             });
         }, 5000);
-
     </script>
 
 @endsection
@@ -208,44 +202,40 @@
 
 <script>
 
-    function confirmOrder(order, orderId){
+    function confirmOrder(order, orderId)
+    {
         const card = $(order).closest('.order-container');
 
         Swal.fire({
             title: "¿Quieres terminar el pedido?",
             customClass: {
-
                 confirmButton: 'border-0 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400',
                 cancelButton: 'border-0 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400 ml-2',
                 title: 'text-green-950',
-
-
             },
             buttonsStyling: false,
             showCancelButton: true,
             confirmButtonText: "Confirmar",
             cancelButtonText: "Cancelar",
             focusConfirm: false
+
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
 
                 Swal.fire({
                     title: "¡Pedido terminado!",
                     customClass: {
                         confirmButton: 'border border-orange-500 bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600',
-                        popup: 'bg-white', // Clase para personalizar el fondo del pop-up
-                        title: 'text-orange-950', // Clase para personalizar el color del texto del título
+                        popup: 'bg-white',
+                        title: 'text-orange-950',
 
                     },
                     icon: "success",
-                    iconColor: '#84cc16', // Clase para personalizar el color del icono
-                    showConfirmButton: false, // Oculta el botón de confirmación
+                    iconColor: '#84cc16',
+                    showConfirmButton: false,
                     buttonsStyling: false,
-                    timer: 1000 // Tiempo en milisegundos antes de que el pop-up se cierre automáticamente
+                    timer: 1000
                 });
-
-
 
                 $.ajax({
                     url: "{{ route('kitchen.orders.change-status') }}",
@@ -258,23 +248,21 @@
                         card.fadeOut(200, function() {
                             $(this).remove();
                         });
-                        console.log('Pedido hecho');
+
+                        window.location.reload();
                     }
                 });
             }
         });
-
-
     }
 
 
-    function ingredientsDisplay(card){
-
+    function ingredientsDisplay(card)
+    {
         const ingredientsContainer = $(card).closest('.order-line').find('.ingredients-container');
         const plusSvg = $(card).find('svg');
         ingredientsContainer.slideToggle(200);
         plusSvg.toggleClass('text-red-500 rotate-45');
-
     }
 </script>
 
