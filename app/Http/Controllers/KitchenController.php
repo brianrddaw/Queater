@@ -12,7 +12,6 @@ class KitchenController extends Controller
     {
         $orderController = new OrderController();
         $ordersJson = $orderController->getOrderByCondition();
-
         return view('kitchen-views.kitchen', [
             'orders' => $ordersJson,
         ]);
@@ -51,6 +50,7 @@ class KitchenController extends Controller
             $ordersJson[] = [
                 'id' => $order->id,
                 'take_away' => $order->take_away,
+                'table_id' => $order->table_id,
                 'state' => $order->state,
                 'created_at' => $order->created_at->toIso8601String(),
                 'updated_at' => $order->updated_at->toIso8601String(),
@@ -69,6 +69,7 @@ class KitchenController extends Controller
         return response()->json([
             'id' => $order->id,
             'take_away' => $order->take_away,
+            'table_id' => $order->table_id,
             'state' => $order->state,
             'created_at' => $order->created_at->toIso8601String(),
             'updated_at' => $order->updated_at->toIso8601String(),

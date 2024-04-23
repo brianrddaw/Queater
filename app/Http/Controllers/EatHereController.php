@@ -10,6 +10,7 @@ class EatHereController extends Controller
 
     public function eatHere($table)
     {
+        //TODO: Verificar si la mesa existe.
         $categorys = DB::select('select id,name,position from categories order by position');
         $productsByCategory = [];
 

@@ -14,8 +14,4 @@ class Table extends Model
         'available',
     ];
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
 }
