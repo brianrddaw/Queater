@@ -41,14 +41,22 @@ class OrderController extends Controller
 
     public function getReadyOrders()
     {
-        $readyOrdersData = Order::where('state', 'ready')->with('ordersLine.product')->get();
+        $readyOrdersData = Order::where('state', 'ready')
+                            ->where('created_at', '>=', now()->subHours(48))
+                            ->with('ordersLine.product')
+                            ->orderby('created_at', 'desc')
+                            ->get();
         $readyOrdersJson = $this->_formatOrdersData($readyOrdersData);
         return $readyOrdersJson;
     }
 
     public function getTakeAwayOrders()
     {
-        $takeAwayOrdersData = Order::where('take_away', true)->with('ordersLine.product')->get();
+        $takeAwayOrdersData = Order::where('take_away', true)
+                                ->with('ordersLine.product')
+                                ->where('state', 'preparing')
+                                ->orderby('created_at', 'desc')
+                                ->get();
 
         $takeAwayOrdersJson = $this->_formatOrdersData($takeAwayOrdersData);
         return $takeAwayOrdersJson;
@@ -56,7 +64,12 @@ class OrderController extends Controller
 
     public function getEatHereOrders()
     {
-        $eatHereOrdersData = Order::where('take_away', false)->with('ordersLine.product')->get();
+        $eatHereOrdersData = Order::where('take_away', false)
+                                ->with('ordersLine.product')
+                                ->where('state', 'preparing')
+                                ->orderby('created_at', 'desc')
+                                ->get();
+
         $eatHereOrdersJson = $this->_formatOrdersData($eatHereOrdersData);
         return $eatHereOrdersJson;
     }
