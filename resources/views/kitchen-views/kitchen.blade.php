@@ -224,9 +224,6 @@
                     </ul>
                 </div>
                 </div>`;
-
-                //Borra el contenido de la lista de pedidos listos
-
                 $('#ready-orders-ctn').append(orderContainer);
             });
         }
@@ -250,7 +247,6 @@
                 type: 'GET',
                 success: function(data) {
                     if (data.length > 0) {
-                        console.log(data);
                         showNewOrdersDones(data);
                     }
                 },
