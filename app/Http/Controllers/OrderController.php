@@ -32,23 +32,41 @@ class OrderController extends Controller
         }
     }
 
-    public function getOrderByCondition($condition = null)
+    public function preparingOrderJson()
     {
-        $ordersData = Order::with('ordersLine.product')
-        ->where('state', '!=', 'ready')
-        ->where('state', '!=', 'delivered');
+        $preparingOrderData = Order::where('state', 'preparing')->with('ordersLine.product')->get();
+        $preparingOrderJson = $this->_formatOrdersData($preparingOrderData);
+        return $preparingOrderJson;
+    }
 
-        if (!empty($condition['orderId'])) {
-            $ordersData = $ordersData->where('id', $condition['orderId']);
-        }
+    public function getReadyOrders()
+    {
+        $readyOrdersData = Order::where('state', 'ready')->with('ordersLine.product')->get();
+        $readyOrdersJson = $this->_formatOrdersData($readyOrdersData);
+        return $readyOrdersJson;
+    }
 
-        $ordersData = $ordersData->get();
+    public function getTakeAwayOrders()
+    {
+        $takeAwayOrdersData = Order::where('take_away', true)->with('ordersLine.product')->get();
 
+        $takeAwayOrdersJson = $this->_formatOrdersData($takeAwayOrdersData);
+        return $takeAwayOrdersJson;
+    }
+
+    public function getEatHereOrders()
+    {
+        $eatHereOrdersData = Order::where('take_away', false)->with('ordersLine.product')->get();
+        $eatHereOrdersJson = $this->_formatOrdersData($eatHereOrdersData);
+        return $eatHereOrdersJson;
+    }
+
+    private function _formatOrdersData($ordersData)
+    {
         $ordersJson = [];
-
-        foreach ($ordersData as $order) {
+        foreach ($ordersData as $orderData) {
             $orderLines = [];
-            foreach ($order->ordersLine as $orderLine) {
+            foreach ($orderData->ordersLine as $orderLine) {
                 $orderLines[] = [
                     'id' => $orderLine->id,
                     'order_id' => $orderLine->order_id,
@@ -63,17 +81,16 @@ class OrderController extends Controller
                     ]
                 ];
             }
-
             $ordersJson[] = [
-                'id' => $order->id,
-                'take_away' => $order->take_away,
-                'state' => $order->state,
-                'created_at' => $order->created_at->toIso8601String(),
-                'updated_at' => $order->updated_at->toIso8601String(),
+                'id' => $orderData->id,
+                'take_away' => $orderData->take_away,
+                'table_id' => $orderData->table_id,
+                'state' => $orderData->state,
+                'created_at' => $orderData->created_at->toIso8601String(),
+                'updated_at' => $orderData->updated_at->toIso8601String(),
                 'orders_line' => $orderLines,
             ];
         }
-
         return $ordersJson;
     }
 

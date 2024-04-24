@@ -11,10 +11,12 @@ class KitchenController extends Controller
     public function index()
     {
         $orderController = new OrderController();
-        $ordersJson = $orderController->getOrderByCondition();
 
+        $preparingOrderJson = $orderController->preparingOrderJson();
+        $readyOrdersJson = $orderController->getReadyOrders();
         return view('kitchen-views.kitchen', [
-            'orders' => $ordersJson,
+            'preparingOrders' => $preparingOrderJson,
+            'readyOrders' => $readyOrdersJson
         ]);
     }
 
@@ -51,12 +53,14 @@ class KitchenController extends Controller
             $ordersJson[] = [
                 'id' => $order->id,
                 'take_away' => $order->take_away,
+                'table_id' => $order->table_id,
                 'state' => $order->state,
                 'created_at' => $order->created_at->toIso8601String(),
                 'updated_at' => $order->updated_at->toIso8601String(),
                 'orders_line' => $orderLines,
             ];
         }
+
         return response()->json($ordersJson);
     }
 
@@ -69,6 +73,7 @@ class KitchenController extends Controller
         return response()->json([
             'id' => $order->id,
             'take_away' => $order->take_away,
+            'table_id' => $order->table_id,
             'state' => $order->state,
             'created_at' => $order->created_at->toIso8601String(),
             'updated_at' => $order->updated_at->toIso8601String(),

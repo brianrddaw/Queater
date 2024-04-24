@@ -92,6 +92,7 @@
         @endif
     </header>
 
+
     @yield('content')
 
     <script>
@@ -141,6 +142,24 @@
             min-width: 0;
             font-family: 'Encode Sans';
         }
+
+        /* Estilo básico del scrollbar */
+        ::-webkit-scrollbar {
+            width: .3rem; /* Ancho del scrollbar */
+            height: .3rem; /* Altura del scrollbar */
+        }
+
+        /* Estilo del "pulgar" del scrollbar */
+        ::-webkit-scrollbar-thumb {
+            background-color: #FF5B19; /* Color del "pulgar" */
+            border-radius: 5px; /* Radio de borde del "pulgar" */
+        }
+
+        /* Estilo de la pista del scrollbar */
+        ::-webkit-scrollbar-track {
+            background-color: lightgray; /* Color de fondo de la pista */
+        }
+
 
         html {
             scroll-behavior: smooth;
