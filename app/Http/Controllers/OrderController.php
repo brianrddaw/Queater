@@ -34,19 +34,22 @@ class OrderController extends Controller
 
     public function preparingOrderJson()
     {
-        $preparingOrderData = Order::where('state', 'preparing')->with('ordersLine.product')->get();
-        $preparingOrderJson = $this->_formatOrdersData($preparingOrderData);
+        $preparingOrderData = Order::where('state', 'preparing')
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'desc')
+                                ->get();
+        $preparingOrderJson = $this->formatOrdersData($preparingOrderData);
         return $preparingOrderJson;
     }
 
     public function getReadyOrders()
     {
         $readyOrdersData = Order::where('state', 'ready')
-                            ->where('created_at', '>=', now()->subHours(48))
+                            ->where('created_at', '>=', now()->subHours(24))
                             ->with('ordersLine.product')
                             ->orderby('created_at', 'desc')
                             ->get();
-        $readyOrdersJson = $this->_formatOrdersData($readyOrdersData);
+        $readyOrdersJson = $this->formatOrdersData($readyOrdersData);
         return $readyOrdersJson;
     }
 
@@ -58,7 +61,7 @@ class OrderController extends Controller
                                 ->orderby('created_at', 'desc')
                                 ->get();
 
-        $takeAwayOrdersJson = $this->_formatOrdersData($takeAwayOrdersData);
+        $takeAwayOrdersJson = $this->formatOrdersData($takeAwayOrdersData);
         return $takeAwayOrdersJson;
     }
 
@@ -70,11 +73,11 @@ class OrderController extends Controller
                                 ->orderby('created_at', 'desc')
                                 ->get();
 
-        $eatHereOrdersJson = $this->_formatOrdersData($eatHereOrdersData);
+        $eatHereOrdersJson = $this->formatOrdersData($eatHereOrdersData);
         return $eatHereOrdersJson;
     }
 
-    private function _formatOrdersData($ordersData)
+    public function formatOrdersData($ordersData)
     {
         $ordersJson = [];
         foreach ($ordersData as $orderData) {

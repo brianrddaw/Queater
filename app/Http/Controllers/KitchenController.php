@@ -24,86 +24,31 @@ class KitchenController extends Controller
     {
         $ordersData = Order::with('ordersLine.product')
         ->where('state', 'new')
+        ->orderby('created_at', 'desc')
         ->get();
 
         foreach ($ordersData as $order) {
             $order->state = 'preparing';
             $order->save();
         }
-        $ordersJson = [];
 
-        foreach ($ordersData as $order) {
-            $orderLines = [];
-            foreach ($order->ordersLine as $orderLine) {
-                $orderLines[] = [
-                    'id' => $orderLine->id,
-                    'order_id' => $orderLine->order_id,
-                    'product_id' => $orderLine->product_id,
-                    'quantity' => $orderLine->quantity,
-                    'product' => [
-                        'id' => $orderLine->product->id,
-                        'name' => $orderLine->product->name,
-                        'description' => $orderLine->product->description,
-                        'price' => $orderLine->product->price,
-                        'image_url' => $orderLine->product->image_url,
-                    ]
-                ];
-            }
-
-            $ordersJson[] = [
-                'id' => $order->id,
-                'take_away' => $order->take_away,
-                'table_id' => $order->table_id,
-                'state' => $order->state,
-                'created_at' => $order->created_at->toIso8601String(),
-                'updated_at' => $order->updated_at->toIso8601String(),
-                'orders_line' => $orderLines,
-            ];
-        }
-
+        $orderController = new OrderController();
+        $ordersJson = $orderController->formatOrdersData($ordersData);
         return response()->json($ordersJson);
     }
-
 
     public function sendReadyOrders()
     {
         $ordersData = Order::with('ordersLine.product')
-        ->where('state', 'ready')
-        ->get();
+                        ->where('created_at', '>=', now()->subHours(24))
+                        ->where('state', 'ready')
+                        ->orderby('created_at', 'desc')
+                        ->get();
 
-        $ordersJson = [];
-
-        foreach ($ordersData as $order) {
-            $orderLines = [];
-            foreach ($order->ordersLine as $orderLine) {
-                $orderLines[] = [
-                    'id' => $orderLine->id,
-                    'order_id' => $orderLine->order_id,
-                    'product_id' => $orderLine->product_id,
-                    'quantity' => $orderLine->quantity,
-                    'product' => [
-                        'id' => $orderLine->product->id,
-                        'name' => $orderLine->product->name,
-                        'description' => $orderLine->product->description,
-                        'price' => $orderLine->product->price,
-                        'image_url' => $orderLine->product->image_url,
-                    ]
-                ];
-            }
-
-            $ordersJson[] = [
-                'id' => $order->id,
-                'take_away' => $order->take_away,
-                'table_id' => $order->table_id,
-                'state' => $order->state,
-                'created_at' => $order->created_at->toIso8601String(),
-                'updated_at' => $order->updated_at->toIso8601String(),
-                'orders_line' => $orderLines,
-            ];
-        }
+        $orderController = new OrderController();
+        $ordersJson = $orderController->formatOrdersData($ordersData);
 
         return response()->json($ordersJson);
-
     }
 
     public function changeOrderStatus(Request $request)
