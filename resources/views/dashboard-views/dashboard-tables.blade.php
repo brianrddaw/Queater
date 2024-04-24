@@ -2,7 +2,7 @@
 
 @section('dashboard-content')
 
-    <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-4  flex flex-col gap-6">
+    <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-4  flex flex-col gap-6 overflow-y-scroll">
 
         <section class="flex flex-col gap-4">
             <button onclick="generateQr()" class="flex justify-center items-center gap-4 bg-stone-200 min-w-fit w-fit h-fit p-4 mt-4 rounded-lg  active:bg-walter-300 font-bold shadow-4">
@@ -31,27 +31,46 @@
                 @endforeach
             </div>
         </section>
-        {{-- Si existe el QR take_away.svg se renderiza sino no --}}
-        @if(file_exists(public_path('storage/qrcodes_images/take_away.svg')))
-            <div class="flex flex-col items-center">
-                <h1 class="text-2xl font-bold">QR para llevar</h1>
-                <img src="/storage/qrcodes_images/take_away.svg" alt="Imagen SVG" class="svg-to-print" id="svg-take-away">
-                <button type="button" onclick="printSVG('svg-take-away')">Imprimir SVG</button>
-                <a href="{{ url('/download-qr-code/take-away') }}" class="btn btn-primary">Descargar SVG</a>
-                <button type="button" onclick="deleteTakeAwayQR()" class="btn btn-primary">Eliminar</button>
+
+        <section class="flex flex-col gap-4">
+            <div class="flex justify-center items-center gap-4 bg-stone-200 min-w-fit w-fit h-fit p-4 mt-4 rounded-lg  active:bg-walter-300 font-bold shadow-4">
+                <p class="text-orange-950 uppercase" >
+                    QR PARA LLEVAR
+                </p>
             </div>
-        @else
-            <div class="flex flex-col items-center">
-                <h1 class="text-2xl font-bold">QR para llevar</h1>
-                <p>No hay QR para llevar</p>
-                <button type="button" onclick="addTakeAwayQR()">Generar QR para llevar</button>
+
+            <div id="qrs-container" class="flex flex-wrap gap-4 p-8 w-full h-fit bg-stone-100 rounded-lg shadow-4">
+                @if(file_exists(public_path('storage/qrcodes_images/take_away.svg')))
+                    <div class="qrCard flex flex-col items-center justify-between w-36 h-fit rounded-lg py-2 bg-stone-200 shadow-4">
+                        <div class="bg-orange-950 p-3 rounded">
+                            <img src="/storage/qrcodes_images/take_away.svg" alt="Imagen SVG" class="svg-to-print" id="svg-take-away">
+                        </div>
+                            <p class="font-bold my-2">QR para llevar</p>
+                        <div class="flex flex-col gap-2 font-bold">
+                            <button class="p-2 bg-green-400 w-32 text-green-800 rounded" onclick="printSVG('svg-take-away')">Imprimir</button>
+                            <a href="{{ url('/download-qr-code-take-away') }}" class="p-2 bg-red-500 w-32 rounded text-red-800">Descargar QR</a>
+                            <button type="button" onclick="deleteTakeAwayQR()" class="btn btn-primary">Eliminar</button>
+                        </div>
+                    </div>
+                @else
+                    <div class="flex flex-col gap-4">
+                        <p class="text-2xl font-bold">No existe ningún QR para llevar </p>
+                        <div onclick="addTakeAwayQR()" class="flex items-center justify-center gap-4 cursor-pointer text-lg font-semibold p-2 bg-green-400 w-fit text-green-800 rounded active:scale-95 active:bg-green-300">
+                            <p>Generar QR para llevar</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </div>
+                    </div>
+                @endif
             </div>
-        @endif
+        </section>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function deleteTakeAwayQR(){
+        function deleteTakeAwayQR()
+        {
             $.ajax({
                 url: '/delete-qr-code-take-away',
                 type: 'GET',
@@ -70,7 +89,10 @@
             });
         }
 
-        function addTakeAwayQR(){
+        function addTakeAwayQR()
+        {
+            $('#take-away-button').off('click');
+
             $.ajax({
                 url: '/generate-qr-code-take-away',
                 type: 'GET',
@@ -78,8 +100,6 @@
                     _token: "{{ csrf_token() }}",
                 },
                 success: function(response){
-                    console.log("Success");
-                    console.log(response);
                     location.reload();
                 },
                 error: function(error){
@@ -89,7 +109,8 @@
             });
         }
 
-        function printSVG(svgId) {
+        function printSVG(svgId)
+        {
             var svg = document.getElementById(svgId).outerHTML;
             var printWindow = window.open('', '_blank');
             printWindow.document.open();
@@ -137,7 +158,8 @@
             });
         }
 
-        function deleteTable(table_number){
+        function deleteTable(table_number)
+        {
             $.ajax({
                 url: '/dashboard/tables/delete/'+table_number,
                 type: 'DELETE',
