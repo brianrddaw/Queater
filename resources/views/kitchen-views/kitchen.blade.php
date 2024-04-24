@@ -14,6 +14,7 @@
             <div class="all-orders-container flex w-full gap-10">
                 <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] bg-stone-200 p-4 rounded overflow-y-scroll">
                     <h2 class="text-2xl font-bold bg-orange-950 text-orange-50 w-fit h-fit p-4 rounded">Pedidos listos</h2>
+                    <div id="ready-orders-ctn">
                     @foreach ($readyOrders as $readyOrder)
                         <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit grayscale">
 
@@ -58,6 +59,7 @@
                             </div>
                         </div>
                     @endforeach
+                    </div>
                 </ul>
 
                 <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[75vh] overflow-y-scroll">
@@ -91,13 +93,13 @@
                                                         </strong>
                                                     </div>
 
-                                                    <!-- <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
-                                                        <strong>Ingredientes</strong>
+                                                    <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
+                                                        <strong>Descripción</strong>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="  w-7 h-7 transition-all">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                         </svg>
 
-                                                    </div> -->
+                                                    </div>
                                                 </div>
                                                 <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
                                                     <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
@@ -113,6 +115,7 @@
 
                         </div>
                     @endforeach
+
                 </ul>
             </div>
             <form action="{{ route('logout') }}" method="post">
@@ -177,14 +180,63 @@
             });
         }
 
+        function showNewOrdersDones(data)
+        {
+            $('#ready-orders-ctn').empty();
+
+            data.forEach(order => {
+                const orderContainer = `
+                <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit grayscale">
+
+                <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
+                    <div>
+                        <strong>Pedido: </strong>
+                        ${order.id}
+                    </div>
+
+                    <div >
+                        <strong>${order.take_away ? 'Para llevar' : 'Mesa: ' + order.table_id}</strong>
+                    </div>
+
+                    <p>Finalizado</p>
+                </div>
+
+                <div class="flex items-center px-4 pt-0">
+                    <ul class="flex flex-col w-full">
+                        ${order.orders_line.map(orderLine => `
+                            <li class="order-line flex flex-col items-center py-4 w-full">
+                                <div class="flex items-center w-full ">
+                                    <div class="text-lg flex flex-col gap-1 ">
+                                        <div>
+                                            <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
+                                        <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-16 h-16">
+                                    </div>
+                                </div>
+                                <div class="ingredients-container hidden bg-walter-400 p-2 h-fit  m-2 mt-6 rounded text-lg w-full">
+                                    ${orderLine.product.description}
+                                </div>
+                            </li>
+                        `).join('')}
+
+                    </ul>
+                </div>
+                </div>`;
+
+                //Borra el contenido de la lista de pedidos listos
+
+                $('#ready-orders-ctn').append(orderContainer);
+            });
+        }
+
         setInterval(() => {
             $.ajax({
                 url: "{{ route('kitchen.orders.new') }}",
                 type: 'GET',
                 success: function(data) {
-                    console.log("Hola");
                     if (data.length > 0) {
-                        console.log(data);
                         showNewOrders(data);
                     }
                 },
@@ -192,7 +244,25 @@
                     console.log('Error');
                 }
             });
+
+            $.ajax({
+                url: "{{ route('kitchen.orders.ready') }}",
+                type: 'GET',
+                success: function(data) {
+                    if (data.length > 0) {
+                        console.log(data);
+                        showNewOrdersDones(data);
+                    }
+                },
+                error: function() {
+                    console.log('Error');
+                }
+            });
+
         }, 5000);
+
+
+
     </script>
 
 @endsection

@@ -68,6 +68,9 @@ Route::get('/cash',[CashController::class, 'index'])->name('cash.main');
 Route::get('/kitchen', [KitchenController::class, 'index'])->name('kitchen.main');
 //Enviar los pedidos con el estado new.
 Route::get('/kitchen/orders/new', [KitchenController::class, 'sendNewOrders'])->name('kitchen.orders.new');
+//Enviar los pedidos con el estado ready.
+Route::get('/kitchen/orders/ready', [KitchenController::class, 'sendReadyOrders'])->name('kitchen.orders.ready');
+
 //Cambiar el estado del pedido.
 Route::post('/kitchen/orders/change-status', [KitchenController::class, 'changeOrderStatus'])->name('kitchen.orders.change-status');
 //Hacer el pedido
