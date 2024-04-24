@@ -100,6 +100,15 @@
             $('#nav-button').click(toggleDropdownNav);
         });
 
+
+        //Al cargar la página, se oculta el loader
+        window.onload = function() {
+            //Si el loader esta activo se oculta
+            if (document.getElementById('loader').classList.contains('flex')) {
+                toggleLoader();
+            }
+        }
+
         function toggleDropdownNav()
         {
             const dropdawn =  $(this).parent();
@@ -120,6 +129,8 @@
                 loader.classList.add('hidden');
             }
         }
+
+
 
     </script>
 
