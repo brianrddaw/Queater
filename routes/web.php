@@ -14,6 +14,15 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\LandPageController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\ErrorsController;
+
+
+//////////////////////////
+//                      //
+//     Error Page       //
+//                      //
+//////////////////////////
+Route::get('/error/{error}/{code}/{message}', [ErrorsController::class, 'showError'])->name('error');
 
 //////////////////////////
 //                      //
