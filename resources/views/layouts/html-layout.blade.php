@@ -100,8 +100,6 @@
             $('#nav-button').click(toggleDropdownNav);
         });
 
-
-        //Al cargar la página, se oculta el loader
         window.onload = function() {
             //Si el loader esta activo se oculta
             if (document.getElementById('loader').classList.contains('flex')) {
@@ -129,9 +127,6 @@
                 loader.classList.add('hidden');
             }
         }
-
-
-
     </script>
 
     <style>
@@ -143,23 +138,19 @@
             font-family: 'Encode Sans';
         }
 
-        /* Estilo básico del scrollbar */
         ::-webkit-scrollbar {
-            width: .3rem; /* Ancho del scrollbar */
-            height: .3rem; /* Altura del scrollbar */
+            width: .3rem;
+            height: .3rem;
         }
 
-        /* Estilo del "pulgar" del scrollbar */
         ::-webkit-scrollbar-thumb {
-            background-color: #FF5B19; /* Color del "pulgar" */
-            border-radius: 5px; /* Radio de borde del "pulgar" */
+            background-color: #FF5B19;
+            border-radius: 5px;
         }
 
-        /* Estilo de la pista del scrollbar */
         ::-webkit-scrollbar-track {
-            background-color: lightgray; /* Color de fondo de la pista */
+            background-color: lightgray;
         }
-
 
         html {
             scroll-behavior: smooth;

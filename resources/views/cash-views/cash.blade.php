@@ -7,14 +7,20 @@
     <a href="{{ route('kitchen.main') }}">kitchen</a>
 @endsection
 
-    <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-4  flex flex-col gap-6">
+    <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-4 flex flex-col gap-6">
+        <div class="flex flex-col gap-4 w-fit p-8 bg-orange-50 rounded shadow-4">
+            <h1 class="text-4xl font-bold p-4 rounded w-fit">ESTÁS EN LA CAJA</h1>
+            <div class="flex gap-4">
+                <h2 class="text-4xl font-bold bg-orange-400 p-4 rounded w-fit">PEDIDOS EN COLA: {{ count($eatHereOrders) + count($takeAwayOrders) }}</h2>
+                <h2 class="text-4xl font-bold bg-[#ffdb71] p-4 rounded w-fit">PARA COMER AQUÍ: {{ count($eatHereOrders)}}</h2>
+                <h2 class="text-4xl font-bold bg-[#ffdb71] p-4 rounded w-fit">PARA LLEVAR: {{ count($takeAwayOrders)}}</h2>
+            </div>
+        </div>
 
         <section class="w-full h-fit flex flex-wrap flex-col gap-4">
-
-            <div class="all-orders-container flex w-full gap-10">
-
-                <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] bg-stone-200 p-4 rounded overflow-y-scroll">
-                    <h2 class="text-2xl font-bold bg-orange-950 text-orange-50 w-fit h-fit p-4 rounded">Pedidos para llevar</h2>
+            <div class="all-orders-container flex w-full gap-10 max-h-[30vh]">
+                <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh]  p-4 rounded overflow-y-scroll">
+                    <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Pedidos para llevar</h2>
                     @foreach ($takeAwayOrders as $takeAwayOrder)
                         <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
                             <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50">
@@ -36,9 +42,8 @@
                                                     <div>
                                                         <strong>{{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}</strong>
                                                     </div>
-
                                                 </div>
-                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
+                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
                                                     <img src="{{ asset('storage/' . $orderLine['product']['image_url']) }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
                                                 </div>
                                             </div>
@@ -53,41 +58,31 @@
                     @endforeach
                 </ul>
 
-
-                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[75vh] overflow-y-scroll">
+                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 p-4 rounded w-full h-[75vh] overflow-y-scroll">
                     <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Pedidos para comer aquí</h2>
                     @foreach ($eatHereOrders as $eatHereOrder)
-                        <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
-
-                            <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
+                        <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
+                            <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50">
                                 <div>
                                     <strong>Pedido: </strong>
                                     {{ $eatHereOrder['id'] }}
                                 </div>
-
-                                <div >
+                                <div>
                                     <strong>Mesa: {{ $eatHereOrder['table_id'] }}</strong>
                                 </div>
-
                                 <p>{{ \Carbon\Carbon::parse($eatHereOrder['created_at'])->format('d/m/Y H:i:s') }}</p>
                             </div>
-
                             <div class="flex items-center px-4 pt-0">
                                 <ul class="flex flex-col w-full">
                                     @foreach ($eatHereOrder['orders_line'] as $orderLine)
                                         <li class="order-line flex flex-col items-center py-4 ">
                                             <div class="flex items-center  w-full ">
-
                                                 <div class="text-lg flex flex-col gap-1 ">
                                                     <div>
-                                                        <strong>
-                                                            {{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}
-                                                        </strong>
+                                                        <strong>{{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}</strong>
                                                     </div>
-
-
                                                 </div>
-                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
+                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
                                                     <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
                                                 </div>
                                             </div>
@@ -98,10 +93,10 @@
                                     @endforeach
                                 </ul>
                             </div>
-
                         </div>
                     @endforeach
                 </ul>
+
             </div>
 
         </section>

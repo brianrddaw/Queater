@@ -75,24 +75,6 @@
     @else
         @include('login-views.login',['route' => 'dashboard.main', 'title' => 'Dashboard'])
     @endif
-
-<style>
-    nav a:hover {
-        @apply bg-orange-100
-    }
-</style>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-
-
-
-
-</script>
-
-
-
 @endsection
 
 

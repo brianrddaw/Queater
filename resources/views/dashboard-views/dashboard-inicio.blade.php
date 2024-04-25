@@ -1,4 +1,4 @@
-<section class="flex flex-col gap-10 w-full h-full">
+<section class="flex flex-col  w-full h-full overflow-y-scroll">
     <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[1000px]  bg-stone-100 rounded-lg shadow-4 p-6 mt-6 m-4 ml-6">
         <span class="flex items-center gap-4 bg-orange-500 p-4 w-fit font-bold mr-auto ml-4 rounded-lg shadow-3 text-white">
             <p>
@@ -11,18 +11,27 @@
         </span>
         <canvas id="lineChart"></canvas>
     </div>
+    <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[500px]  bg-stone-100 rounded-lg shadow-4 p-6 mt-6 m-4 ml-6">
+        <span class="flex items-center gap-4 bg-orange-500 p-4 w-fit font-bold mr-auto ml-4 rounded-lg shadow-3 text-white">
+            <p>
+                Top 5 productos más vendidos
+            </p>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.775 8C22.9242 8.65461 23 9.32542 23 10H14V1C14.6746 1 15.3454 1.07584 16 1.22504C16.4923 1.33724 16.9754 1.49094 17.4442 1.68508C18.5361 2.13738 19.5282 2.80031 20.364 3.63604C21.1997 4.47177 21.8626 5.46392 22.3149 6.55585C22.5091 7.02455 22.6628 7.5077 22.775 8ZM20.7082 8C20.6397 7.77018 20.5593 7.54361 20.4672 7.32122C20.1154 6.47194 19.5998 5.70026 18.9497 5.05025C18.2997 4.40024 17.5281 3.88463 16.6788 3.53284C16.4564 3.44073 16.2298 3.36031 16 3.2918V8H20.7082Z" fill="currentColor" />
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M1 14C1 9.02944 5.02944 5 10 5C10.6746 5 11.3454 5.07584 12 5.22504V12H18.775C18.9242 12.6546 19 13.3254 19 14C19 18.9706 14.9706 23 10 23C5.02944 23 1 18.9706 1 14ZM16.8035 14H10V7.19648C6.24252 7.19648 3.19648 10.2425 3.19648 14C3.19648 17.7575 6.24252 20.8035 10 20.8035C13.7575 20.8035 16.8035 17.7575 16.8035 14Z" fill="currentColor" />
+            </svg>
+
+        </span>
+        <canvas id="dogChart"></canvas>
+    </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-
     $.ajax({
         url: "/dashboard/graph/sales-of-last-7-days",
         type: 'GET',
         success: function (response) {
-            // Extract labels and data from the response
             const labels = response.labels;
             const totals = response.data;
 
@@ -32,15 +41,15 @@
                     data: totals,
                     tension: 0,
                     fill: true,
-                    backgroundColor: 'rgba(249, 115, 22, 0.2)', // Color de fondo
+                    backgroundColor: 'rgba(249, 115, 22, 0.2)',
                     borderColor: '#f97316',
-                    borderWidth: 2, // Ancho de la línea
-                    pointRadius: 4, // Tamaño de los puntos
-                    pointBackgroundColor: '#f97316', // Color de los puntos
-                    pointBorderColor: '#ffffff', // Color del borde de los puntos
-                    pointHoverRadius: 6, // Tamaño de los puntos al pasar el ratón
-                    pointHoverBackgroundColor: '#f97316', // Color de los puntos al pasar el ratón
-                    pointHoverBorderColor: '#ffffff', // Color del borde de los puntos al pasar el ratón
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#f97316',
+                    pointBorderColor: '#ffffff',
+                    pointHoverRadius: 6,
+                    pointHoverBackgroundColor: '#f97316',
+                    pointHoverBorderColor: '#ffffff',
                 }]
             };
 
@@ -56,20 +65,20 @@
                     scales: {
                         x: {
                             grid: {
-                                display: true // Ocultar líneas de la cuadrícula en el eje X
+                                display: true
                             }
                         },
                         y: {
                             grid: {
                                 display: true,
-                                color: 'rgba(0, 0, 0, 0.1)', // Color de las líneas de la cuadrícula en el eje Y
-                                lineWidth: 1 // Ancho de las líneas de la cuadrícula en el eje Y
+                                color: 'rgba(0, 0, 0, 0.1)',
+                                lineWidth: 1
                             },
                             ticks: {
-                                color: 'rgba(0, 0, 0, 0.5)', // Color de las marcas en el eje Y
+                                color: 'rgba(0, 0, 0, 0.5)',
                                 font: {
-                                    size: 14, // Tamaño de la fuente de las marcas en el eje Y (ajústalo según lo necesites)
-                                    weight: 'bold' // Peso de la fuente (opcional)
+                                    size: 14,
+                                    weight: 'bold'
                                 },
                                 callback: function (value, index, values) {
                                     return  value + ' €' ;
@@ -82,7 +91,7 @@
                             top: 60,
                             right: 20,
                             bottom: 20,
-                            left: 20 // Ajustar el espacio entre el gráfico y el borde del contenedor
+                            left: 20
                         }
                     },
                     responsive: true
@@ -97,83 +106,44 @@
         }
     });
 
+    $.ajax({
+        url: "/dashboard/graph/top-5-in-week",
+        type: 'GET',
+        success: function (response) {
+            if (response.length > 0) {
+                printTop5SoldProducts(response);
+            }
+        },
+        error: function (error) {
+            console.error(error);
+        }
+    });
 
-    // function getLastSevenDays()
-    // {
-    //     const date = new Date();
-    //     const days = [];
-    //     for (let i = 0; i < 7; i++) {
-    //         const day = date.getDate() - i;
-    //         days.push(day);
-    //     }
-    //     days.sort();
-    //     return days;
-    // }
+    function printTop5SoldProducts($productsData)
+    {
+        const data = {
+            labels: $productsData.map(product => product.name),
+            datasets: [{
+                data: $productsData.map(product => product.total),
+                backgroundColor: [
+                '#f97316',
+                '#ffa366',
+                '#ffbb99',
+                '#ffd8b2 ',
+                '#fff5e6',
+                ],
+                hoverOffset: 4
+            }]
+        };
 
+        const config = {
+        type: 'doughnut',
+        data: data,
+        };
 
+        const ctx = document.getElementById('dogChart').getContext('2d');
+        new Chart(ctx, config);
+    };
 
-    // const data = {
-    //     labels: getLastSevenDays(),
-    //     datasets: [{
-    //         data: [100, 150, 80, 180, 130, 160, 140],
-    //         tension: 0,
-    //         fill: true,
-    //         backgroundColor: 'rgba(249, 115, 22, 0.2)', // Color de fondo
-    //         borderColor: '#f97316',
-    //         borderWidth: 2, // Ancho de la línea
-    //         pointRadius: 4, // Tamaño de los puntos
-    //         pointBackgroundColor: '#f97316', // Color de los puntos
-    //         pointBorderColor: '#ffffff', // Color del borde de los puntos
-    //         pointHoverRadius: 6, // Tamaño de los puntos al pasar el ratón
-    //         pointHoverBackgroundColor: '#f97316', // Color de los puntos al pasar el ratón
-    //         pointHoverBorderColor: '#ffffff', // Color del borde de los puntos al pasar el ratón
-    //     }]
-    // };
-
-    // const config = {
-    //     type: 'line',
-    //     data: data,
-    //     options: {
-    //         plugins: {
-    //             legend: {
-    //                 display: false // Ocultar la leyenda
-    //             }
-    //         },
-    //         scales: {
-    //             x: {
-    //                 grid: {
-    //                     display: false // Ocultar líneas de la cuadrícula en el eje X
-    //                 }
-    //             },
-    //             y: {
-    //                 grid: {
-    //                     display: false,
-    //                     color: 'rgba(0, 0, 0, 0.1)', // Color de las líneas de la cuadrícula en el eje Y
-    //                     lineWidth: 1 // Ancho de las líneas de la cuadrícula en el eje Y
-    //                 },
-    //                 ticks: {
-    //                     color: 'rgba(0, 0, 0, 0.5)', // Color de las marcas en el eje Y
-    //                     font: {
-    //                         size: 14, // Tamaño de la fuente de las marcas en el eje Y (ajústalo según lo necesites)
-    //                         weight: 'bold' // Peso de la fuente (opcional)
-    //                     }
-    //                 }
-    //             }
-    //         },
-    //         layout: {
-    //             padding: {
-    //                 top: 60,
-    //                 right: 20,
-    //                 bottom: 20,
-    //                 left: 20 // Ajustar el espacio entre el gráfico y el borde del contenedor
-    //             }
-    //         },
-    //         responsive: true
-    //     }
-    // };
-
-
-    // const ctx = document.getElementById('lineChart').getContext('2d');
-    // new Chart(ctx, config);
 </script>
 
