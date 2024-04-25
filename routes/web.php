@@ -15,7 +15,7 @@ use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\LandPageController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ErrorsController;
-
+use App\Http\Controllers\GraphController;
 
 //////////////////////////
 //                      //
@@ -192,3 +192,16 @@ Route::get('/generate-qr-code-take-away', [QrCodeController::class, 'generateQrC
 
 //Ruta para eliminar el código QR para llevar.
 Route::get('/delete-qr-code-take-away', [QrCodeController::class, 'deleteQrCodeTakeAway'])->name('delete.qr.code.take-away');
+
+
+//////////////////////////
+//                      //
+//        Graph         //
+//                      //
+//////////////////////////
+
+//Ruta para obtener top 5 mas vendidos en los ultimos 7 dias.
+Route::get('/dashboard/graph/top-5-in-week', [GraphController::class, 'getTop5inWeek'])->name('dashboard.graph.top-5');
+
+//Ruta para obtener las ventas de los ultimos 7 dias.
+Route::get('/dashboard/graph/sales-of-last-7-days', [GraphController::class, 'salesOfLast7Days'])->name('dashboard.graph.sales-of-last-7-days');

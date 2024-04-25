@@ -14,82 +14,167 @@
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-    function getLastSevenDays()
-    {
-        const date = new Date();
-        const days = [];
-        for (let i = 0; i < 7; i++) {
-            const day = date.getDate() - i;
-            days.push(day);
-        }
-        days.sort();
-        return days;
-    }
 
-    const data = {
-        labels: getLastSevenDays(),
-        datasets: [{
-            data: [100, 150, 80, 180, 130, 160, 140],
-            tension: 0,
-            fill: true,
-            backgroundColor: 'rgba(249, 115, 22, 0.2)', // Color de fondo
-            borderColor: '#f97316',
-            borderWidth: 2, // Ancho de la línea
-            pointRadius: 4, // Tamaño de los puntos
-            pointBackgroundColor: '#f97316', // Color de los puntos
-            pointBorderColor: '#ffffff', // Color del borde de los puntos
-            pointHoverRadius: 6, // Tamaño de los puntos al pasar el ratón
-            pointHoverBackgroundColor: '#f97316', // Color de los puntos al pasar el ratón
-            pointHoverBorderColor: '#ffffff', // Color del borde de los puntos al pasar el ratón
-        }]
-    };
+    $.ajax({
+        url: "/dashboard/graph/sales-of-last-7-days",
+        type: 'GET',
+        success: function (response) {
+            // Extract labels and data from the response
+            console.log(response);
+            const labels = response.labels;
+            console.log(labels);
+            const totals = response.data;
+            console.log(totals);
 
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            plugins: {
-                legend: {
-                    display: false // Ocultar la leyenda
-                }
-            },
-            scales: {
-                x: {
-                    grid: {
-                        display: false // Ocultar líneas de la cuadrícula en el eje X
-                    }
-                },
-                y: {
-                    grid: {
-                        display: false,
-                        color: 'rgba(0, 0, 0, 0.1)', // Color de las líneas de la cuadrícula en el eje Y
-                        lineWidth: 1 // Ancho de las líneas de la cuadrícula en el eje Y
-                    },
-                    ticks: {
-                        color: 'rgba(0, 0, 0, 0.5)', // Color de las marcas en el eje Y
-                        font: {
-                            size: 14, // Tamaño de la fuente de las marcas en el eje Y (ajústalo según lo necesites)
-                            weight: 'bold' // Peso de la fuente (opcional)
+
+            const data = {
+                labels: labels,
+                datasets: [{
+                    data: totals,
+                    tension: 0,
+                    fill: true,
+                    backgroundColor: 'rgba(249, 115, 22, 0.2)', // Color de fondo
+                    borderColor: '#f97316',
+                    borderWidth: 2, // Ancho de la línea
+                    pointRadius: 4, // Tamaño de los puntos
+                    pointBackgroundColor: '#f97316', // Color de los puntos
+                    pointBorderColor: '#ffffff', // Color del borde de los puntos
+                    pointHoverRadius: 6, // Tamaño de los puntos al pasar el ratón
+                    pointHoverBackgroundColor: '#f97316', // Color de los puntos al pasar el ratón
+                    pointHoverBorderColor: '#ffffff', // Color del borde de los puntos al pasar el ratón
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false // Ocultar la leyenda
                         }
-                    }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false // Ocultar líneas de la cuadrícula en el eje X
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false,
+                                color: 'rgba(0, 0, 0, 0.1)', // Color de las líneas de la cuadrícula en el eje Y
+                                lineWidth: 1 // Ancho de las líneas de la cuadrícula en el eje Y
+                            },
+                            ticks: {
+                                color: 'rgba(0, 0, 0, 0.5)', // Color de las marcas en el eje Y
+                                font: {
+                                    size: 14, // Tamaño de la fuente de las marcas en el eje Y (ajústalo según lo necesites)
+                                    weight: 'bold' // Peso de la fuente (opcional)
+                                }
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 60,
+                            right: 20,
+                            bottom: 20,
+                            left: 20 // Ajustar el espacio entre el gráfico y el borde del contenedor
+                        }
+                    },
+                    responsive: true
                 }
-            },
-            layout: {
-                padding: {
-                    top: 60,
-                    right: 20,
-                    bottom: 20,
-                    left: 20 // Ajustar el espacio entre el gráfico y el borde del contenedor
-                }
-            },
-            responsive: true
+            };
+            const ctx = document.getElementById('lineChart').getContext('2d');
+            new Chart(ctx, config);
+
+        },
+        error: function (error) {
+            console.log(error);
         }
-    };
+    });
 
 
-    const ctx = document.getElementById('lineChart').getContext('2d');
-    new Chart(ctx, config);
+    // function getLastSevenDays()
+    // {
+    //     const date = new Date();
+    //     const days = [];
+    //     for (let i = 0; i < 7; i++) {
+    //         const day = date.getDate() - i;
+    //         days.push(day);
+    //     }
+    //     days.sort();
+    //     return days;
+    // }
+
+
+
+    // const data = {
+    //     labels: getLastSevenDays(),
+    //     datasets: [{
+    //         data: [100, 150, 80, 180, 130, 160, 140],
+    //         tension: 0,
+    //         fill: true,
+    //         backgroundColor: 'rgba(249, 115, 22, 0.2)', // Color de fondo
+    //         borderColor: '#f97316',
+    //         borderWidth: 2, // Ancho de la línea
+    //         pointRadius: 4, // Tamaño de los puntos
+    //         pointBackgroundColor: '#f97316', // Color de los puntos
+    //         pointBorderColor: '#ffffff', // Color del borde de los puntos
+    //         pointHoverRadius: 6, // Tamaño de los puntos al pasar el ratón
+    //         pointHoverBackgroundColor: '#f97316', // Color de los puntos al pasar el ratón
+    //         pointHoverBorderColor: '#ffffff', // Color del borde de los puntos al pasar el ratón
+    //     }]
+    // };
+
+    // const config = {
+    //     type: 'line',
+    //     data: data,
+    //     options: {
+    //         plugins: {
+    //             legend: {
+    //                 display: false // Ocultar la leyenda
+    //             }
+    //         },
+    //         scales: {
+    //             x: {
+    //                 grid: {
+    //                     display: false // Ocultar líneas de la cuadrícula en el eje X
+    //                 }
+    //             },
+    //             y: {
+    //                 grid: {
+    //                     display: false,
+    //                     color: 'rgba(0, 0, 0, 0.1)', // Color de las líneas de la cuadrícula en el eje Y
+    //                     lineWidth: 1 // Ancho de las líneas de la cuadrícula en el eje Y
+    //                 },
+    //                 ticks: {
+    //                     color: 'rgba(0, 0, 0, 0.5)', // Color de las marcas en el eje Y
+    //                     font: {
+    //                         size: 14, // Tamaño de la fuente de las marcas en el eje Y (ajústalo según lo necesites)
+    //                         weight: 'bold' // Peso de la fuente (opcional)
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //         layout: {
+    //             padding: {
+    //                 top: 60,
+    //                 right: 20,
+    //                 bottom: 20,
+    //                 left: 20 // Ajustar el espacio entre el gráfico y el borde del contenedor
+    //             }
+    //         },
+    //         responsive: true
+    //     }
+    // };
+
+
+    // const ctx = document.getElementById('lineChart').getContext('2d');
+    // new Chart(ctx, config);
 </script>
 
