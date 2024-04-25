@@ -58,24 +58,25 @@ class OrderController extends Controller
         $takeAwayOrdersData = Order::where('take_away', true)
                                 ->with('ordersLine.product')
                                 ->where('state', 'preparing')
-                                ->orderby('created_at', 'desc')
+                                ->orderby('created_at', 'asc')
                                 ->get();
 
         $takeAwayOrdersJson = $this->formatOrdersData($takeAwayOrdersData);
         return $takeAwayOrdersJson;
     }
 
-    public function getEatHereOrders()
+    public function getEatHereOrders($ready = false)
     {
         $eatHereOrdersData = Order::where('take_away', false)
                                 ->with('ordersLine.product')
                                 ->where('state', 'preparing')
-                                ->orderby('created_at', 'desc')
+                                ->orderby('created_at', 'asc')
                                 ->get();
 
         $eatHereOrdersJson = $this->formatOrdersData($eatHereOrdersData);
         return $eatHereOrdersJson;
     }
+
 
     public function formatOrdersData($ordersData)
     {
