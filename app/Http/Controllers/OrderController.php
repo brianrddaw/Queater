@@ -34,34 +34,50 @@ class OrderController extends Controller
 
     public function preparingOrderJson()
     {
-        $preparingOrderData = Order::where('state', 'preparing')->with('ordersLine.product')->get();
-        $preparingOrderJson = $this->_formatOrdersData($preparingOrderData);
+        $preparingOrderData = Order::where('state', 'preparing')
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'desc')
+                                ->get();
+        $preparingOrderJson = $this->formatOrdersData($preparingOrderData);
         return $preparingOrderJson;
     }
 
     public function getReadyOrders()
     {
-        $readyOrdersData = Order::where('state', 'ready')->with('ordersLine.product')->get();
-        $readyOrdersJson = $this->_formatOrdersData($readyOrdersData);
+        $readyOrdersData = Order::where('state', 'ready')
+                            ->where('created_at', '>=', now()->subHours(24))
+                            ->with('ordersLine.product')
+                            ->orderby('created_at', 'desc')
+                            ->get();
+        $readyOrdersJson = $this->formatOrdersData($readyOrdersData);
         return $readyOrdersJson;
     }
 
     public function getTakeAwayOrders()
     {
-        $takeAwayOrdersData = Order::where('take_away', true)->with('ordersLine.product')->get();
+        $takeAwayOrdersData = Order::where('take_away', true)
+                                ->with('ordersLine.product')
+                                ->where('state', 'preparing')
+                                ->orderby('created_at', 'desc')
+                                ->get();
 
-        $takeAwayOrdersJson = $this->_formatOrdersData($takeAwayOrdersData);
+        $takeAwayOrdersJson = $this->formatOrdersData($takeAwayOrdersData);
         return $takeAwayOrdersJson;
     }
 
     public function getEatHereOrders()
     {
-        $eatHereOrdersData = Order::where('take_away', false)->with('ordersLine.product')->get();
-        $eatHereOrdersJson = $this->_formatOrdersData($eatHereOrdersData);
+        $eatHereOrdersData = Order::where('take_away', false)
+                                ->with('ordersLine.product')
+                                ->where('state', 'preparing')
+                                ->orderby('created_at', 'desc')
+                                ->get();
+
+        $eatHereOrdersJson = $this->formatOrdersData($eatHereOrdersData);
         return $eatHereOrdersJson;
     }
 
-    private function _formatOrdersData($ordersData)
+    public function formatOrdersData($ordersData)
     {
         $ordersJson = [];
         foreach ($ordersData as $orderData) {

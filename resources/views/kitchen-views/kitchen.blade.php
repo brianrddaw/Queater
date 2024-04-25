@@ -62,10 +62,10 @@
                     </div>
                 </ul>
 
-                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[75vh] overflow-y-scroll">
+                <ul class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[75vh] overflow-y-scroll">
                     <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Pedidos en cola</h2>
                     @foreach ($preparingOrders as $preparingOrder)
-                        <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
+                        <div id="orders-ctn" class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
 
                             <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
                                 <div>
@@ -176,7 +176,7 @@
                     </div>
                 `;
 
-                $('#orders-ctn').append(orderContainer);
+                $('#orders-ctn').prepend(orderContainer);
             });
         }
 

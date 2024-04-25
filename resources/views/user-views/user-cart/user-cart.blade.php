@@ -1,4 +1,4 @@
-<div id="cart" class="user-cart hidden grid-rows-10 fixed bottom-0 w-full h-[75vh] bg-stone-100 text-orange-950 py-4 pt-4" >
+<div id="cart" class="user-cart hidden grid-rows-10 fixed bottom-0 w-full h-[67vh] bg-stone-100 text-orange-950 py-4 pt-4" >
 
     <div id="cart-products-container" class="flex flex-col w-[100%] p-4 mx-auto row-span-8  gap-3  h-full overflow-y-scroll">
     </div>
@@ -16,7 +16,6 @@
                 w-full
                 max-w-[350px]
                 h-12
-
                 font-bold
                 rounded
                 text-orange-50
@@ -39,7 +38,6 @@
         header.style.transform = 'translateY(-66vh)';
         $('#cart')
         .css('display', 'grid')
-        .slideDown({ duration: 150, easing: 'ease-in-out' }); // Use smoother animation
 
     } else {
         header.style.transform = 'translateY(-0)';
