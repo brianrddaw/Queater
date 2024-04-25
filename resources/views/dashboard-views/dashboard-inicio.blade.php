@@ -23,12 +23,8 @@
         type: 'GET',
         success: function (response) {
             // Extract labels and data from the response
-            console.log(response);
             const labels = response.labels;
-            console.log(labels);
             const totals = response.data;
-            console.log(totals);
-
 
             const data = {
                 labels: labels,
@@ -60,12 +56,12 @@
                     scales: {
                         x: {
                             grid: {
-                                display: false // Ocultar líneas de la cuadrícula en el eje X
+                                display: true // Ocultar líneas de la cuadrícula en el eje X
                             }
                         },
                         y: {
                             grid: {
-                                display: false,
+                                display: true,
                                 color: 'rgba(0, 0, 0, 0.1)', // Color de las líneas de la cuadrícula en el eje Y
                                 lineWidth: 1 // Ancho de las líneas de la cuadrícula en el eje Y
                             },
@@ -74,7 +70,10 @@
                                 font: {
                                     size: 14, // Tamaño de la fuente de las marcas en el eje Y (ajústalo según lo necesites)
                                     weight: 'bold' // Peso de la fuente (opcional)
-                                }
+                                },
+                                callback: function (value, index, values) {
+                                    return  value + ' €' ;
+                                },
                             }
                         }
                     },

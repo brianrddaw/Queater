@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\OrdersLine;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 
@@ -30,9 +31,10 @@ class GraphController extends Controller
 
         // Get sales data for each of the last 7 days
         for ($i = 7; $i > 0; $i--) {
-            $day = now()->subDays($i)->format('d'); // Format the date to include only the day
-            $sales = OrdersLine::select(DB::raw("DATE_FORMAT(created_at, '%d') as day"), DB::raw('sum(quantity) as total'))
-                ->whereDate('created_at', now()->subDays($i))
+            $day = now()->subDays($i)->format('d/m/Y'); // Format the date as day/month/year
+            $sales = OrdersLine::join('products', 'orders_lines.product_id', '=', 'products.id')
+                ->select(DB::raw("DATE_FORMAT(orders_lines.created_at, '%d') as day"), DB::raw('sum(orders_lines.quantity * products.price) as total'))
+                ->whereDate('orders_lines.created_at', now()->subDays($i))
                 ->groupBy('day')
                 ->first();
 
@@ -41,7 +43,9 @@ class GraphController extends Controller
 
             // If there are sales data for the day, add the total to the data array
             if ($sales) {
-                $data[] = $sales->total;
+                // Limit the total to two decimal places
+                $totalFormatted = number_format($sales->total, 2, '.', '');
+                $data[] = $totalFormatted;
             } else {
                 // If there are no sales data for the day, add 0 to the data array
                 $data[] = 0;
