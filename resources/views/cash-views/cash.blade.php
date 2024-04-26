@@ -10,10 +10,10 @@
     <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-6 px-14 flex flex-col gap-4">
         <h1 class="text-4xl font-bold p-4 rounded w-fit bg-stone-200">ESTÁS EN LA CAJA</h1>
         <section class="w-full h-fit flex flex-wrap flex-col gap-4">
-            <div class="all-orders-container flex w-full p-2 border-4 border-yellow-950 rounded gap-4">
-                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 overflow-y-scroll">
-                    <div class="flex text-2xl w-fit h-fit items-center gap-6">
-                        <h2 class="font-bold bg-orange-500 text-orange-50 p-4 rounded">Para comer aquí</h2>
+            <div class="all-orders-container flex w-full rounded gap-6">
+                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 overflow-y-scroll bg-cyan-100 shadow-stone-300 shadow-4">
+                    <div class="flex justify-between text-2xl w-full h-fit items-center gap-6">
+                        <h2 class="font-bold bg-cyan-500 text-orange-50 p-4 rounded">Para comer aquí</h2>
                         <div class="flex items-center font-bold bg-yellow-950 text-orange-50 gap-4 p-4 rounded">
                             <h3>Total: {{ count($eatHereOrders) }}</h3>
                             <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2.5C5.44772 2.5 5 2.94772 5 3.5V5.5C5 6.05228 5.44772 6.5 6 6.5C6.55228 6.5 7 6.05228 7 5.5V3.5C7 2.94772 6.55228 2.5 6 2.5Z" fill="currentColor" />
@@ -23,8 +23,8 @@
                     </div>
                     <div id="eat-here-orders-ctn">
                     {{-- @foreach ($eatHereOrders as $eatHereOrder)
-                        <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
-                            <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50">
+                        <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit ">
+                            <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-cyan-500 text-orange-50">
                                 <div>
                                     <strong>Pedido: </strong>
                                     {{ $eatHereOrder['id'] }}
@@ -44,7 +44,7 @@
                                                         <strong>{{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}</strong>
                                                     </div>
                                                 </div>
-                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-cyan-800 rounded-full">
                                                     <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
                                                 </div>
                                             </div>
@@ -60,8 +60,8 @@
                     </div>
                 </ul>
 
-                <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] rounded p-4 overflow-y-scroll bg-stone-200">
-                    <div class="flex text-2xl w-fit h-fit items-center gap-6">
+                <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] rounded p-4 overflow-y-scroll bg-orange-100 shadow-stone-300 shadow-4">
+                    <div class="flex justify-between text-2xl w-full h-fit items-center gap-6">
                         <h2 class="font-bold bg-orange-500 text-orange-50 p-4 rounded">Para llevar</h2>
                         <div class="flex items-center font-bold bg-yellow-950 text-orange-50 gap-4 p-4 rounded">
                             <h3>Total: {{ count($takeAwayOrders) }}</h3>
@@ -93,7 +93,7 @@
                                                         <strong>{{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}</strong>
                                                     </div>
                                                 </div>
-                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-800 rounded-full">
                                                     <img src="{{ asset('storage/' . $orderLine['product']['image_url']) }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
                                                 </div>
                                             </div>
@@ -109,15 +109,15 @@
                     </div>
                 </ul>
 
-                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 overflow-y-scroll">
-                    <div class="flex text-2xl w-fit h-fit items-center gap-6">
-                        <h2 class="font-bold bg-orange-500 text-orange-50 p-4 rounded">En cola</h2>
+                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 overflow-y-scroll bg-stone-100 shadow-stone-300 shadow-4">
+                    <div class="flex justify-between text-2xl w-full h-fit items-center gap-6">
+                        <h2 class="font-bold bg-stone-950 text-orange-50 p-4 rounded">En cola</h2>
                         <h3 class="font-bold bg-yellow-950 text-orange-50 p-4 rounded">Total: {{ count($preparingOrders) }}</h3>
                     </div>
                     <div id="preparing-orders-ctn">
                     {{-- @foreach ($preparingOrders as $preparingOrder)
                         <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
-                            <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50">
+                            <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-stone-500 text-orange-50">
                                 <div>
                                     <strong>Pedido: </strong>
                                     {{ $preparingOrder['id'] }}
@@ -137,7 +137,7 @@
                                                         <strong>{{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}</strong>
                                                     </div>
                                                 </div>
-                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-stone-950 rounded-full">
                                                     <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
                                                 </div>
                                             </div>
@@ -379,10 +379,5 @@
 
 
     </script>
-    <style>
-        #orders-ctn{
-            background-color: #ffedd5;
-        }
-    </style>
 @endsection
 
