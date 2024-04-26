@@ -180,9 +180,10 @@ Route::get('/product/{product}', [ProductController::class, 'index'])->name('pro
 //Ruta para generar un código QR.
 Route::get('/generate-qr-code/{string}', [QrCodeController::class, 'generateQrCode'])->name('generate.qr.code');
 
-//TODO: Modificar ruta para descargar qrs en especifico.
 //Ruta para descargar un código QR.
 Route::get('/download-qr-code/{number}', [QrCodeController::class, 'downloadQrCode'])->name('download.qr.code');
+
+//Ruta para descargar un código QR para llevar.
 Route::get('/download-qr-code-take-away', [QrCodeController::class, 'downloadQrCodeTakeAway'])->name('download.qr.code.take-away');
 
 //Ruta para eliminar un código QR.
