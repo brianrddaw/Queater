@@ -7,20 +7,15 @@
     <a href="{{ route('kitchen.main') }}">kitchen</a>
 @endsection
 
-    <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-4 px-14 flex flex-col gap-10">
-        <div class="flex flex-col gap-4 w-fit p-6 bg-orange-50 rounded shadow-4">
-            <h1 class="text-4xl font-bold p-4 rounded w-fit">ESTÁS EN LA CAJA</h1>
-            <div class="flex gap-4">
-                <h2 class="text-4xl font-bold bg-orange-400 p-4 rounded w-fit">PEDIDOS EN COLA: {{ count($eatHereOrders) + count($takeAwayOrders) }}</h2>
-                <h2 class="text-4xl font-bold bg-[#ffdb71] p-4 rounded w-fit">PARA COMER AQUÍ: {{ count($eatHereOrders)}}</h2>
-                <h2 class="text-4xl font-bold bg-[#ffdb71] p-4 rounded w-fit">PARA LLEVAR: {{ count($takeAwayOrders)}}</h2>
-            </div>
-        </div>
-
+    <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-6 px-14 flex flex-col gap-6">
+        <h1 class="text-4xl font-bold p-6 rounded w-fit bg-stone-200">ESTÁS EN LA CAJA</h1>
         <section class="w-full h-fit flex flex-wrap flex-col gap-4">
-            <div class="all-orders-container flex w-full gap-10">
-                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] pr-4 overflow-y-scroll">
-                    <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Para comer aquí</h2>
+            <div class="all-orders-container flex w-full h-[200px] gap-10">
+                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 overflow-y-scroll">
+                    <div class="flex text-2xl w-fit h-fit items-center gap-6">
+                        <h2 class="font-bold bg-orange-500 text-orange-50 p-4 rounded">Para comer aquí</h2>
+                        <h3 class="font-bold bg-yellow-400 text-orange-50 p-4 rounded">Total: {{ count($eatHereOrders) }}</h3>
+                    </div>
                     @foreach ($eatHereOrders as $eatHereOrder)
                         <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
                             <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50">
@@ -58,8 +53,11 @@
                     @endforeach
                 </ul>
 
-                <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] rounded pr-4 overflow-y-scroll">
-                    <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Para llevar</h2>
+                <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] rounded p-4 overflow-y-scroll bg-stone-200">
+                    <div class="flex text-2xl w-fit h-fit items-center gap-6">
+                        <h2 class="font-bold bg-orange-500 text-orange-50 p-4 rounded">Para llevar</h2>
+                        <h3 class="font-bold bg-yellow-400 text-orange-50 p-4 rounded">Total: {{ count($takeAwayOrders) }}</h3>
+                    </div>
                     @foreach ($takeAwayOrders as $takeAwayOrder)
                         <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
                             <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50">
@@ -97,8 +95,11 @@
                     @endforeach
                 </ul>
 
-                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] pr-4 overflow-y-scroll">
-                    <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">En cola</h2>
+                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 overflow-y-scroll">
+                    <div class="flex text-2xl w-fit h-fit items-center gap-6">
+                        <h2 class="font-bold bg-orange-500 text-orange-50 p-4 rounded">En cola</h2>
+                        <h3 class="font-bold bg-yellow-400 text-orange-50 p-4 rounded">Total: {{ count($preparingOrders) }}</h3>
+                    </div>
                     @foreach ($preparingOrders as $preparingOrder)
                         <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
                             <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50">
@@ -155,5 +156,10 @@
             plusSvg.toggleClass('text-red-500 rotate-45');
         }
     </script>
+    <style>
+        #orders-ctn{
+            background-color: #ffedd5;
+        }
+    </style>
 @endsection
 
