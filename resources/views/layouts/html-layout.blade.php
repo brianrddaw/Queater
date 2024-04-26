@@ -62,7 +62,7 @@
     <title>@yield('title')</title>
 </head>
 
-<body class="overflow-x-hidden bg-walter-200">
+<body class="overflow-x-hidden bg-walter-400">
 
     <div id="loader" class="fixed top-0 left-0 z-50 w-screen h-screen bg-black bg-opacity-50 items-center justify-center hidden">
         <svg aria-hidden="true" class="w-14 h-14 text-gray-200 animate-spin dark:text-gray-600 fill-orange-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

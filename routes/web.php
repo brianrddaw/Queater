@@ -159,8 +159,6 @@ Route::get('/dashboard/tables/create', [TableController::class, 'createTable'])-
 Route::delete('/dashboard/tables/delete/{id}', [TableController::class, 'deleteTable'])->name('dashboard.tables.delete');
 
 
-
-
 //////////////////////////
 //                      //
 //       Products       //
@@ -180,9 +178,10 @@ Route::get('/product/{product}', [ProductController::class, 'index'])->name('pro
 //Ruta para generar un código QR.
 Route::get('/generate-qr-code/{string}', [QrCodeController::class, 'generateQrCode'])->name('generate.qr.code');
 
-//TODO: Modificar ruta para descargar qrs en especifico.
 //Ruta para descargar un código QR.
 Route::get('/download-qr-code/{number}', [QrCodeController::class, 'downloadQrCode'])->name('download.qr.code');
+
+//Ruta para descargar un código QR para llevar.
 Route::get('/download-qr-code-take-away', [QrCodeController::class, 'downloadQrCodeTakeAway'])->name('download.qr.code.take-away');
 
 //Ruta para eliminar un código QR.
@@ -206,3 +205,33 @@ Route::get('/dashboard/graph/top-5-in-week', [GraphController::class, 'getTop5in
 
 //Ruta para obtener las ventas de los ultimos 7 dias.
 Route::get('/dashboard/graph/sales-of-last-7-days', [GraphController::class, 'salesOfLast7Days'])->name('dashboard.graph.sales-of-last-7-days');
+
+//////////////////////////
+//                      //
+//        Orders        //
+//                      //
+//////////////////////////
+
+//Ruta para obtener los pedidos en preparaccón.
+Route::get('/get/orders/preparing', [OrderController::class, 'preparingOrderJson'])->name('get.orders.preparing');
+
+//Ruta para obtener los pedidos listos.
+//False y True
+Route::get('/get/orders/ready/take-away', [OrderController::class, 'getTakeAwayOrdersReadys'])->name('get.orders.ready');
+
+
+//Ruta para obtener los pedidos para llevar.
+//False y True
+Route::get('/get/orders/ready/eat-here/', [OrderController::class, 'getEatHereOrdersReadys'])->name('get.orders.take-away');
+
+//Ruta para cambiar el estado de un pedido. //Estados: new->preparing->ready->delivered
+Route::put('/orders/change/state', [OrderController::class, 'changeOrderState'])->name('change.order.state');
+
+//////////////////////////
+//                      //
+//        Cash          //
+//                      //
+//////////////////////////
+
+//Ruta para obtener tods los pedidos.
+Route::get('/get/orders', [CashController::class, 'getOrders'])->name('get.orders');
