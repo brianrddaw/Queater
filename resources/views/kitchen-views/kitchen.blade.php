@@ -71,8 +71,9 @@
 
                 <ul class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[75vh] overflow-y-scroll">
                     <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Pedidos en cola</h2>
+                    <div id="orders-ctn">
                     @foreach ($preparingOrders as $preparingOrder)
-                        <div id="orders-ctn" class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
+                        <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
 
                             <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
                                 <div>
@@ -122,7 +123,7 @@
 
                         </div>
                     @endforeach
-
+                    </div>
                 </ul>
             </div>
             <form action="{{ route('logout') }}" method="post">
@@ -183,7 +184,6 @@
                     </div>
                 `;
 
-                $('#orders-ctn').empty();
                 $('#orders-ctn').append(orderContainer);
             });
         }
@@ -232,6 +232,7 @@
                     </ul>
                 </div>
                 </div>`;
+
                 $('#ready-orders-ctn').append(orderContainer);
             });
         }
@@ -241,6 +242,7 @@
                 url: "{{ route('kitchen.orders.new') }}",
                 type: 'GET',
                 success: function(data) {
+                    console.log("New orders: ", data);
                     if (data.length > 0) {
                         showNewOrders(data);
                     }

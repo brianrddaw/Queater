@@ -164,18 +164,6 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 
     <script>
-
-        function toggleLoader() {
-            const loader = document.getElementById('loader');
-            if (loader.classList.contains('hidden')) {
-                loader.classList.remove('hidden');
-                loader.classList.add('flex');
-            } else {
-                loader.classList.remove('flex');
-                loader.classList.add('hidden');
-            }
-        }
-
         function ingredientsDisplay(card)
         {
             const ingredientsContainer = $(card).closest('.order-line').find('.ingredients-container');
@@ -185,14 +173,11 @@
         }
 
        function getOrders() {
-            console.log('Getting orders...');
 
             $.ajax({
                 url: '/get/orders',
                 method: 'GET',
                 success: function(data) {
-                    console.log(data);
-                    console.log('Orders getteds');
                     createOrdersPreparingHtml(data.preparingOrders);
                     createOrdersEatHereHtml(data.eatHereOrders);
                     createOrdersTakeAwayHtml(data.takeAwayOrders);
@@ -204,11 +189,12 @@
         }
 
         function createOrdersPreparingHtml(data) {
+
             $('#preparing-orders-ctn').empty();
 
             data.forEach(order => {
                 const orderContainer = $('<div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit"></div>');
-                const orderHeader = $('<div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50"></div>');
+                const orderHeader = $('<div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-stone-500 text-orange-50"></div>');
                 const orderBody = $('<div class="flex items-center px-4 pt-0"></div>');
                 const orderList = $('<ul class="flex flex-col w-full"></ul>');
 
@@ -234,7 +220,7 @@
                                         <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
                                     </div>
                                 </div>
-                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-stone-950 rounded-full">
                                     <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-16 h-16">
                                 </div>
                             </div>
@@ -246,15 +232,17 @@
                     });
 
                     orderList.append(orderLineItem);
+
                 });
 
                 orderBody.append(orderList);
+
                 orderContainer.append(orderBody);
 
                 $('#preparing-orders-ctn').append(orderContainer);
 
-
             });
+
         }
 
         function createOrdersTakeAwayHtml(data) {
@@ -289,10 +277,11 @@
                                         <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
                                     </div>
                                 </div>
-                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-800 rounded-full">
                                     <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-16 h-16">
                                 </div>
-                            </div>
+                                </div>
+                            <button class="bg-stone-500 text-orange-50 p-2 rounded mt-2">Listo</button>
                         </li>
                     `);
 
@@ -301,15 +290,17 @@
                     });
 
                     orderList.append(orderLineItem);
+
                 });
 
                 orderBody.append(orderList);
+
                 orderContainer.append(orderBody);
 
                 $('#take-away-orders-ctn').append(orderContainer);
 
-
             });
+
         }
 
         function createOrdersEatHereHtml(data) {
@@ -318,7 +309,7 @@
 
             data.forEach(order => {
                 const orderContainer = $('<div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit"></div>');
-                const orderHeader = $('<div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50"></div>');
+                const orderHeader = $('<div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-cyan-500 text-orange-50"></div>');
                 const orderBody = $('<div class="flex items-center px-4 pt-0"></div>');
                 const orderList = $('<ul class="flex flex-col w-full"></ul>');
 
@@ -328,7 +319,7 @@
                         ${order.id}
                     </div>
                     <div>
-                        <strong>${order.take_away ? 'Para llevar' : 'Mesa: ' + order.table_id}</strong>
+                        <strong>Mesa: ${order.table_id}</strong>
                     </div>
                     <p>${order.created_at}</p>
                 `);
@@ -344,10 +335,11 @@
                                         <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
                                     </div>
                                 </div>
-                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-cyan-800 rounded-full">
                                     <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-16 h-16">
                                 </div>
                             </div>
+                            <button class="bg-stone-500 text-orange-50 p-2 rounded mt-2">Listo</button>
                         </li>
                     `);
 
@@ -357,23 +349,25 @@
 
                     orderList.append(orderLineItem);
 
+
                 });
 
                 orderBody.append(orderList);
+
                 orderContainer.append(orderBody);
+
                 $('#eat-here-orders-ctn').append(orderContainer);
+
             });
+
         }
 
-        function reloadOrders() {
+        getOrders();
 
-            // orderTypes.forEach(type => {
-            //     type.reloadFunction();
-            // });
+
+        setInterval(() => {
             getOrders();
-        }
-
-        reloadOrders();
+        }, 5000);
 
 
 
