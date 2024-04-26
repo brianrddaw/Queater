@@ -1,13 +1,15 @@
 
 # 🥜 Queater
 
-*[Descripción](#descripcion)
+[Descripción del proyecto](#descripcion)
 
-*[Cómo ejecutar Queater:](#como-ejecutar-queater:)
+[Ejecutar Queater](#cómo-ejecutar-queater)
 
-*[Conclusión](#conclusión)
+[Conclusión](#conclusión)
 
-*[Autores](#authors)
+[Autores](#Autores)
+
+[Linkedin](#Linkedin)
 
 
 ## Queater: Una aplicación web para agilizar el servicio en restaurantes
