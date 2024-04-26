@@ -1,9 +1,19 @@
 
 # 🥜 Queater
 
+*[Descripción](#descripcion)
+
+*[Cómo ejecutar Queater:](#como-ejecutar-queater:)
+
+*[Conclusión](#conclusión)
+
+*[Autores](#authors)
+
+
 ## Queater: Una aplicación web para agilizar el servicio en restaurantes
 
-### Descripción del proyecto
+###  Descripción del proyecto
+
 
 Queater es una aplicación web diseñada para optimizar el servicio en restaurantes, reduciendo la carga de trabajo de los camareros y brindando mayor autonomía a los clientes. La aplicación funciona mediante el escaneo de un código QR ubicado en cada mesa del restaurante. Al escanear el QR, los clientes acceden a una interfaz web en la que pueden visualizar el menú del restaurante, seleccionar los productos que desean y realizar su pedido.
 
@@ -57,7 +67,6 @@ Queater es una aplicación web innovadora que ofrece una solución integral para
 
 - composer
 - node 
-- npm
 
 ## Pasos:
 
@@ -108,6 +117,13 @@ Comunidad de Queater: https://docs.github.com/en/desktop/managing-commits/revert
 Siguiendo estos pasos, podrás ejecutar Queater en tu ordenador local y comenzar a explorar las funcionalidades de la aplicación.
 
 Recuerda que siempre puedes consultar la documentación oficial
+# 👱🏻‍♂️👦🏻 Autores
+
+[@brianrddaw](https://github.com/brianrddaw)
+
+[@MiguelAguiarDEV](https://github.com/MiguelAguiarDEV)
+
+
 # 🔗 Linkedin
 
 Brian Ramírez
