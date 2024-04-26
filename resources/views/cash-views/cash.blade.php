@@ -107,7 +107,7 @@
 
                 <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 overflow-y-scroll bg-stone-100 shadow-stone-300 shadow-4">
                     <div class="flex justify-between text-2xl w-full h-fit items-center gap-6">
-                        <h2 class="font-bold bg-stone-950 text-orange-50 p-4 rounded">En cola</h2>
+                        <h2 class="font-bold bg-stone-950 text-orange-50 p-4 rounded">En cola...</h2>
                         <h3 class="font-bold bg-yellow-950 text-orange-50 p-4 rounded">Total: {{ count($preparingOrders) }}</h3>
                     </div>
                     @foreach ($preparingOrders as $preparingOrder)

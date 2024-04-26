@@ -10,14 +10,6 @@
 @section('content')
     @if (Auth::check())
     <section class="flex flex-col px-14 p-4 gap-10">
-            <!-- <div class="flex flex-col gap-4 w-fit p-6 bg-orange-50 rounded shadow-4">
-                <h1 class="text-4xl font-bold p-4 rounded w-fit">ESTÁS EN LA COCINA</h1>
-                <div class="flex gap-4">
-                    <h2 class="text-4xl font-bold bg-orange-400 p-4 rounded w-fit">PEDIDOS EN COLA: {{ count($readyOrders) }}</h2>
-                    <h2 class="text-4xl font-bold bg-[#ffdb71] p-4 rounded w-fit">PARA COMER AQUÍ: {{ count($readyOrders) }}</h2>
-                    <h2 class="text-4xl font-bold bg-[#ffdb71] p-4 rounded w-fit">PARA LLEVAR: {{ count($readyOrders) }}</h2>
-                </div>
-            </div> -->
             <div class="all-orders-container flex w-full gap-10">
                 <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] bg-stone-200 p-4 rounded overflow-y-scroll">
                     <h2 class="text-2xl font-bold bg-orange-950 text-orange-50 w-fit h-fit p-4 rounded">Pedidos listos</h2>
@@ -70,10 +62,9 @@
                 </ul>
 
                 <ul class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[75vh] overflow-y-scroll">
-                    <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Pedidos en cola</h2>
+                    <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Pedidos en cola...</h2>
                     @foreach ($preparingOrders as $preparingOrder)
-                        <div id="orders-ctn" class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
-
+                        <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
                             <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
                                 <div>
                                     <strong>Pedido: </strong>
