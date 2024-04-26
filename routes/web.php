@@ -159,8 +159,6 @@ Route::get('/dashboard/tables/create', [TableController::class, 'createTable'])-
 Route::delete('/dashboard/tables/delete/{id}', [TableController::class, 'deleteTable'])->name('dashboard.tables.delete');
 
 
-
-
 //////////////////////////
 //                      //
 //       Products       //
@@ -207,3 +205,18 @@ Route::get('/dashboard/graph/top-5-in-week', [GraphController::class, 'getTop5in
 
 //Ruta para obtener las ventas de los ultimos 7 dias.
 Route::get('/dashboard/graph/sales-of-last-7-days', [GraphController::class, 'salesOfLast7Days'])->name('dashboard.graph.sales-of-last-7-days');
+
+//////////////////////////
+//                      //
+//        Orders        //
+//                      //
+//////////////////////////
+
+//Ruta para obtener los pedidos en preparaccón.
+Route::get('/get/orders/preparing', [OrderController::class, 'preparingOrderJson'])->name('get.orders.preparing');
+
+//Ruta para obtener los pedidos listos.
+Route::get('/get/orders/ready', [OrderController::class, 'getReadyOrders'])->name('get.orders.ready');
+
+//Ruta para obtener los pedidos para llevar.
+Route::get('/get/orders/take-away', [OrderController::class, 'getTakeAwayOrders'])->name('get.orders.take-away');
