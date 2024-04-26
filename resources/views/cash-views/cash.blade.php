@@ -1,11 +1,11 @@
 @extends('layouts.html-layout')
 
 @section('title', 'Cash')
-@section('content')
 @section('navegacion')
     <a href="{{ route('dashboard.main') }}">dasboard</a>
     <a href="{{ route('kitchen.main') }}">kitchen</a>
 @endsection
+@section('content')
 
     <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-6 px-14 flex flex-col gap-4">
         <h1 class="text-4xl font-bold p-4 rounded w-fit bg-stone-200">ESTÁS EN LA CAJA</h1>
@@ -164,6 +164,18 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 
     <script>
+
+        function toggleLoader() {
+            const loader = document.getElementById('loader');
+            if (loader.classList.contains('hidden')) {
+                loader.classList.remove('hidden');
+                loader.classList.add('flex');
+            } else {
+                loader.classList.remove('flex');
+                loader.classList.add('hidden');
+            }
+        }
+
         function ingredientsDisplay(card)
         {
             const ingredientsContainer = $(card).closest('.order-line').find('.ingredients-container');
@@ -172,49 +184,21 @@
             plusSvg.toggleClass('text-red-500 rotate-45');
         }
 
-        const orderTypes = [
-            { name: 'Preparing', reloadFunction: reloadOrdersPreparing, createHtmlFunction: createOrdersPreparingHtml },
-            { name: 'TakeAway', reloadFunction: reloadOrdersTakeAway, createHtmlFunction: createOrdersTakeAwayHtml },
-            { name: 'EatHere', reloadFunction: reloadOrdersEatHere, createHtmlFunction: createOrdersEatHereHtml }
-        ];
+       function getOrders() {
+            console.log('Getting orders...');
 
-        function reloadOrdersPreparing() {
             $.ajax({
-                url: '/get/orders/preparing',
+                url: '/get/orders',
                 method: 'GET',
                 success: function(data) {
-                    console.log('Preparing Orders:', data);
-                    createOrdersPreparingHtml(data);
+                    console.log(data);
+                    console.log('Orders getteds');
+                    createOrdersPreparingHtml(data.preparingOrders);
+                    createOrdersEatHereHtml(data.eatHereOrders);
+                    createOrdersTakeAwayHtml(data.takeAwayOrders);
                 },
-                error: function(error) {
-                    console.error('Error loading Preparing Orders:', error);
-                }
-            });
-        }
-
-        function reloadOrdersTakeAway() {
-            $.ajax({
-                url: '/get/orders/ready/take-away',
-                method: 'GET',
-                success: function(data) {
-                    console.log('TakeAway Orders:', data);
-
-                },
-                error: function(error) {
-                    console.error('Error loading TakeAway Orders:', error);
-                }
-            });
-        }
-
-        function reloadOrdersEatHere() {
-            $.ajax({
-                url: '/get/orders/ready/eat-here',
-                method: 'GET',
-                success: function(data) {
-                    console.log('EatHere Orders:', data);
-                },
-                error: function(error) {
-                    console.error('Error loading EatHere Orders:', error);
+                error: function(err) {
+                    console.error(err);
                 }
             });
         }
@@ -269,23 +253,124 @@
 
                 $('#preparing-orders-ctn').append(orderContainer);
 
-                console.log('Order:', order);
 
             });
         }
 
         function createOrdersTakeAwayHtml(data) {
-            // Implement logic to create HTML for "TakeAway" orders
+
+            $('#take-away-orders-ctn').empty();
+
+            data.forEach(order => {
+                const orderContainer = $('<div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit"></div>');
+                const orderHeader = $('<div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50"></div>');
+                const orderBody = $('<div class="flex items-center px-4 pt-0"></div>');
+                const orderList = $('<ul class="flex flex-col w-full"></ul>');
+
+                orderHeader.append(`
+                    <div>
+                        <strong>Pedido: </strong>
+                        ${order.id}
+                    </div>
+                    <div>
+                        <strong>${order.take_away ? 'Para llevar' : 'Mesa: ' + order.table_id}</strong>
+                    </div>
+                    <p>${order.created_at}</p>
+                `);
+
+                orderContainer.append(orderHeader);
+
+                order.orders_line.forEach(orderLine => {
+                    const orderLineItem = $(`
+                        <li class="order-line flex flex-col items-center py-4 ">
+                            <div class="flex items center w-full">
+                                <div class="text-lg flex flex-col gap-1">
+                                    <div>
+                                        <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                    <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-16 h-16">
+                                </div>
+                            </div>
+                        </li>
+                    `);
+
+                    orderLineItem.on('click', function() {
+                        ingredientsDisplay(this);
+                    });
+
+                    orderList.append(orderLineItem);
+                });
+
+                orderBody.append(orderList);
+                orderContainer.append(orderBody);
+
+                $('#take-away-orders-ctn').append(orderContainer);
+
+
+            });
         }
 
         function createOrdersEatHereHtml(data) {
-            // Implement logic to create HTML for "EatHere" orders
+
+            $('#eat-here-orders-ctn').empty();
+
+            data.forEach(order => {
+                const orderContainer = $('<div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit"></div>');
+                const orderHeader = $('<div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50"></div>');
+                const orderBody = $('<div class="flex items-center px-4 pt-0"></div>');
+                const orderList = $('<ul class="flex flex-col w-full"></ul>');
+
+                orderHeader.append(`
+                    <div>
+                        <strong>Pedido: </strong>
+                        ${order.id}
+                    </div>
+                    <div>
+                        <strong>${order.take_away ? 'Para llevar' : 'Mesa: ' + order.table_id}</strong>
+                    </div>
+                    <p>${order.created_at}</p>
+                `);
+
+                orderContainer.append(orderHeader);
+
+                order.orders_line.forEach(orderLine => {
+                    const orderLineItem = $(`
+                        <li class="order-line flex flex-col items-center py-4 ">
+                            <div class="flex items center w-full">
+                                <div class="text-lg flex flex-col gap-1">
+                                    <div>
+                                        <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-500 rounded-full">
+                                    <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-16 h-16">
+                                </div>
+                            </div>
+                        </li>
+                    `);
+
+                    orderLineItem.on('click', function() {
+                        ingredientsDisplay(this);
+                    });
+
+                    orderList.append(orderLineItem);
+
+                });
+
+                orderBody.append(orderList);
+                orderContainer.append(orderBody);
+                $('#eat-here-orders-ctn').append(orderContainer);
+            });
         }
 
         function reloadOrders() {
-            orderTypes.forEach(type => {
-                type.reloadFunction();
-            });
+
+            // orderTypes.forEach(type => {
+            //     type.reloadFunction();
+            // });
+            getOrders();
         }
 
         reloadOrders();

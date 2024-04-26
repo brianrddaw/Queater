@@ -16,6 +16,23 @@ class CashController extends Controller
             'eatHereOrders' => $eatHereOrders,
             'preparingOrders' => $preparingOrders,
         ]);
+
+    }
+
+    public function getOrders()
+    {
+        $orderController = new OrderController();
+        $takeAwayOrders = $orderController->getTakeAwayOrdersReadys();
+        $eatHereOrders = $orderController->getEatHereOrdersReadys();
+        $preparingOrders = $orderController->preparingOrderJson();
+
+        $data = [
+            'takeAwayOrders' => $takeAwayOrders,
+            'eatHereOrders' => $eatHereOrders,
+            'preparingOrders' => $preparingOrders,
+        ];
+
+        return response()->json($data);
     }
 }
 

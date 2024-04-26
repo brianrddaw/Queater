@@ -223,3 +223,13 @@ Route::get('/get/orders/ready/take-away', [OrderController::class, 'getTakeAwayO
 //Ruta para obtener los pedidos para llevar.
 //False y True
 Route::get('/get/orders/ready/eat-here/', [OrderController::class, 'getEatHereOrdersReadys'])->name('get.orders.take-away');
+
+
+//////////////////////////
+//                      //
+//        Cash          //
+//                      //
+//////////////////////////
+
+//Ruta para obtener tods los pedidos.
+Route::get('/get/orders', [CashController::class, 'getOrders'])->name('get.orders');
