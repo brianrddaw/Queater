@@ -183,6 +183,7 @@
                     </div>
                 `;
 
+                $('#orders-ctn').empty();
                 $('#orders-ctn').append(orderContainer);
             });
         }
