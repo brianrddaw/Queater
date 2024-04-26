@@ -216,7 +216,10 @@ Route::get('/dashboard/graph/sales-of-last-7-days', [GraphController::class, 'sa
 Route::get('/get/orders/preparing', [OrderController::class, 'preparingOrderJson'])->name('get.orders.preparing');
 
 //Ruta para obtener los pedidos listos.
-Route::get('/get/orders/ready', [OrderController::class, 'getReadyOrders'])->name('get.orders.ready');
+//False y True
+Route::get('/get/orders/ready/take-away', [OrderController::class, 'getTakeAwayOrdersReadys'])->name('get.orders.ready');
+
 
 //Ruta para obtener los pedidos para llevar.
-Route::get('/get/orders/take-away', [OrderController::class, 'getTakeAwayOrders'])->name('get.orders.take-away');
+//False y True
+Route::get('/get/orders/ready/eat-here/', [OrderController::class, 'getEatHereOrdersReadys'])->name('get.orders.take-away');

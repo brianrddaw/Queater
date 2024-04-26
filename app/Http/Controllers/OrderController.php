@@ -74,6 +74,18 @@ class OrderController extends Controller
         return $takeAwayOrdersJson;
     }
 
+    public function getTakeAwayOrdersReadys()
+    {
+        $takeAwayOrdersData = Order::where('take_away', true)
+                                ->where('state', 'ready')
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'asc')
+                                ->get();
+
+        $takeAwayOrdersJson = $this->formatOrdersData($takeAwayOrdersData);
+        return $takeAwayOrdersJson;
+    }
+
     public function getEatHereOrders($preparing = false, $ready = false)
     {
         $eatHereOrdersData = Order::where('take_away', false)
@@ -88,6 +100,18 @@ class OrderController extends Controller
         }
 
         $eatHereOrdersData = $eatHereOrdersData->get();
+
+        $eatHereOrdersJson = $this->formatOrdersData($eatHereOrdersData);
+        return $eatHereOrdersJson;
+    }
+
+    public function getEatHereOrdersReadys()
+    {
+        $eatHereOrdersData = Order::where('take_away', false)
+                                ->where('state', 'ready')
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'asc')
+                                ->get();
 
         $eatHereOrdersJson = $this->formatOrdersData($eatHereOrdersData);
         return $eatHereOrdersJson;
@@ -119,8 +143,9 @@ class OrderController extends Controller
                 'take_away' => $orderData->take_away,
                 'table_id' => $orderData->table_id,
                 'state' => $orderData->state,
-                'created_at' => $orderData->created_at->toIso8601String(),
-                'updated_at' => $orderData->updated_at->toIso8601String(),
+                //Formatea la fecha a un formato dia/mes/año hora:minutos
+                'created_at' => $orderData->created_at->format('d/m/Y H:i:s'),
+                'updated_at' => $orderData->updated_at->format('d/m/Y H:i:s'),
                 'orders_line' => $orderLines,
             ];
         }
