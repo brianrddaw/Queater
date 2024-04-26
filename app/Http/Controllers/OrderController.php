@@ -36,7 +36,7 @@ class OrderController extends Controller
     {
         $preparingOrderData = Order::where('state', 'preparing')
                                 ->with('ordersLine.product')
-                                ->orderby('created_at', 'desc')
+                                ->orderby('created_at', 'asc')
                                 ->get();
         $preparingOrderJson = $this->formatOrdersData($preparingOrderData);
         return $preparingOrderJson;
@@ -45,9 +45,9 @@ class OrderController extends Controller
     public function getReadyOrders()
     {
         $readyOrdersData = Order::where('state', 'ready')
-                            ->where('created_at', '>=', now()->subHours(24))
+                            ->where('created_at', '>=', now()->subHours(72))
                             ->with('ordersLine.product')
-                            ->orderby('created_at', 'desc')
+                            ->orderby('created_at', 'asc')
                             ->get();
         $readyOrdersJson = $this->formatOrdersData($readyOrdersData);
         return $readyOrdersJson;
