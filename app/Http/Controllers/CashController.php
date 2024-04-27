@@ -7,8 +7,8 @@ class CashController extends Controller
     public function index()
     {
         $orderController = new OrderController();
-        $takeAwayOrders = $orderController->getTakeAwayOrders(true);
-        $eatHereOrders = $orderController->getEatHereOrders(true);
+        $takeAwayOrders = $orderController->getTakeAwayOrdersReadys();
+        $eatHereOrders = $orderController->getEatHereOrdersReadys();
         $preparingOrders = $orderController->preparingOrderJson();
 
         return view('cash-views.cash', [

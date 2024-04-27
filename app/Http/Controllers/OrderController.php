@@ -144,12 +144,43 @@ class OrderController extends Controller
                 'table_id' => $orderData->table_id,
                 'state' => $orderData->state,
                 //Formatea la fecha a un formato dia/mes/año hora:minutos
-                'created_at' => $orderData->created_at->format('d/m/Y H:i:s'),
-                'updated_at' => $orderData->updated_at->format('d/m/Y H:i:s'),
+                'created_at' => $orderData->created_at->format('H:i'),
+                'updated_at' => $orderData->updated_at->format('H:i'),
                 'orders_line' => $orderLines,
             ];
         }
         return $ordersJson;
     }
 
+    public function changeOrderState(Request $request)
+    {
+        $valid_states = ['new', 'preparing', 'ready', 'delivered'];
+
+        $order = Order::find($request->order_id);
+
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+
+        if (!in_array($order->state, $valid_states)) {
+            return response()->json(['error' => 'Invalid state'], 422);
+        }else{
+            if ($order->state === 'new') {
+                $order->state = 'preparing';
+                $order->save();
+                return response()->json(['message' => 'Order state changed to preparing']);
+            } else if ($order->state === 'preparing') {
+                $order->state = 'ready';
+                $order->save();
+                return response()->json(['message' => 'Order state changed to ready']);
+            } else if ($order->state === 'ready') {
+                $order->state = 'delivered';
+                $order->save();
+                return response()->json(['message' => 'Order state changed to delivered']);
+            } else {
+                return response()->json(['error' => 'Invalid state','state' => $order->state], 422);
+            }
+        }
+
+    }
 }

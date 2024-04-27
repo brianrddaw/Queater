@@ -224,6 +224,8 @@ Route::get('/get/orders/ready/take-away', [OrderController::class, 'getTakeAwayO
 //False y True
 Route::get('/get/orders/ready/eat-here/', [OrderController::class, 'getEatHereOrdersReadys'])->name('get.orders.take-away');
 
+//Ruta para cambiar el estado de un pedido. //Estados: new->preparing->ready->delivered
+Route::put('/orders/change/state', [OrderController::class, 'changeOrderState'])->name('change.order.state');
 
 //////////////////////////
 //                      //
