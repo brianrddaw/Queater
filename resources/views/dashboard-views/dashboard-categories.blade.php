@@ -3,7 +3,7 @@
 @section('dashboard-content')
 
 
-<section class="flex flex-wrap w-[100%] h-fit px-2 gap-3">
+<section class="flex flex-wrap w-[100%] h-fit pr-2 gap-3">
         <button class="flex justify-center items-center gap-4 bg-stone-100 min-w-fit w-fit h-fit p-4 mt-2 rounded-lg  active:bg-walter-300 font-bold shadow-4" onclick="showAddCategoryForm()">
             <p class="text-orange-950 uppercase" >
                 Agregar Categoria
@@ -65,7 +65,7 @@ function showAddCategoryForm() {
                         placeholder="Nombre..."
                         class="w-auto h-10 p-2 bg-walter-200 rounded no-underline outline-none">
                     <div class="flex flex-col items-center w-fit pr-2 mt-auto">
-                        <label for="position" class="flex items-center justify-center w-fit h-10 bg-orange-500 rounded text-orange-50 text-lg px-4 font-bold uppercase">Position</label>
+                        <label for="position" class="flex items-center justify-center w-fit h-10 bg-orange-500 rounded text-orange-50 text-lg px-4 font-bold uppercase">Posición</label>
                         <select name="position" id="position" class="w-full bg-transparent no-underline outline-none border-b-2 border-orange-950 py-2 pr-4">
 
                             @foreach ($categories as $category)

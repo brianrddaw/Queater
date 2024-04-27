@@ -1,6 +1,6 @@
-<section class="flex flex-col w-full h-full overflow-y-scroll gap-6 pb-2 pl-2">
+<section class="flex flex-col w-full h-full overflow-y-scroll gap-6 pb-2">
     <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[1000px] bg-stone-100 rounded-lg shadow-4 p-6 mt-2">
-        <span class="flex items-center gap-4 bg-orange-500 p-4 w-fit font-bold mr-auto ml-4 rounded-lg shadow-3 text-white">
+        <span class="flex items-center gap-4 bg-slate-800 p-4 w-fit font-bold mr-auto ml-4 rounded-lg shadow-3 text-white">
             <p>
                 Ventas de la semana
             </p>
@@ -12,7 +12,7 @@
         <canvas id="lineChart"></canvas>
     </div>
     <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[500px]  bg-stone-100 rounded-lg shadow-4 p-6 mt-2">
-        <span class="flex items-center gap-4 bg-orange-500 p-4 w-fit font-bold mr-auto ml-4 rounded-lg shadow-3 text-white">
+        <span class="flex items-center gap-4 bg-slate-800 p-4 w-fit font-bold mr-auto ml-4 mb-6 rounded-lg shadow-3 text-white">
             <p>
                 Top 5 productos más vendidos
             </p>
@@ -59,7 +59,7 @@
                 options: {
                     plugins: {
                         legend: {
-                            display: false // Ocultar la leyenda
+                            display: false
                         }
                     },
                     scales: {
@@ -137,8 +137,15 @@
         };
 
         const config = {
-        type: 'doughnut',
-        data: data,
+            type: 'doughnut',
+            data: data,
+            options: {
+                plugins: {
+                    legend: {
+                    display: false
+                    }
+                }
+            }
         };
 
         const ctx = document.getElementById('dogChart').getContext('2d');

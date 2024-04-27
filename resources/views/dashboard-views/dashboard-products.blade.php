@@ -5,9 +5,9 @@
     <a href="{{ route('kitchen.main') }}">kitchen</a>
     <a href="{{ route('cash.main') }}">cash</a>
 @endsection
-<div class="flex flex-col w-full h-full gap-6 pt-2 pb-4">
+<div class="flex flex-col w-full h-full gap-6 pt-2">
 
-    <button class="flex justify-center items-center gap-4 bg-stone-100 min-w-fit w-fit h-fit p-4 rounded-lg active:bg-walter-300 font-bold shadow-4 ml-2" onclick="showAddProductForm()">
+    <button class="flex justify-center items-center gap-4 bg-stone-100 min-w-fit w-fit h-fit p-4 rounded-lg active:bg-walter-300 font-bold shadow-4" onclick="showAddProductForm()">
         <p class="text-orange-950 uppercase" >
             Agregar Producto
         </p>
@@ -15,15 +15,15 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
     </button>
-    <div class="flex flex-wrap w-[100%] h-[calc(100vh-7.25rem)] gap-4 overflow-y-scroll pl-2 pr-6">
+    <div class="flex flex-wrap w-[100%] h-[calc(100vh-7.25rem)] gap-4 overflow-y-scroll pr-6">
         @foreach ( $productsByCategory as $category => $products)
 
             <h2 class="text-2xl mb-6 font-bold bg-orange-500 w-full text-center py-4 rounded-lg text-orange-50">{{ $category }}</h2>
 
-            <div class="w-full flex flex-wrap justify-between gap-10 mb-6">
+            <div class="w-full flex flex-wrap justify-between gap-10">
                 @foreach ($products as  $product)
 
-                    <div class="card flex flex-col w-[28rem]  bg-stone-100 border rounded p-4 py-6 gap-6 text-orange-950 sm:mx-auto lg:mx-0">
+                    <div class="card flex flex-col w-[28rem]  bg-stone-100 border rounded p-4 py-6 gap-6 text-slate-800 sm:mx-auto lg:mx-0">
 
                             <div class="flex">
                                 <div class="flex w-full justify-between">
