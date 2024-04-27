@@ -10,6 +10,21 @@ class EatHereController extends Controller
 
     public function eatHere($table)
     {
+        //Verificar si la mesa existe.
+        $tableExist = DB::select('select id from tables where id = ?', [$table]);
+        if (empty($tableExist)) {
+            return redirect()->route('error', [
+                'error' => 'Ruta no encontrada',
+                'code' => '404',
+                'message' => 'La mesa a la que intentas acceder no existe.'
+            ]);
+        }
+
+
+
+
+
+
         $categorys = DB::select('select id,name,position from categories order by position');
         $productsByCategory = [];
 

@@ -1,75 +1,55 @@
 @extends('layouts.html-layout')
 
 @section('title', 'Cash')
-@section('content')
 @section('navegacion')
     <a href="{{ route('dashboard.main') }}">dasboard</a>
     <a href="{{ route('kitchen.main') }}">kitchen</a>
 @endsection
+@section('content')
 
-    <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-4  flex flex-col gap-6">
-        <section class="flex gap-2">
+    <main class="w-full h-full min-h-[calc(100vh-3.5rem)] p-6 px-14 flex flex-col gap-4 text-slate-800">
 
-            <div id="canvas" class="dragging-container w-full h-[50vh] bg-gray-50 rounded-lg drop-shadow-md">
-                <div class="draggable flex flex-col items-center w-fit h-fit">
-                    <p class="text-2xl font-bold">1</p>
-                    <img src="../imgs/table.webp" alt="" class="w-10 h-10">
-                </div>
-            </div>
+        <h1 class="text-4xl font-bold py-4 px-8 rounded w-fit bg-slate-800 text-orange-50">Zona de pedidos</h1>
 
-        </section>
         <section class="w-full h-fit flex flex-wrap flex-col gap-4">
 
-            <div class="flex  gap-2" >
-                <button class="bg-orange-500 w-full text-orange-50 font-bold text-2xl rounded-md">Mesa</button>
-                <button class="bg-orange-500 w-full text-orange-50 font-bold text-2xl rounded-md">Para llevar</button>
-            </div>
-
-            {{-- Orders container --}}
-            <div class="flex flex-col gap-4">
-
-                {{-- orders --}}
-                <div class="flex flex-col gap-4 rounded-lg bg-gray-100 drop-shadow-lg">
-                    <div class=" w-full h-20  grid grid-cols-4 items-center gap-2">
-
-                        <span class="flex flex-col justify-center items-left text-lg ml-4">
-                            <p>Nº Pedido</p>
-                            <p class="text-3xl font-bold">37</p>
-
-                        </span>
-                        <span class="flex flex-col justify-center items-center text-lg">
-                            <p>Hora</p>
-                            <p class="text-3xl font-bold">14:37</p>
-
-                        </span>
-                        <span class="flex flex-col justify-center items-center text-lg">
-                            <p>Mesa</p>
-                            <p class="text-3xl font-bold">37</p>
-
-                        </span>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="arrow-icon w-10 h-10 ml-auto mr-4 transition-all">
-                            <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
-                        </svg>
-
-
-
+            <div class="all-orders-container flex w-full rounded gap-6">
+                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 bg-cyan-100 shadow-stone-300 shadow-4">
+                    <div class="flex text-2xl w-fit h-fit justify-between items-center p-2 pl-4 gap-6 bg-cyan-500 text-orange-50 font-bold   rounded-full">
+                        <h2 >Para comer aquí</h2>
+                        <div class="flex items-center justify-center w-10 h-10 font-bold bg-cyan-800 text-orange-50 rounded-full shadow-5">
+                            <h3 id="total-eat-here">{{ count($eatHereOrders) }}</h3>
+                        </div>
                     </div>
+                    <div id="eat-here-orders-ctn" class="overflow-y-auto pr-4">
+                        {{-- Eat Here Orders --}}
+                    </div>
+                </ul>
 
-                    {{-- Comments section --}}
-                    <section class="comments-section hidden flex-col gap-2 w-full p-4">
+                <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] rounded p-4 bg-orange-100 shadow-stone-300 shadow-4">
+                    <div class="flex text-2xl w-fit h-fit justify-between items-center p-2 pl-4 gap-6 bg-orange-500 text-orange-50 font-bold   rounded-full">
+                        <h2 >Para llevar</h2>
+                        <div class="flex items-center justify-center w-10 h-10 font-bold bg-orange-800 text-orange-50 rounded-full shadow-5">
+                            <h3 id="total-eat-here">{{ count($takeAwayOrders) }}</h3>
+                        </div>
+                    </div>
+                    <div id="take-away-orders-ctn" class="overflow-y-auto pr-4">
+                    {{-- Take Away Orders --}}
+                    </div>
+                </ul>
 
-                        <h2 class="text-xl uppercase font-bold">Comentarios</h2>
-
-                        <textarea name="client-comments" id="client-comments" cols="30" rows="5" class="w-full rounded-md p-2"></textarea>
-
-                    </section>
-
-                </div>
-
+                <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 bg-slate-300 shadow-stone-300 shadow-4">
+                    <div class="flex text-2xl w-fit h-fit justify-between items-center p-2 pl-4 gap-6 bg-slate-800 text-orange-50 font-bold   rounded-full">
+                        <h2 >En Preparación...</h2>
+                        <div class="flex items-center justify-center w-10 h-10 font-bold bg-slate-600 text-slate-100 rounded-full shadow-5">
+                            <h3 id="total-eat-here">{{ count($preparingOrders) }}</h3>
+                        </div>
+                    </div>
+                    <div id="preparing-orders-ctn" class="overflow-y-auto pr-4">
+                    {{-- Preparing Orders --}}
+                    </div>
+                </ul>
             </div>
-
-
 
         </section>
 
@@ -77,137 +57,213 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
 
-
-
-        function addTableToCanvas(){
-            const canvas = $('#canvas');
-            const mesa = `
-            <div class="draggable flex flex-col items-center w-fit h-fit">
-                <p class="text-2xl font-bold">1</p>
-                <img src="../imgs/table.webp" alt="" class="w-10 h-10">
-            </div>
-
-            `;
-            canvas.append(mesa);
-
-        }
-
-
-        $(document).ready(function() {
-            $('.arrow-icon').click(function() {
-                toggleComments($(this));
+        function getOrders()
+        {
+            $.ajax({
+                url: '/get/orders',
+                method: 'GET',
+                success: function(data) {
+                    createOrdersPreparingHtml(data.preparingOrders);
+                    createOrdersEatHereHtml(data.eatHereOrders);
+                    createOrdersTakeAwayHtml(data.takeAwayOrders);
+                },
+                error: function(err) {
+                    console.error(err);
+                }
             });
-        });
-
-        function toggleComments(arrowButton) {
-            const expandComments = arrowButton;
-            const comments = $(arrowButton).parent().next();
-            const isCommentsVisible = comments.hasClass('active');
-
-
-            if (!isCommentsVisible) {
-                comments.addClass('active').css('display', 'flex').hide().slideDown(200);
-                expandComments.css('transform', 'rotate(180deg)');
-
-            } else {
-                comments.removeClass('active').slideUp(200);
-                expandComments.css('transform', 'rotate(0deg)');
-
-            }
-        };
-
-
-
-
-        window.dragMoveListener = dragMoveListener;
-        interact('.draggable')
-        .draggable({
-            onmove: dragMoveListener,
-            restrict: {
-            elementRect: {
-                top: 0,
-                left: 0,
-                bottom: 1,
-                right: 1
-            }
-            }
-        })
-
-
-        function dragMoveListener(event) {
-
-        const boxes = document.getElementsByClassName("draggable");
-
-        const target = event.target
-
-
-        const self = {
-            x: event.target.offsetLeft + event.dx,
-            y: event.target.offsetTop + event.dy,
-            width: event.target.offsetWidth,
-            height: event.target.offsetHeight
         }
 
-            var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-            var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+        function createOrdersPreparingHtml(data) {
+            const ordersHtml = data.map(order => {
+                const orderHeaderHtml = `
+                    <div>
+                        <strong>Pedido: </strong>${order.id}
+                    </div>
+                    <div class="bg-slate-500 rounded px-2">
+                        <strong>${order.take_away ? 'Para llevar' : 'Mesa: ' + order.table_id}</strong>
+                    </div>
+                    <p>${order.created_at}</p>
+                `;
 
+                const orderLineItemsHtml = order.orders_line.map(orderLine => `
+                    <li class="order-line flex flex-col items-center py-4">
+                        <div class="flex items center w-full">
+                            <div class="text-lg flex  flex-col gap-1">
+                                <div>
+                                    <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                `).join('');
 
+                return `
+                    <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
+                        <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-slate-800 text-orange-50">${orderHeaderHtml}</div>
+                        <div class="flex items-center px-4 pt-0"><ul class="flex flex-col w-full">${orderLineItemsHtml}</ul></div>
+                    </div>
+                `;
+            }).join('');
 
-            target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-            target.setAttribute('data-x', x)
-            target.setAttribute('data-y', y)
-
-
-            console.log(`
-            x= ,${target.offsetLeft},\n
-            y= ,${(parseFloat(target.getAttribute('data-x')) || 0)},\n
-            `);
-
-        // }
+            $('#preparing-orders-ctn').html(ordersHtml);
         }
 
-        function collides(self, event) {
-        for (const box of boxes) {
-            if (box == event.target) {
-            continue;
-            }
+        function createOrdersTakeAwayHtml(data) {
+            const numberOrders = data.length;
 
-            const other = {
-            x: box.offsetLeft,
-            y: box.offsetTop,
-            width: box.offsetWidth,
-            height: box.offsetHeight
-            }
+            $('#total-take-away').text(`${numberOrders}`);
 
-            const collisionX = Math.max(self.x + self.width, other.x + other.width) - Math.min(self.x, other.x) < self.width + other.width;
-            const collisionY = Math.max(self.y + self.height, other.y + other.height) - Math.min(self.y, other.y) < self.height + other.height;
+            const ordersHtml = data.map(order => {
+                const orderBtnDeliveredHtml = `<button class="bg-orange-800 text-orange-50 p-2 px-4 rounded" onclick="changeOrderState(${order.id})">Entregar</button>`;
+                const orderHeaderHtml = `
+                    <div>
+                        <strong>Pedido: </strong>${order.id}
+                    </div>
+                    <div>
+                        <strong>${order.take_away ? 'Para llevar' : 'Mesa: ' + order.table_id}</strong>
+                    </div>
+                    <p>${order.created_at}</p>
+                    <div>
+                        ${orderBtnDeliveredHtml}
+                    </div>
+                `;
 
-            if (collisionX && collisionY) {
-            return true;
-            }
+                const orderLineItemsHtml = order.orders_line.map(orderLine => `
+                    <li class="order-line flex flex-col items-center py-4">
+                        <div class="flex items center w-full">
+                            <div class="text-lg flex flex-col gap-1">
+                                <div>
+                                    <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                `).join('');
+
+
+                return `
+                    <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
+                        <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-orange-500 text-orange-50">${orderHeaderHtml}</div>
+                        <div class="flex items-center px-4 pt-0"><ul class="flex flex-col w-full">${orderLineItemsHtml}</ul></div>
+                    </div>
+                `;
+            }).join('');
+
+            $('#take-away-orders-ctn').html(ordersHtml);
         }
-        return false;
+
+
+        function createOrdersEatHereHtml(data) {
+            const numberOrders = data.length;
+
+            $('#total-eat-here').text(`${numberOrders}`);
+
+            const ordersHtml = data.map(order => {
+                const orderBtnDeliveredHtml = `<button class="bg-cyan-800 text-orange-50 p-2 px-4 rounded" onclick="changeOrderState(${order.id})">Entregar</button>`;
+                const orderHeaderHtml = `
+                    <div>
+                        <strong>Pedido: </strong>${order.id}
+                    </div>
+                    <div class="bg-cyan-600 rounded p-2">
+                        <strong>Mesa: ${order.table_id}</strong>
+                    </div>
+                    <p>${order.created_at}</p>
+                    <div>
+                        ${orderBtnDeliveredHtml}
+                    </div>
+                `;
+
+                const orderLineItemsHtml = order.orders_line.map(orderLine => `
+                    <li class="order-line flex flex-col items-center py-4">
+                        <div class="flex items center w-full">
+                            <div class="text-lg flex flex-col gap-1">
+                                <div>
+                                    <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                `).join('');
+
+
+                return `
+                    <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
+                        <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-cyan-500 text-orange-50">${orderHeaderHtml}</div>
+                        <div class="flex items-center px-4 pt-0"><ul class="flex flex-col w-full">${orderLineItemsHtml}</ul></div>
+
+                    </div>
+                `;
+            }).join('');
+
+            $('#eat-here-orders-ctn').html(ordersHtml);
         }
 
+
+        function changeOrderState(order_id)
+        {
+            Swal.fire({
+            title: "¿Quieres cambiar el estado del pedido a entregado?",
+            customClass: {
+                confirmButton: 'border-0 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400',
+                cancelButton: 'border-0 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400 ml-2',
+                title: 'text-green-950',
+            },
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "Confirmar",
+            cancelButtonText: "Cancelar",
+            focusConfirm: false
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    Swal.fire({
+                        title: "¡Pedido entregado!",
+                        customClass: {
+                            confirmButton: 'border border-orange-500 bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600',
+                            popup: 'bg-white',
+                            title: 'text-orange-950',
+
+                        },
+                        icon: "success",
+                        iconColor: '#84cc16',
+                        showConfirmButton: false,
+                        buttonsStyling: false,
+                        timer: 1000
+                    });
+
+                    $.ajax({
+                        url: "/orders/change/state",
+                        type: 'put',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            order_id: order_id
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            getOrders();
+                        },
+                        error: function(err) {
+                            console.error(err);
+                            console.error(err.responseText);
+                        }
+                    });
+                }
+            });
+        }
+        getOrders();
+
+        setInterval(() =>{
+            getOrders();
+        }, 5000);
 
 
 
 
     </script>
-
-    <style>
-
-        .dragging-container,
-        .dragging-container * {
-            -ms-touch-action: none;
-            touch-action: none;
-        }
-
-    </style>
-
 @endsection
 

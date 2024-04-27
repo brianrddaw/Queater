@@ -32,23 +32,97 @@ class OrderController extends Controller
         }
     }
 
-    public function getOrderByCondition($condition = null)
+    public function preparingOrderJson()
     {
-        $ordersData = Order::with('ordersLine.product')
-        ->where('state', '!=', 'ready')
-        ->where('state', '!=', 'delivered');
+        $preparingOrderData = Order::where('state', 'preparing')
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'asc')
+                                ->get();
 
-        if (!empty($condition['orderId'])) {
-            $ordersData = $ordersData->where('id', $condition['orderId']);
+        $preparingOrderJson = $this->formatOrdersData($preparingOrderData);
+
+        return $preparingOrderJson;
+    }
+
+    public function getReadyOrders()
+    {
+        $readyOrdersData = Order::where('state', 'ready')
+                            ->where('created_at', '>=', now()->subHours(72))
+                            ->with('ordersLine.product')
+                            ->orderby('created_at', 'asc')
+                            ->get();
+        $readyOrdersJson = $this->formatOrdersData($readyOrdersData);
+        return $readyOrdersJson;
+    }
+
+    public function getTakeAwayOrders($preparing = false, $ready = false)
+    {
+        $takeAwayOrdersData = Order::where('take_away', true)
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'asc');
+
+        if ($preparing) {
+            $takeAwayOrdersData = $takeAwayOrdersData->where('state', 'preparing');
+        }
+        if ($ready) {
+            $takeAwayOrdersData = $takeAwayOrdersData->where('state', 'ready');
         }
 
-        $ordersData = $ordersData->get();
+        $takeAwayOrdersData = $takeAwayOrdersData->get();
 
+        $takeAwayOrdersJson = $this->formatOrdersData($takeAwayOrdersData);
+        return $takeAwayOrdersJson;
+    }
+
+    public function getTakeAwayOrdersReadys()
+    {
+        $takeAwayOrdersData = Order::where('take_away', true)
+                                ->where('state', 'ready')
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'asc')
+                                ->get();
+
+        $takeAwayOrdersJson = $this->formatOrdersData($takeAwayOrdersData);
+        return $takeAwayOrdersJson;
+    }
+
+    public function getEatHereOrders($preparing = false, $ready = false)
+    {
+        $eatHereOrdersData = Order::where('take_away', false)
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'asc');
+
+        if ($preparing) {
+            $eatHereOrdersData = $eatHereOrdersData->where('state', 'preparing');
+        }
+        if ($ready) {
+            $eatHereOrdersData = $eatHereOrdersData->where('state', 'ready');
+        }
+
+        $eatHereOrdersData = $eatHereOrdersData->get();
+
+        $eatHereOrdersJson = $this->formatOrdersData($eatHereOrdersData);
+        return $eatHereOrdersJson;
+    }
+
+    public function getEatHereOrdersReadys()
+    {
+        $eatHereOrdersData = Order::where('take_away', false)
+                                ->where('state', 'ready')
+                                ->with('ordersLine.product')
+                                ->orderby('created_at', 'asc')
+                                ->get();
+
+        $eatHereOrdersJson = $this->formatOrdersData($eatHereOrdersData);
+        return $eatHereOrdersJson;
+    }
+
+    public function formatOrdersData($ordersData)
+    {
         $ordersJson = [];
-
-        foreach ($ordersData as $order) {
+        foreach ($ordersData as $orderData) {
             $orderLines = [];
-            foreach ($order->ordersLine as $orderLine) {
+            foreach ($orderData->ordersLine as $orderLine) {
                 $orderLines[] = [
                     'id' => $orderLine->id,
                     'order_id' => $orderLine->order_id,
@@ -63,18 +137,49 @@ class OrderController extends Controller
                     ]
                 ];
             }
-
             $ordersJson[] = [
-                'id' => $order->id,
-                'take_away' => $order->take_away,
-                'state' => $order->state,
-                'created_at' => $order->created_at->toIso8601String(),
-                'updated_at' => $order->updated_at->toIso8601String(),
+                'id' => $orderData->id,
+                'take_away' => $orderData->take_away,
+                'table_id' => $orderData->table_id,
+                'state' => $orderData->state,
+                //Formatea la fecha a un formato dia/mes/año hora:minutos
+                'created_at' => $orderData->created_at->format('H:i'),
+                'updated_at' => $orderData->updated_at->format('H:i'),
                 'orders_line' => $orderLines,
             ];
         }
-
         return $ordersJson;
     }
 
+    public function changeOrderState(Request $request)
+    {
+        $valid_states = ['new', 'preparing', 'ready', 'delivered'];
+
+        $order = Order::find($request->order_id);
+
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+
+        if (!in_array($order->state, $valid_states)) {
+            return response()->json(['error' => 'Invalid state'], 422);
+        }else{
+            if ($order->state === 'new') {
+                $order->state = 'preparing';
+                $order->save();
+                return response()->json(['message' => 'Order state changed to preparing']);
+            } else if ($order->state === 'preparing') {
+                $order->state = 'ready';
+                $order->save();
+                return response()->json(['message' => 'Order state changed to ready']);
+            } else if ($order->state === 'ready') {
+                $order->state = 'delivered';
+                $order->save();
+                return response()->json(['message' => 'Order state changed to delivered']);
+            } else {
+                return response()->json(['error' => 'Invalid state','state' => $order->state], 422);
+            }
+        }
+
+    }
 }

@@ -14,6 +14,15 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\LandPageController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\ErrorsController;
+use App\Http\Controllers\GraphController;
+
+//////////////////////////
+//                      //
+//     Error Page       //
+//                      //
+//////////////////////////
+Route::get('/error/{error}/{code}/{message}', [ErrorsController::class, 'showError'])->name('error');
 
 //////////////////////////
 //                      //
@@ -24,8 +33,6 @@ Route::get('/', [LandPageController::class, 'index']);
 
 
 
-
-
 //////////////////////////
 //                      //
 //        User          //
@@ -33,7 +40,8 @@ Route::get('/', [LandPageController::class, 'index']);
 //////////////////////////
 
 // USER ROUTES
-//Route::get('/', [MainUserController::class, 'index'])->name('user.main');
+Route::get('/main', [MainUserController::class, 'index'])->name('user.main');
+
 //Ruta para obtener los productos.
 Route::get('/eat-here/{table}', [EatHereController::class, 'eatHere'])->name('eat-here.main');
 //Ruta para obtener los productos.
@@ -48,8 +56,7 @@ Route::get('/getTicket/{id}/{tableId}', [StripeController::class, 'getTicket'])-
 Route::get('/printTicket/{id}/{tableId}', [StripeController::class, 'printTicket'])->name('payment.printTicket');
 
 
-//Ruta para obtener los productos.
-Route::get('/cash',[CashController::class, 'index'])->name('cash.main');
+
 
 //////////////////////////
 //                      //
@@ -60,10 +67,11 @@ Route::get('/cash',[CashController::class, 'index'])->name('cash.main');
 Route::get('/kitchen', [KitchenController::class, 'index'])->name('kitchen.main');
 //Enviar los pedidos con el estado new.
 Route::get('/kitchen/orders/new', [KitchenController::class, 'sendNewOrders'])->name('kitchen.orders.new');
+//Enviar los pedidos con el estado ready.
+Route::get('/kitchen/orders/ready', [KitchenController::class, 'sendReadyOrders'])->name('kitchen.orders.ready');
 //Cambiar el estado del pedido.
 Route::post('/kitchen/orders/change-status', [KitchenController::class, 'changeOrderStatus'])->name('kitchen.orders.change-status');
-//Hacer el pedido
-Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
+
 
 //////////////////////////
 //                      //
@@ -144,7 +152,8 @@ Route::get('/dashboard/tables', [TableController::class, 'showTables'])->name('d
 //Ruta para crear una nueva mesa.
 Route::get('/dashboard/tables/create', [TableController::class, 'createTable'])->name('dashboard.tables.create');
 
-
+//Ruta para eliminar una mesa.
+Route::delete('/dashboard/tables/delete/{id}', [TableController::class, 'deleteTable'])->name('dashboard.tables.delete');
 
 
 //////////////////////////
@@ -166,7 +175,65 @@ Route::get('/product/{product}', [ProductController::class, 'index'])->name('pro
 //Ruta para generar un código QR.
 Route::get('/generate-qr-code/{string}', [QrCodeController::class, 'generateQrCode'])->name('generate.qr.code');
 
-//TODO: Modificar ruta para descargar qrs en especifico.
 //Ruta para descargar un código QR.
 Route::get('/download-qr-code/{number}', [QrCodeController::class, 'downloadQrCode'])->name('download.qr.code');
+
+//Ruta para descargar un código QR para llevar.
+Route::get('/download-qr-code-take-away', [QrCodeController::class, 'downloadQrCodeTakeAway'])->name('download.qr.code.take-away');
+
+//Ruta para eliminar un código QR.
+Route::get('/delete-qr-code/{number}', [QrCodeController::class, 'deleteQrCode'])->name('delete.qr.code');
+
+//Ruta para generar un código QR para llevar.
+Route::get('/generate-qr-code-take-away', [QrCodeController::class, 'generateQrCodeTakeAway'])->name('generate.qr.code.take-away');
+
+//Ruta para eliminar el código QR para llevar.
+Route::get('/delete-qr-code-take-away', [QrCodeController::class, 'deleteQrCodeTakeAway'])->name('delete.qr.code.take-away');
+
+
+//////////////////////////
+//                      //
+//        Graph         //
+//                      //
+//////////////////////////
+
+//Ruta para obtener top 5 mas vendidos en los ultimos 7 dias.
+Route::get('/dashboard/graph/top-5-in-week', [GraphController::class, 'getTop5inWeek'])->name('dashboard.graph.top-5');
+
+//Ruta para obtener las ventas de los ultimos 7 dias.
+Route::get('/dashboard/graph/sales-of-last-7-days', [GraphController::class, 'salesOfLast7Days'])->name('dashboard.graph.sales-of-last-7-days');
+
+//////////////////////////
+//                      //
+//        Orders        //
+//                      //
+//////////////////////////
+
+//Ruta para hacer un pedido.
+Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
+
+//Ruta para obtener los pedidos en preparaccón.
+Route::get('/get/orders/preparing', [OrderController::class, 'preparingOrderJson'])->name('get.orders.preparing');
+
+//Ruta para obtener los pedidos listos.
+Route::get('/get/orders/ready/take-away', [OrderController::class, 'getTakeAwayOrdersReadys'])->name('get.orders.take-away.ready');
+
+//Ruta para obtener los pedidos para llevar.
+Route::get('/get/orders/ready/eat-here', [OrderController::class, 'getEatHereOrdersReadys'])->name('get.orders.eat-here.ready');
+
+//Ruta para cambiar el estado de un pedido. //Estados: new->preparing->ready->delivered
+Route::put('/orders/change/state', [OrderController::class, 'changeOrderState'])->name('change.order.state');
+
+//////////////////////////
+//                      //
+//        Cash          //
+//                      //
+//////////////////////////
+
+//Ruta para cash.
+Route::get('/cash',[CashController::class, 'index'])->name('cash.main');
+
+//Ruta para obtener tods los pedidos.
+Route::get('/get/orders', [CashController::class, 'getOrders'])->name('get.orders');
+
 

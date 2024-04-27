@@ -53,7 +53,8 @@ class StripeController extends Controller
             ],
             'mode' => 'payment',
             'success_url' => route('payment.success') . '?' . $queryParams,
-            'cancel_url' => route ('payment.index'),
+            //Redirige a la pagina anterior, como si le diece atras en el navegador.
+            'cancel_url' => url()->previous()
         ]);
 
         return redirect()->away($session->url);
@@ -90,7 +91,6 @@ class StripeController extends Controller
 
     public function getTicket($orderId, $tableId)
     {
-        echo $orderId;
         return view('user-views.user-payments.success', ['orderId' => $orderId, 'tableId' => $tableId]);
     }
 

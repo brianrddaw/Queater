@@ -8,7 +8,7 @@ use App\Models\Table;
 
 class Order extends Model
 {
-    protected $fillable = ['state'];
+    protected $fillable = ['state','take_away','table_id'];
 
     public function ordersLine()
     {
@@ -19,4 +19,5 @@ class Order extends Model
     {
         return $this->belongsTo(Table::class);
     }
+
 }

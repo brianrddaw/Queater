@@ -1,66 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 🥜 Queater
 
-## About Laravel
+## Queater: Una aplicación web para agilizar el servicio en restaurantes
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+###  Descripción del proyecto
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Queater es una aplicación web diseñada para optimizar el servicio en restaurantes, reduciendo la carga de trabajo de los camareros y brindando mayor autonomía a los clientes. La aplicación funciona mediante el escaneo de un código QR ubicado en cada mesa del restaurante. Al escanear el QR, los clientes acceden a una interfaz web en la que pueden visualizar el menú del restaurante, seleccionar los productos que desean y realizar su pedido.
 
-## Learning Laravel
+### Características principales
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Pedido digital: Los clientes pueden realizar sus pedidos de forma rápida y sencilla a través de la web, sin necesidad de esperar a que un camarero los atienda.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Menú digital: La aplicación muestra el menú completo del restaurante, incluyendo imágenes y descripciones de los platos.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Pago en línea: Los clientes pueden pagar su pedido de forma segura a través de la web, utilizando diferentes métodos de pago.
 
-## Laravel Sponsors
+- Notificaciones en cocina y caja: El personal de cocina y caja recibe notificaciones instantáneas de los nuevos pedidos, lo que les permite prepararlos y procesarlos de manera eficiente.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Pedidos para llevar o para comer en el lugar: Los clientes pueden indicar si desean su pedido para llevar o para comer en el restaurante.
 
-### Premium Partners
+- Interfaz amigable: La aplicación web cuenta con una interfaz intuitiva y fácil de usar, tanto para los clientes como para el personal del restaurante.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Beneficios
 
-## Contributing
+Queater ofrece una serie de beneficios tanto para los clientes como para los restaurantes:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Para los clientes:
 
-## Code of Conduct
+- Mayor rapidez y comodidad: Los clientes pueden realizar sus pedidos de forma rápida y sencilla, sin necesidad de esperar a que un camarero los atienda.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Autonomía y control: Los clientes pueden personalizar sus pedidos y realizar un seguimiento en tiempo real, lo que les brinda mayor autonomía y control sobre su experiencia gastronómica.
 
-## Security Vulnerabilities
+- Menos errores: Al realizar el pedido de forma digital, se reduce el riesgo de errores en la toma de pedidos.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Para los restaurantes:
 
-## License
+- Reducción de la carga de trabajo de los camareros: Los camareros pueden dedicar más tiempo a atender a los clientes y brindar un mejor servicio.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Mayor eficiencia en la cocina: El personal de cocina recibe los pedidos de forma instantánea y organizada, lo que les permite optimizar su trabajo y reducir el tiempo de espera.
+
+- Aumento de las ventas: La aplicación puede estimular el consumo de los clientes al facilitarles el proceso de pedido y pago.
+
+- Mejora de la imagen del restaurante: Queater proyecta una imagen moderna y tecnológica del restaurante, lo que puede atraer a nuevos clientes.
+
+### Conclusión
+
+Queater es una aplicación web innovadora que ofrece una solución integral para optimizar el servicio en restaurantes, mejorando la experiencia tanto para los clientes como para el personal. La aplicación se presenta como una herramienta valiosa para aumentar la eficiencia, reducir costos y mejorar la satisfacción del cliente en el sector de la restauración.
+
+
+
+
+
+# 🚀 Cómo ejecutar Queater:
+
+## Requisitos previos:
+
+- composer
+- node 
+
+## Pasos:
+
+
+#### ⬇️ Descargar Queater
+
+Accede al repositorio de GitHub de Queater: https://github.com/brianrddaw/Queater
+
+Copia el enlace de clonación: https://github.com/brianrddaw/Queater.git
+
+#### Clonar el repositorio:
+
+Abre tu terminal y ejecuta los siguientes comandos:
+
+    git init
+    git clone https://github.com/brianrddaw/Queater.git
+
+
+#### Instalar dependencias:
+
+Accede a la carpeta del proyecto clonado.
+
+Ejecuta los siguientes comandos:
+
+    composer install
+
+#### Ejecutar el proyecto
+
+Abre otra terminal y navega a la carpeta del proyecto.
+
+Ejecuta los siguientes comandos en terminales diferentes:
+
+    php artisan serve
+    npm run dev
+
+
+
+
+Asegúrate de seguir los pasos en el orden correcto.
+
+
+Documentación de Queater: https://docs.github.com/en/desktop/managing-commits/reverting-a-commit-in-github-desktop
+
+Comunidad de Queater: https://docs.github.com/en/desktop/managing-commits/reverting-a-commit-in-github-desktop
+
+## Conclusión:
+
+Siguiendo estos pasos, podrás ejecutar Queater en tu ordenador local y comenzar a explorar las funcionalidades de la aplicación.
+
+Recuerda que siempre puedes consultar la documentación oficial
+# 👱🏻‍♂️👦🏻 Autores
+
+[@brianrddaw](https://github.com/brianrddaw)
+
+[@MiguelAguiarDEV](https://github.com/MiguelAguiarDEV)
+
+
+# 🔗 Linkedin
+
+Brian Ramírez
+
+[![linkedin](https://media.licdn.com/dms/image/D4D03AQGgJJTvyWts4A/profile-displayphoto-shrink_200_200/0/1701608995216?e=1719446400&v=beta&t=xfvE3be57gXWwaDbgAL5mqMVeMPgzEH_jHhdzd5MTag)](https://www.linkedin.com/in/brian-ram%C3%ADrez-delgado-62b3a62a3/)
+
+Miguel Aguiar
+
+[![linkedin](https://media.licdn.com/dms/image/D4E03AQHOVtFHhrFNkQ/profile-displayphoto-shrink_200_200/0/1705395635606?e=1719446400&v=beta&t=As25zAAPFBbMxBHHl9PGEASTqFsOtGaigH5J9yLy8qA)](https://www.linkedin.com/in/miguel-alejandro-santiesteban-aguiar/)
+
