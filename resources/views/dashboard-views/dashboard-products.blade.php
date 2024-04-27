@@ -28,7 +28,7 @@
                             <div class="flex">
                                 <div class="flex w-full justify-between">
                                     <div class="flex gap-4">
-                                        <div class="flex items-center justify-center w-20 h-20 bg-orange-950 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
+                                        <div class="flex items-center justify-center w-20 h-20 bg-slate-950 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
                                             <img  class="object-cover w-16 h-16 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
                                         </div>
                                         <span class=" flex flex-col gap-2">

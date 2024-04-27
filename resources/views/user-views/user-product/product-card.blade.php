@@ -1,8 +1,8 @@
-<div class="product-card flex w-[400px] min-w-32 rounded-xl px-3 py-3 bg-stone-100 text-orange-950 drop-shadow-[0_3px_3px_rgba(0,0,0,.3)] text-base">
+<div class="product-card flex w-[400px] min-w-32 rounded-xl px-3 py-3 bg-stone-100 text-slate-800 drop-shadow-[0_3px_3px_rgba(0,0,0,.3)] text-base">
 
     <div class="flex flex-col gap-4 w-full">
         <div class="flex justify-between gap-4">
-            <div class="flex items-center justify-center overflow-hidden w-14 h-14 bg-orange-950 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
+            <div class="flex items-center justify-center overflow-hidden w-14 h-14 bg-slate-950 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
                 <img  class="object-cover w-12 h-12 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
             </div>
 
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="product-card-info flex flex-wrap gap-2 bg-walter-300 p-2 rounded-sm mb-0">
+        <div class="product-card-info flex flex-wrap gap-2 bg-slate-100 p-2 rounded-sm mb-0">
             <span>
                 <p>{{ $product->description }}</p>
             </span>

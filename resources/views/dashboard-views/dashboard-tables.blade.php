@@ -109,16 +109,17 @@
             });
         }
 
-        function printSVG(svgId)
+        function printSVG(id)
         {
-            var svg = document.getElementById(svgId).outerHTML;
-            var printWindow = window.open('', '_blank');
-            printWindow.document.open();
-            //printWindow.document.write('<html><head><title>Print SVG</title></head><body>');
-            printWindow.document.write(svg);
-            printWindow.document.write('</body></html>');
+            const svg = document.getElementById(id);
+            const printWindow = window.open('', '', 'width=1000,height=600');
+            printWindow.document.write(
+                `<img src="${svg.src}" />`
+            );
             printWindow.document.close();
-            printWindow.print();
+            printWindow.onload = function(){
+                printWindow.print();
+            }
         }
 
         function generateQr()
