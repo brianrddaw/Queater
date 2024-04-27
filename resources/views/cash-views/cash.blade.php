@@ -43,7 +43,7 @@
 
                 <ul id="orders-ctn" class="flex flex-col gap-4 select-none text-orange-950 rounded w-full h-[75vh] p-4 bg-slate-300 shadow-stone-300 shadow-4">
                     <div class="flex justify-between text-2xl w-full h-fit items-center gap-6">
-                        <h2 class="font-bold bg-stone-950 text-orange-50 p-4 rounded">En preparación</h2>
+                        <h2 class="font-bold bg-slate-800 text-orange-50 p-4 rounded">En preparación</h2>
                         <h3 class="font-bold bg-yellow-950 text-orange-50 p-4 rounded">Total: {{ count($preparingOrders) }}</h3>
                     </div>
                     <div id="preparing-orders-ctn" class="overflow-y-auto">
@@ -94,7 +94,7 @@
                 const orderLineItemsHtml = order.orders_line.map(orderLine => `
                     <li class="order-line flex flex-col items-center py-4">
                         <div class="flex items center w-full">
-                            <div class="text-lg flex flex-col gap-1">
+                            <div class="text-lg flex  flex-col gap-1">
                                 <div>
                                     <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
                                 </div>
@@ -105,7 +105,7 @@
 
                 return `
                     <div class="order-container bg-walter-200 rounded-lg mb-4 drop-shadow-lg w-full h-fit">
-                        <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-stone-500 text-orange-50">${orderHeaderHtml}</div>
+                        <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4 rounded-t bg-slate-800 text-orange-50">${orderHeaderHtml}</div>
                         <div class="flex items-center px-4 pt-0"><ul class="flex flex-col w-full">${orderLineItemsHtml}</ul></div>
                     </div>
                 `;
@@ -120,7 +120,7 @@
             $('#total-take-away').text(`Total: ${numberOrders}`);
 
             const ordersHtml = data.map(order => {
-                const orderBtnDeliveredHtml = `<button class="bg-orange-800 text-orange-50 p-2 px-4 rounded" onclick="changeOrderState(${order.id})">Listo</button>`;
+                const orderBtnDeliveredHtml = `<button class="bg-orange-800 text-orange-50 p-2 px-4 rounded" onclick="changeOrderState(${order.id})">Entregar</button>`;
                 const orderHeaderHtml = `
                     <div>
                         <strong>Pedido: </strong>${order.id}
@@ -165,7 +165,7 @@
             $('#total-eat-here').text(`Total: ${numberOrders}`);
 
             const ordersHtml = data.map(order => {
-                const orderBtnDeliveredHtml = `<button class="bg-cyan-800 text-orange-50 p-2 px-4 rounded" onclick="changeOrderState(${order.id})">Listo</button>`;
+                const orderBtnDeliveredHtml = `<button class="bg-cyan-800 text-orange-50 p-2 px-4 rounded" onclick="changeOrderState(${order.id})">Entregar</button>`;
                 const orderHeaderHtml = `
                     <div>
                         <strong>Pedido: </strong>${order.id}

@@ -17,119 +17,139 @@
                     <h2 class="text-4xl font-bold bg-[#ffdb71] p-4 rounded w-fit">PARA COMER AQUÍ: {{ count($readyOrders) }}</h2>
                     <h2 class="text-4xl font-bold bg-[#ffdb71] p-4 rounded w-fit">PARA LLEVAR: {{ count($readyOrders) }}</h2>
                 </div>
+
+                <div>
+                    <div>
+                        Titulo
+                    </div>
+                    <ul>
+                        Producto0
+                        Producto1
+                        Producto2
+                    </ul>
+                </div>
+
+
+
+
+
+
+
+
+
             </div> -->
-            <div class="all-orders-container flex w-full gap-10">
-                <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[75vh] bg-stone-200 p-4 rounded overflow-y-scroll">
+            <div class="all-orders-container flex w-full gap-10 mt-4">
+                <div class="flex flex-col w-full h-fit gap-6">
                     <h2 class="text-2xl font-bold bg-orange-950 text-orange-50 w-fit h-fit p-4 rounded">Pedidos listos</h2>
-                    <div id="ready-orders-ctn">
-                    @foreach ($readyOrders as $readyOrder)
-                        <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit grayscale">
+                    <ul class="flex flex-col gap-4 select-none text-orange-950 w-full h-[65vh] bg-stone-400 p-4 rounded overflow-y-scroll">
+                        <div id="ready-orders-ctn">
+                        @foreach ($readyOrders as $readyOrder)
+                            <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit grayscale">
 
-                            <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
-                                <div>
-                                    <strong>Pedido: </strong>
-                                    {{ $readyOrder['id'] }}
+                                <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
+                                    <div>
+                                        <strong>Pedido: </strong>
+                                        {{ $readyOrder['id'] }}
+                                    </div>
+
+                                    <div >
+                                        <strong>{{ $readyOrder['take_away'] ? 'Para llevar' : 'Mesa: ' . $readyOrder['table_id'] . '' }}</strong>
+                                    </div>
+
+                                    <p>Finalizado</p>
                                 </div>
 
-                                <div >
-                                    <strong>{{ $readyOrder['take_away'] ? 'Para llevar' : 'Mesa: ' . $readyOrder['table_id'] . '' }}</strong>
-                                </div>
+                                <div class="flex items-center px-4 pt-0">
+                                    <ul class="flex flex-col w-full">
+                                        @foreach ($readyOrder['orders_line'] as $orderLine)
+                                            <li class="order-line flex flex-col items-center py-4 w-full">
+                                                <div class="flex items-center w-full ">
 
-                                <p>Finalizado</p>
-                            </div>
+                                                    <div class="text-lg flex flex-col gap-1 ">
+                                                        <div>
+                                                            <strong>
+                                                                {{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}
+                                                            </strong>
+                                                        </div>
 
-                            <div class="flex items-center px-4 pt-0">
-                                <ul class="flex flex-col w-full">
-                                    @foreach ($readyOrder['orders_line'] as $orderLine)
-                                        <li class="order-line flex flex-col items-center py-4 w-full">
-                                            <div class="flex items-center w-full ">
 
-                                                <div class="text-lg flex flex-col gap-1 ">
-                                                    <div>
-                                                        <strong>
-                                                            {{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}
-                                                        </strong>
                                                     </div>
-
-
                                                 </div>
-                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
-                                                    <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
+                                                <div class="ingredients-container hidden bg-walter-400 p-2 h-fit  m-2 mt-6 rounded text-lg w-full">
+                                                    {{ $orderLine['product']['description'] }}
                                                 </div>
-                                            </div>
-                                            <div class="ingredients-container hidden bg-walter-400 p-2 h-fit  m-2 mt-6 rounded text-lg w-full">
-                                                {{ $orderLine['product']['description'] }}
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
+                        @endforeach
                         </div>
-                    @endforeach
-                    </div>
-                </ul>
-
-                <ul class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[75vh] overflow-y-scroll">
+                    </ul>
+                </div>
+                <div class="flex flex-col w-full h-fit gap-6">
                     <h2 class="text-2xl font-bold bg-orange-500 text-orange-50 w-fit h-fit p-4 rounded">Pedidos en cola</h2>
-                    <div id="orders-ctn">
-                    @foreach ($preparingOrders as $preparingOrder)
-                        <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
+                    <ul class="flex flex-col gap-4 select-none text-orange-950 bg-orange-100 p-4 rounded w-full h-[65vh] overflow-y-scroll">
+                        <div id="orders-ctn">
+                        @foreach ($preparingOrders as $preparingOrder)
+                            <div class="order-container bg-walter-200 rounded-lg  mb-4 drop-shadow-lg w-full h-fit">
 
-                            <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
-                                <div>
-                                    <strong>Pedido: </strong>
-                                    {{ $preparingOrder['id'] }}
+                                <div class="flex text-lg flex-row justify-between items-center font-semibold p-2 px-4  rounded-t bg-orange-500 text-orange-50">
+                                    <div>
+                                        <strong>Pedido: </strong>
+                                        {{ $preparingOrder['id'] }}
+                                    </div>
+
+                                    <div >
+                                        <strong>Para llevar</strong>
+                                    </div>
+
+                                    <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="confirmOrder(this, {{ $preparingOrder['id'] }})">Hecho</button>
                                 </div>
 
-                                <div >
-                                    <strong>Para llevar</strong>
+                                <div class="flex items-center px-4 pt-0">
+                                    <ul class="flex flex-col w-full">
+                                        @foreach ($preparingOrder['orders_line'] as $orderLine)
+                                            <li class="order-line flex flex-col items-center py-4 ">
+                                                <div class="flex items-center  w-full ">
+
+                                                    <div class="text-lg flex flex-col gap-1 ">
+                                                        <div>
+                                                            <strong>
+                                                                {{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}
+                                                            </strong>
+                                                        </div>
+
+                                                        <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
+                                                            <strong>Descripción</strong>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="  w-7 h-7 transition-all">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                            </svg>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
+                                                        <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
+                                                    </div>
+                                                </div>
+                                                <div class="ingredients-container hidden bg-walter-400 p-2 h-fit  m-2 mt-6 rounded text-lg w-full">
+                                                    {{ $orderLine['product']['description'] }}
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </div>
 
-                                <button class="bg-green-500 text-green-950 hover:bg-green-400  p-2 rounded cursor-pointer" onclick="confirmOrder(this, {{ $preparingOrder['id'] }})">Hecho</button>
                             </div>
-
-                            <div class="flex items-center px-4 pt-0">
-                                <ul class="flex flex-col w-full">
-                                    @foreach ($preparingOrder['orders_line'] as $orderLine)
-                                        <li class="order-line flex flex-col items-center py-4 ">
-                                            <div class="flex items-center  w-full ">
-
-                                                <div class="text-lg flex flex-col gap-1 ">
-                                                    <div>
-                                                        <strong>
-                                                            {{ $orderLine['product']['name'] }} x {{ $orderLine['quantity'] }}
-                                                        </strong>
-                                                    </div>
-
-                                                    <div class="ingredients-button flex items-center gap-2 cursor-pointer" onclick="ingredientsDisplay(this)">
-                                                        <strong>Descripción</strong>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="  w-7 h-7 transition-all">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                        </svg>
-
-                                                    </div>
-                                                </div>
-                                                <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
-                                                    <img src="{{"/storage/" . $orderLine['product']['image_url'] }}" alt="{{ $orderLine['product']['name'] }}" class="w-16 h-16">
-                                                </div>
-                                            </div>
-                                            <div class="ingredients-container hidden bg-walter-400 p-2 h-fit  m-2 mt-6 rounded text-lg w-full">
-                                                {{ $orderLine['product']['description'] }}
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-
+                        @endforeach
                         </div>
-                    @endforeach
-                    </div>
-                </ul>
+                    </ul>
+                </div>
             </div>
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <input type="hidden" name="route" value='kitchen.main'>
-                <button type="submit" class="bg-orange-500 rounded min-w-40 p-4 active:bg-orange-400 text-orange-50 font-bold text-xl mt-6">Salir</button>
+                <button type="submit" class="bg-orange-500 rounded min-w-40 p-4 active:bg-orange-400 text-orange-50 font-bold text-xl mt-2">Salir</button>
             </form>
         </section>
 
@@ -218,9 +238,6 @@
                                         <div>
                                             <strong>${orderLine.product.name} x ${orderLine.quantity}</strong>
                                         </div>
-                                    </div>
-                                    <div class="flex justify-center items-center w-20 h-20 ml-auto bg-orange-950 rounded-full">
-                                        <img src="/storage/${orderLine.product.image_url}" alt="${orderLine.product.name}" class="w-16 h-16">
                                     </div>
                                 </div>
                                 <div class="ingredients-container hidden bg-walter-400 p-2 h-fit  m-2 mt-6 rounded text-lg w-full">
