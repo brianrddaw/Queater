@@ -10,35 +10,15 @@
             theme: {
                 extend: {
                     colors: {
-                        // AZULES
-                        "tesla-50": "#B7C0EE",
-                        "tesla-100": "#88A2F7",
-                        "tesla-200": "#4D85F5",
-                        "tesla-300": "#266DF3",
-                        "tesla-400": "#1C59DA",
-                        "tesla-500": "#185ADB",
-                        "tesla-600": "#1350C3",
-                        "tesla-700": "#0F469B",
-                        "tesla-800": "#0B3274",
-                        "tesla-900": "#06204C",
-                        "tesla-950": "#031426",
-                        "tesla-950": "#031426",
-
-                        // NARANJAS
                         "orange-50": "#F9F9F9",
-                        // "orange-100": "#F7A288",
-                        // "orange-200": "#E5E3E2",
-                        // "orange-300": "#F36D26",
-                        // "orange-400": "#DA591C",
                         "orange-500": "#FF5B19",
                         "orange-600": "#C35013",
                         "orange-700": "#9B460F",
                         "orange-800": "#74320B",
                         "orange-900": "#4C2006",
                         "orange-950": "#161616",
-
                         "gray-100": "#E5E3E2",
-                        // BLANCOS
+
                         "walter-50": "#FFFFFF",
                         "walter-100": "#F9F9F9",
                         "walter-200": "#F3F3F3",
@@ -62,7 +42,7 @@
     <title>@yield('title')</title>
 </head>
 
-<body class="overflow-x-hidden bg-walter-400">
+<body class="overflow-x-hidden bg-slate-200">
 
     <div id="loader" class="fixed top-0 left-0 z-50 w-screen h-screen bg-black bg-opacity-50 items-center justify-center hidden">
         <svg aria-hidden="true" class="w-14 h-14 text-gray-200 animate-spin dark:text-gray-600 fill-orange-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
