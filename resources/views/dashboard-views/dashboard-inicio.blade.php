@@ -1,5 +1,5 @@
-<section class="flex flex-col  w-full h-full overflow-y-scroll">
-    <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[1000px]  bg-stone-100 rounded-lg shadow-4 p-6 mt-6 m-4 ml-6">
+<section class="flex flex-col w-full h-full overflow-y-scroll gap-6 pb-2 pl-2">
+    <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[1000px] bg-stone-100 rounded-lg shadow-4 p-6 mt-2">
         <span class="flex items-center gap-4 bg-orange-500 p-4 w-fit font-bold mr-auto ml-4 rounded-lg shadow-3 text-white">
             <p>
                 Ventas de la semana
@@ -11,7 +11,7 @@
         </span>
         <canvas id="lineChart"></canvas>
     </div>
-    <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[500px]  bg-stone-100 rounded-lg shadow-4 p-6 mt-6 m-4 ml-6">
+    <div class="flex flex-col justify-left items-start h-fit w-[80%] max-w-[500px]  bg-stone-100 rounded-lg shadow-4 p-6 mt-2">
         <span class="flex items-center gap-4 bg-orange-500 p-4 w-fit font-bold mr-auto ml-4 rounded-lg shadow-3 text-white">
             <p>
                 Top 5 productos más vendidos

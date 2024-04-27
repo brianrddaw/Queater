@@ -5,9 +5,9 @@
     <a href="{{ route('kitchen.main') }}">kitchen</a>
     <a href="{{ route('cash.main') }}">cash</a>
 @endsection
-<div class="flex flex-col w-full h-full gap-6 py-4">
+<div class="flex flex-col w-full h-full gap-6 pt-2 pb-4">
 
-    <button class="flex justify-center items-center gap-4 bg-stone-200 min-w-fit w-fit h-fit p-4 rounded-lg  active:bg-walter-300 font-bold shadow-4  ml-6" onclick="showAddProductForm()">
+    <button class="flex justify-center items-center gap-4 bg-stone-100 min-w-fit w-fit h-fit p-4 rounded-lg active:bg-walter-300 font-bold shadow-4 ml-2" onclick="showAddProductForm()">
         <p class="text-orange-950 uppercase" >
             Agregar Producto
         </p>
@@ -15,23 +15,23 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
     </button>
-    <div class="flex  flex-wrap w-[100%] h-[calc(100vh-7.25rem)] gap-4 overflow-y-scroll px-6">
+    <div class="flex flex-wrap w-[100%] h-[calc(100vh-7.25rem)] gap-4 overflow-y-scroll pl-2 pr-6">
         @foreach ( $productsByCategory as $category => $products)
 
-            <h2 class="text-2xl my-6 font-bold bg-orange-500 w-full text-center py-4 rounded-lg text-orange-50">{{ $category }}</h2>
+            <h2 class="text-2xl mb-6 font-bold bg-orange-500 w-full text-center py-4 rounded-lg text-orange-50">{{ $category }}</h2>
 
-            <div class="w-full flex flex-wrap justify-between gap-10">
+            <div class="w-full flex flex-wrap justify-between gap-10 mb-6">
                 @foreach ($products as  $product)
 
-                    <div class="card flex flex-col w-[28rem]  max-h[00px] bg-walter-300 border rounded p-2 py-6 gap-6 text-orange-950 sm:mx-auto lg:mx-0">
+                    <div class="card flex flex-col w-[28rem]  bg-stone-100 border rounded p-4 py-6 gap-6 text-orange-950 sm:mx-auto lg:mx-0">
 
                             <div class="flex">
                                 <div class="flex w-full justify-between">
-                                    <div class="flex gap-10">
+                                    <div class="flex gap-4">
                                         <div class="flex items-center justify-center w-20 h-20 bg-orange-950 rounded-full drop-shadow-[0_4px_3px_rgba(0,0,0,.3)]">
                                             <img  class="object-cover w-16 h-16 rounded-full" src="{{ "/storage/" . $product->image_url }}" alt="{{ $product->name }}">
                                         </div>
-                                        <span class=" flex flex-col justify-between">
+                                        <span class=" flex flex-col gap-2">
                                             <h3 class="font-bold">{{ $product->name }}</h3>
                                             <div class="flex gap-4">
                                                 <p>Precio</p>
@@ -48,7 +48,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="flex flex-col bg-walter-400 p-2 gap-2 rounded">
+                            <div class="flex flex-col bg-slate-200 p-2 gap-2 rounded">
 
                                 <span>
                                     {{ $product->description }}
