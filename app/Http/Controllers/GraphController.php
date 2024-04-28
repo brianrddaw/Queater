@@ -26,10 +26,10 @@ class GraphController extends Controller
         $data = [];
 
         for ($i = 7; $i > 0; $i--) {
-            $day = now()->subDays($i)->format('d/m/Y');
+            $day = now()->addDay()->subDays($i)->format('d/m/Y');
             $sales = OrdersLine::join('products', 'orders_lines.product_id', '=', 'products.id')
                 ->select(DB::raw("DATE_FORMAT(orders_lines.created_at, '%d') as day"), DB::raw('sum(orders_lines.quantity * products.price) as total'))
-                ->whereDate('orders_lines.created_at', now()->subDays($i))
+                ->whereDate('orders_lines.created_at', now()->addDay()->subDays($i))
                 ->groupBy('day')
                 ->first();
 
