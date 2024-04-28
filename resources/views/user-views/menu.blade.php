@@ -59,12 +59,9 @@
                     $('#cart').css('transform', 'translateY(10%)');
 
                 }
-
-                $('.info-button').on('click', function()
-                {
-                    infoDisplay(this);
-                });
             }
+
+            $('.info-button').on('click', function() { infoDisplay(this); });
 
             function addToOrder(id, price, name, image_url)
             {
@@ -89,9 +86,6 @@
                 orderTotal += price;
                 $('.order-total').text(orderTotal.toFixed(2) + ' €');
 
-                // if(Object.keys(order).length = 1) {
-                //     $('#cart').css('transform', 'translateY(0%)');
-                // }
                 if(Object.keys(order).length == 1) {
                     $('#cart-header').css('display', 'grid').hide().slideDown(200);
                 }
@@ -126,8 +120,6 @@
             buttons.forEach(function(button) {
                 button.addEventListener('click', addToOrderAnimation);
             });
-
-
 
             function addToOrderHtml(product, image_url)
             {
@@ -228,10 +220,12 @@
 
             function infoDisplay(card)
             {
+                console.log('hola');
                 const infoContainer = $(card).closest('.product-card').find('.product-card-info');
                 const infoCloseSvg = $(card).closest('.product-card').find('.info-close-svg');
                 const isInfoVisible = infoContainer.hasClass('active');
-
+                console.log(infoContainer)
+                console.log(infoCloseSvg)
                 if (!isInfoVisible) {
 
                         infoContainer.addClass('active').css('display', 'flex').hide().slideDown(200);
@@ -248,6 +242,7 @@
 
                 }
             }
+
 
             function setOrderTotalAndSubmitForm()
             {
@@ -266,7 +261,7 @@
         <style>
 
             article:nth-child(even) {
-                background-color: #e7e5e4;
+                background-color: #e2e8f0;
             }
 
             .product-card {
