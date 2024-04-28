@@ -5,26 +5,11 @@ export default {
         "./resources/**/*.js",
         "./resources/**/*.vue",
     ],
+    purge: ["./resources/**/*.blade.php"],
     theme: {
         extend: {
             colors: {
-                // AZULES
-                "tesla-50": "#B7C0EE",
-                "tesla-100": "#88A2F7",
-                "tesla-200": "#4D85F5",
-                "tesla-300": "#266DF3",
-                "tesla-400": "#1C59DA",
-                "tesla-500": "#185ADB",
-                "tesla-600": "#1350C3",
-                "tesla-700": "#0F469B",
-                "tesla-800": "#0B3274",
-                "tesla-900": "#06204C",
-                "tesla-950": "#031426",
-                "tesla-950": "#031426",
-
-                // NARANJAS
                 "orange-50": "#F9F9F9",
-                // "orange-100": "#F7A288",
                 "orange-200": "#E5E3E2",
                 "orange-300": "#F36D26",
                 "orange-400": "#DA591C",
@@ -36,7 +21,6 @@ export default {
                 "orange-950": "#161616",
 
                 "gray-100": "#E5E3E2",
-                // BLANCOS
                 "walter-50": "#FFFFFF",
                 "walter-100": "#F9F9F9",
                 "walter-200": "#F3F3F3",
