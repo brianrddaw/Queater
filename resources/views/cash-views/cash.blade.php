@@ -30,7 +30,7 @@
                     <div class="flex text-2xl w-fit h-fit justify-between items-center p-2 pl-4 gap-6 bg-orange-500 text-orange-50 font-bold   rounded-full">
                         <h2 >Para llevar</h2>
                         <div class="flex items-center justify-center w-10 h-10 font-bold bg-orange-800 text-orange-50 rounded-full shadow-5">
-                            <h3 id="total-eat-here">{{ count($takeAwayOrders) }}</h3>
+                            <h3 id="total-take-away">{{ count($takeAwayOrders) }}</h3>
                         </div>
                     </div>
                     <div id="take-away-orders-ctn" class="overflow-y-auto pr-4">
@@ -42,7 +42,7 @@
                     <div class="flex text-2xl w-fit h-fit justify-between items-center p-2 pl-4 gap-6 bg-slate-800 text-orange-50 font-bold   rounded-full">
                         <h2 >En Preparación...</h2>
                         <div class="flex items-center justify-center w-10 h-10 font-bold bg-slate-600 text-slate-100 rounded-full shadow-5">
-                            <h3 id="total-eat-here">{{ count($preparingOrders) }}</h3>
+                            <h3 id="total-preparing">{{ count($preparingOrders) }}</h3>
                         </div>
                     </div>
                     <div id="preparing-orders-ctn" class="overflow-y-auto pr-4">
@@ -78,6 +78,10 @@
         }
 
         function createOrdersPreparingHtml(data) {
+            const numberOrders = data.length;
+
+            $('#total-preparing').text(`${numberOrders}`);
+
             const ordersHtml = data.map(order => {
                 const orderHeaderHtml = `
                     <div>
@@ -113,6 +117,7 @@
         }
 
         function createOrdersTakeAwayHtml(data) {
+
             const numberOrders = data.length;
 
             $('#total-take-away').text(`${numberOrders}`);
@@ -158,6 +163,7 @@
 
 
         function createOrdersEatHereHtml(data) {
+
             const numberOrders = data.length;
 
             $('#total-eat-here').text(`${numberOrders}`);
