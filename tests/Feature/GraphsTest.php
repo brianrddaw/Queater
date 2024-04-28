@@ -68,9 +68,6 @@ class GraphsTest extends TestCase
         // Verificamos que la respuesta sea exitosa (código 200)
         $response->assertStatus(200);
         //Imprime en consola la respuesta
-        echo $response->getContent();
-
-
 
         // Verificamos que la respuesta JSON contenga los datos de los 5 productos más vendidos
         $response->assertJsonStructure([ // Verificamos la estructura de cada producto en la respuesta
