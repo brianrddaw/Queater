@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Session;
-
 class MainUserController extends Controller
 {
-    public function index()
+    public function index($mesa)
     {
-        return view('user-views.main');
+        if ($mesa == 1) {
+            return view('user-views.main');
+        }
     }
 }

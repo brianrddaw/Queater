@@ -6,7 +6,7 @@
     <main class="flex flex-col w-full h-[calc(100vh-3.5rem)] place-content-center justify-evenly items-center">
 
         <section class="w-full h-fit flex flex-col justify-center items-center">
-            <img class="w-3/4 mr-6" src="{{ asset('imgs/plato-main.webp') }}" alt="">
+            <img class="w-64  mr-6" src="{{ asset('imgs/plato-main.webp') }}" alt="">
 
             <div
                 role="heading"
@@ -25,8 +25,7 @@
         </section>
 
         <section class="w-fit h-fit flex flex-col justify-center items-center gap-4">
-
-            <a href="{{route('eat-here.main')}}"
+            <a href="{{ route('eat-here.main', ['mesa' => 1]) }}"
                 class="
                     flex flex-col
                     justify-center
@@ -63,10 +62,7 @@
 
         </section>
 
-
     </main>
-
-
 @endsection
 
 

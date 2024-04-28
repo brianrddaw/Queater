@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -21,11 +20,9 @@ class UserController extends Controller
     public function logout()
     {
         $route = request()->route;
-
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-
         return redirect(route($route));
     }
 
