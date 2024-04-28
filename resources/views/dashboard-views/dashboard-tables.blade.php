@@ -109,16 +109,42 @@
             });
         }
 
-        function printSVG(svgId)
+        //Funcion asincrona para imprimir el SVG
+
+        function printSVG(id)
         {
-            var svg = document.getElementById(svgId).outerHTML;
-            var printWindow = window.open('', '_blank');
-            printWindow.document.open();
-            //printWindow.document.write('<html><head><title>Print SVG</title></head><body>');
-            printWindow.document.write(svg);
-            printWindow.document.write('</body></html>');
+            const svg = document.getElementById(id);
+            const printWindow = window.open('', '', 'width=600,height=600');
+
+            if(id == "svg-take-away")
+            {
+                printWindow.document.write(`
+                    <div>
+                        <h1> PARA LLEVAR </h1>
+                        <img src="${svg.src}" />
+                    </div>
+
+                    <style>
+
+                    </style>
+                `);
+            }else{
+                printWindow.document.write(`
+                    <div>
+                        <h1>MESA ${id.match(/svg-(\d+)/)[1]}</h1>
+                        <img src="${svg.src}" />
+                    </div>
+
+                    <style>
+
+                    </style>
+                `);
+            }
+
             printWindow.document.close();
-            printWindow.print();
+            printWindow.onload = function(){
+                printWindow.print();
+            }
         }
 
         function generateQr()

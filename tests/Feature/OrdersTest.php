@@ -192,4 +192,27 @@ class OrdersTest extends TestCase
         //Borra el pedido de prueba
         $preparingOrder->delete();
     }
+
+    public function test_change_order_state_ready_to_delivered()
+    {
+        // Creamos un pedido de prueba en estado 'ready'
+        $readyOrder = Order::create([
+            'take_away' => false,
+            'state' => 'ready',
+            'table_id' => 1
+        ]);
+
+        // Realizamos una solicitud PUT a la ruta correspondiente para cambiar el estado del pedido de 'ready' a 'delivered'
+        $response = $this->put(route('change.order.state', ['order_id' => $readyOrder->id]));
+
+        // Verificamos que la respuesta sea exitosa (código 200)
+        $response->assertStatus(200);
+
+        // Verificamos que el estado del pedido haya cambiado a 'delivered'
+        $this->assertEquals('delivered', Order::find($readyOrder->id)->state);
+
+        //Borra el pedido de prueba
+        $readyOrder->delete();
+    }
+
 }
