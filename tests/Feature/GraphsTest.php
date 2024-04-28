@@ -47,7 +47,7 @@ class GraphsTest extends TestCase
         ]);
 
 
-        $response = $this->get(route('/dashboard/graph/sales-of-last-7-days'));
+        $response = $this->get(route('dashboard.graph.top-5'));
 
         // Verificamos que la respuesta sea exitosa (código 200)
         $response->assertStatus(200);
@@ -63,17 +63,19 @@ class GraphsTest extends TestCase
 
     public function test_get_data_sales_of_last_7_days()
     {
-        $response = $this->get(route('dashboard.graph.top-5'));
+        $response = $this->get(route('dashboard.graph.sales-of-last-7-days'));
 
         // Verificamos que la respuesta sea exitosa (código 200)
         $response->assertStatus(200);
+        //Imprime en consola la respuesta
+        echo $response->getContent();
+
+
 
         // Verificamos que la respuesta JSON contenga los datos de los 5 productos más vendidos
         $response->assertJsonStructure([ // Verificamos la estructura de cada producto en la respuesta
-            '*' => [
-                'name',
-                'total'
-            ]
+            'labels',
+            'data'
         ]);
     }
 }
