@@ -231,7 +231,6 @@
                 url: "{{ route('kitchen.orders.new') }}",
                 type: 'GET',
                 success: function(data) {
-                    console.log("New orders: ", data);
                     if (data.length > 0) {
                         showNewOrders(data);
                     }

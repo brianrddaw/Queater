@@ -39,16 +39,15 @@ class KitchenController extends Controller
 
     public function sendReadyOrders()
     {
-        $ordersData = Order::with('ordersLine.product')
-                        ->where('created_at', '>=', now()->subHours(24))
-                        ->where('state', 'ready')
-                        ->orderby('created_at', 'desc')
-                        ->get();
+        $ordersData =Order::where('state', 'ready')
+                ->with('ordersLine.product')
+                ->orderby('created_at', 'asc')
+                ->get();
 
         $orderController = new OrderController();
         $ordersJson = $orderController->formatOrdersData($ordersData);
 
-        return response()->json($ordersJson);
+        return $ordersJson;
     }
 
     public function changeOrderStatus(Request $request)

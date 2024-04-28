@@ -117,7 +117,6 @@ class OrderController extends Controller
         return $eatHereOrdersJson;
     }
 
-
     public function formatOrdersData($ordersData)
     {
         $ordersJson = [];

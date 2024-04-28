@@ -56,8 +56,7 @@ Route::get('/getTicket/{id}/{tableId}', [StripeController::class, 'getTicket'])-
 Route::get('/printTicket/{id}/{tableId}', [StripeController::class, 'printTicket'])->name('payment.printTicket');
 
 
-//Ruta para obtener los productos.
-Route::get('/cash',[CashController::class, 'index'])->name('cash.main');
+
 
 //////////////////////////
 //                      //
@@ -70,11 +69,9 @@ Route::get('/kitchen', [KitchenController::class, 'index'])->name('kitchen.main'
 Route::get('/kitchen/orders/new', [KitchenController::class, 'sendNewOrders'])->name('kitchen.orders.new');
 //Enviar los pedidos con el estado ready.
 Route::get('/kitchen/orders/ready', [KitchenController::class, 'sendReadyOrders'])->name('kitchen.orders.ready');
-
 //Cambiar el estado del pedido.
 Route::post('/kitchen/orders/change-status', [KitchenController::class, 'changeOrderStatus'])->name('kitchen.orders.change-status');
-//Hacer el pedido
-Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
+
 
 //////////////////////////
 //                      //
@@ -212,17 +209,17 @@ Route::get('/dashboard/graph/sales-of-last-7-days', [GraphController::class, 'sa
 //                      //
 //////////////////////////
 
+//Ruta para hacer un pedido.
+Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('make.order');
+
 //Ruta para obtener los pedidos en preparaccón.
 Route::get('/get/orders/preparing', [OrderController::class, 'preparingOrderJson'])->name('get.orders.preparing');
 
 //Ruta para obtener los pedidos listos.
-//False y True
-Route::get('/get/orders/ready/take-away', [OrderController::class, 'getTakeAwayOrdersReadys'])->name('get.orders.ready');
-
+Route::get('/get/orders/ready/take-away', [OrderController::class, 'getTakeAwayOrdersReadys'])->name('get.orders.take-away.ready');
 
 //Ruta para obtener los pedidos para llevar.
-//False y True
-Route::get('/get/orders/ready/eat-here/', [OrderController::class, 'getEatHereOrdersReadys'])->name('get.orders.take-away');
+Route::get('/get/orders/ready/eat-here', [OrderController::class, 'getEatHereOrdersReadys'])->name('get.orders.eat-here.ready');
 
 //Ruta para cambiar el estado de un pedido. //Estados: new->preparing->ready->delivered
 Route::put('/orders/change/state', [OrderController::class, 'changeOrderState'])->name('change.order.state');
@@ -233,5 +230,10 @@ Route::put('/orders/change/state', [OrderController::class, 'changeOrderState'])
 //                      //
 //////////////////////////
 
+//Ruta para cash.
+Route::get('/cash',[CashController::class, 'index'])->name('cash.main');
+
 //Ruta para obtener tods los pedidos.
 Route::get('/get/orders', [CashController::class, 'getOrders'])->name('get.orders');
+
+
