@@ -8,7 +8,7 @@ use App\Models\Table;
 
 class Order extends Model
 {
-    protected $fillable = ['state','take_away','table_id'];
+    protected $fillable = ['id','state','take_away','table_id'];
 
     public function ordersLine()
     {

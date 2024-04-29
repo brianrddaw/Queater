@@ -8,7 +8,7 @@ use App\Models\Product;
 
 class OrdersLine extends Model
 {
-    protected $fillable = ['order_id', 'product_id', 'quantity', 'state'];
+    protected $fillable = ['id','order_id', 'product_id', 'quantity', 'state'];
 
     public function order()
     {

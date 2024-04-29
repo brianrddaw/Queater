@@ -133,7 +133,7 @@ class DashboardController extends Controller
 
         $product->delete();
 
-        return response()->json(['message' => 'Producto eliminado correctamente']);
+        return response()->json(['message' => 'Producto eliminado correctamente'],200);
     }
 
     public function createNewCategory(Request $request)

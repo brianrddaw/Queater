@@ -40,7 +40,7 @@
             </div>
 
             <div id="qrs-container" class="flex flex-wrap gap-4 p-8 w-fit h-fit bg-slate-500 rounded-lg shadow-4">
-                @if(file_exists(public_path('storage/qrcodes_images/take_away.svg')))
+                @if(file_exists(storage_path('app/public/qrcodes_images/take_away.svg')))
                     <div class="qrCard flex flex-col items-center justify-between w-36 h-fit rounded-lg py-2 bg-stone-100 shadow-4">
                         <div class="p-3 rounded">
                             <img src="/storage/qrcodes_images/take_away.svg" alt="Imagen SVG" class="svg-to-print" id="svg-take-away">

@@ -8,7 +8,7 @@ use App\Models\Allergen;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'price', 'availability','category_id', 'image_url'];
+    protected $fillable = ['id','name', 'description', 'price', 'availability','category_id', 'image_url'];
 
     public function lineasPedido()
     {

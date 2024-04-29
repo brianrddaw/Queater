@@ -8,10 +8,14 @@ export default defineConfig({
             refresh: true,
         }),
         {
-            name: "postcss",
-            use: "postcss",
-            args: {
-                plugins: [require("tailwindcss"), require("autoprefixer")],
+            name: "blade",
+            handleHotUpdate({ file, server }) {
+                if (file.endsWith(".blade.php")) {
+                    server.ws.send({
+                        type: "full-reload",
+                        path: "*",
+                    });
+                }
             },
         },
     ],
