@@ -159,10 +159,9 @@ Diagrama Entidad-Relación: https://t.ly/Epba3
 
 Diagrama de clases: https://t.ly/rPzoG
 
+Diagrama de casos de uso: https://t.ly/eyt0o
+
 Pantallas de diseño: https://t.ly/8iQrz
-
-
-
 
 
 
