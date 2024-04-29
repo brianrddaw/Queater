@@ -1,24 +1,14 @@
-![Queater](https://lh3.googleusercontent.com/keep-bbsk/AFgXFlJC6A8TQqXZ9-ZJskb7LUum3hyo4hdV7_gywikP4egZZ82Tka-Os7tTh2dI5SaBlP_T2meAhpNlOdJlre1MK-cN1gI-oq8VJOWrhEagdb1b5N3pdBEFpQ=s512)
-
-
+![image](https://github.com/brianrddaw/Queater/assets/116809102/6ab70c7c-40ed-4323-8b78-64a73ab49231)
 
 
 ## Capturas de pantalla
-![App Screenshot](https://lh3.googleusercontent.com/keep-bbsk/AFgXFlJmd9xMXS6QihA6jgfK4pMxYAo7lhbPxSLP3ecRLHIhnraU_9MbZRbWEcpaFRcRLOVOR4myooAMNpNNBn92JBNCgkFawVmEoFZpH5GrBlojrnhHI1Od1w=s512) 
+![image](https://github.com/brianrddaw/Queater/assets/116809102/a57e9c81-d2be-4593-a170-6e776bd8ae0e)
 
+![image](https://github.com/brianrddaw/Queater/assets/116809102/0bb3519d-720c-415c-9b0b-7abd612c4e3c)
 
-![App Screenshot](https://lh3.googleusercontent.com/keep-bbsk/AFgXFlIoNirlI9s66FjFNfVwXjlhV_Au1oGLFQc4O2Z0GMF_vn8U6DEsPeMPM0nLzvuvcpy1kG7ya-h7yef_Yv1ktyzGe8dPThL4y1H9wKo62r14Fmi33mAWdg=s1600)
+![image](https://github.com/brianrddaw/Queater/assets/116809102/90563b7a-5abe-439c-b979-976c473a1ad1)
 
-![App Screenshot](https://lh3.googleusercontent.com/keep-bbsk/AFgXFlL2RmlwLLvgtI8Vn9-aKWAuO_cbRx-344NaHitdLgZMifx182HTvRghbrkE9q8S52nBse-CjLzr2yBUVO89AH5y0fcMjRsjJigkrOSj5xt-tbo9DSwIcA=s1600)
-
-![App Screenshot](https://lh3.googleusercontent.com/keep-bbsk/AFgXFlJF3Z1YDJa3aYp616OO74KedjyfWzPIsbN7ey_NmGIz8cIl2vt8NNLKSsBFvLYQ_J9YCImX5CdjgM7OQREM7LrPpxT5xSlapr1mqlhPvzc5NbTt4rNFow=s1600)
-
-
-
-
-
-
-
+![image](https://github.com/brianrddaw/Queater/assets/116809102/527f3ab8-227e-4d40-82dc-1cc14f30fede)
 
 
 ## Queater: Una aplicación web para agilizar el servicio en restaurantes
