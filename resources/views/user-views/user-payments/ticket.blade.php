@@ -12,7 +12,7 @@
             padding: 0;
         }
         .container {
-            max-width: 300px;
+            max-width: 400px;
             margin: 20px auto;
             background-color: #fff;
             border-radius: 8px;
@@ -66,9 +66,11 @@
             <p><strong>Número de Orden:</strong> {{ $order->id }}</p>
             @if($tableId > 0)
             <p><strong>Mesa:</strong> {{ $tableId }}</p>
+            @else
+            <p><strong>Para llevar</strong></p>
             @endif
-            <p><strong>Fecha:</strong> {{ $order->created_at }}</p>
-
+            <p><strong>Fecha:</strong> {{ $order->created_at->format('d/m/Y') }}</p>
+            <p><strong>Hora:</strong>  {{ $order->created_at->format('H:i:s') }}</p>
         </div>
         <div class="order-items">
             <h2>Productos:</h2>
@@ -76,14 +78,17 @@
                 <thead>
                     <tr>
                         <th>Producto</th>
+                        <th>Cantidad</th>
                         <th>Precio</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($orderLines as $orderLine)
                         <tr>
-                            <td>{{ $orderLine->product->name }}</td>
-                            <td>{{ $orderLine->product->price * $orderLine->quantity}} €</td>
+                            <td id="nombre">{{ $orderLine->product->name }}</td>
+                            <td id="cantidad">{{ $orderLine->quantity }}</td>
+                            <td id="total">{{ $orderLine->product->price * $orderLine->quantity}} €</td>
                         </tr>
                     @endforeach
                 </tbody>
