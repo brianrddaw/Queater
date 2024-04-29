@@ -1,4 +1,4 @@
-![definitvo](https://github.com/brianrddaw/Queater/assets/116809102/b453c49d-d35f-4258-90de-495519f6247c)
+![definitvo](https://github.com/brianrddaw/Queater/assets/116809102/ea876e91-cf82-4fa6-ac46-3f1e4bc43d8d)
 
 ## Capturas de pantalla
 ![userfinal](https://github.com/brianrddaw/Queater/assets/116809102/4d5deef5-a8a4-4441-a879-86a837a8278e)
