@@ -25,7 +25,7 @@ class GraphController extends Controller
         $labels = [];
         $data = [];
 
-        for ($i = 7; $i > 0; $i--) {
+        for ($i = 6; $i >= 0; $i--) {
             $day = now()->subDays($i)->format('d/m/Y');
             $sales = OrdersLine::join('products', 'orders_lines.product_id', '=', 'products.id')
                 ->select(DB::raw("DATE_FORMAT(orders_lines.created_at, '%d') as day"), DB::raw('sum(orders_lines.quantity * products.price) as total'))
