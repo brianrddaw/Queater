@@ -101,8 +101,10 @@ class StripeController extends Controller
         $total = 0;
 
         foreach ($orderLines as $orderLine) {
-            $total += $orderLine->product->price;
+            $total += $orderLine->product->price * $orderLine->quantity;
         }
+
+        return view("user-views.user-payments.ticket", ['order' => $order,'orderLines' => $orderLines, 'total' => $total, 'tableId' => $tableId]);
 
         $pdf = PDF::setOptions(['defaultFont' => 'sans-serif'])->setPaper('A5')->loadView("user-views.user-payments.ticket", ['order' => $order,'orderLines' => $orderLines, 'total' => $total, 'tableId' => $tableId]);
         return $pdf->download("ticket" . $orderId . ".pdf");

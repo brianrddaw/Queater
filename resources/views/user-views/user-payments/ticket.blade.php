@@ -83,7 +83,7 @@
                     @foreach ($orderLines as $orderLine)
                         <tr>
                             <td>{{ $orderLine->product->name }}</td>
-                            <td>{{ $orderLine->product->price }} €</td>
+                            <td>{{ $orderLine->product->price * $orderLine->quantity}} €</td>
                         </tr>
                     @endforeach
                 </tbody>
