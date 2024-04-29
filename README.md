@@ -1,9 +1,10 @@
-![queater-readme](https://github.com/brianrddaw/Queater/assets/116809102/adcfb6f8-9e2d-42a1-ab79-9d02ced5d20d)
+![queater](https://github.com/brianrddaw/Queater/assets/116809102/57ce10e0-e5ae-407d-aea3-489ecbf5aad9)
+
 
 
 
 ## Capturas de pantalla
-![image](https://github.com/brianrddaw/Queater/assets/116809102/a57e9c81-d2be-4593-a170-6e776bd8ae0e)
+![userfinal](https://github.com/brianrddaw/Queater/assets/116809102/4d5deef5-a8a4-4441-a879-86a837a8278e)
 
 ![image](https://github.com/brianrddaw/Queater/assets/116809102/0bb3519d-720c-415c-9b0b-7abd612c4e3c)
 
