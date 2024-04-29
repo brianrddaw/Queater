@@ -6,7 +6,7 @@
 <section class="flex flex-wrap w-[100%] h-fit pr-2 gap-3">
         <button class="flex justify-center items-center gap-4 bg-stone-100 min-w-fit w-fit h-fit p-4 mt-2 rounded-lg  active:bg-walter-300 font-bold shadow-4" onclick="showAddCategoryForm()">
             <p class="text-orange-950 uppercase" >
-                Agregar Categoria
+                Agregar Categoría
             </p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -54,7 +54,7 @@
 
 function showAddCategoryForm() {
     Swal.fire({
-        title: 'Agregar Categoria',
+        title: 'Agregar categoría',
         html: `
             <form  enctype="multipart/form-data" action="" id="form-new-category" method="post" class="w-full  h-fit mx-auto  rounded-lg  text-orange-950">
                 <div class="flex justify-evenly gap-2">
@@ -97,7 +97,7 @@ function showAddCategoryForm() {
 function showDeleteCategory(category_id){
     console.log('showDeleteCategory: ', category_id);
     Swal.fire({
-        title: 'Eliminar Categoria',
+        title: 'Eliminar categoría',
         showCancelButton: true,
         allowOutsideClick: false,
         confirmButtonText: 'Confirmar',
@@ -141,7 +141,7 @@ function createNewCategory() {
             console.log(response);
             Swal.fire(
                 'Creada!',
-                'La categoria se ha creado exitosamente.',
+                'La categoría se ha creado exitosamente.',
                 'success'
             ).then(() => {
                 // Recargar la página después de cerrar el mensaje de éxito
@@ -153,7 +153,7 @@ function createNewCategory() {
             console.log(error);
             Swal.fire(
                 'Error!',
-                'Ha ocurrido un error al intentar crear la categoria.',
+                'Ha ocurrido un error al intentar crear la categoría.',
                 'error'
             ).then(() => {
                 // Recargar la página después de cerrar el mensaje de éxito
@@ -166,7 +166,7 @@ function createNewCategory() {
 
 function showEditCategory(categoryId, categoryName, categoryDescription, categoryPosition) {
     Swal.fire({
-        title: 'Editar Categoria',
+        title: 'Editar categoría',
         html: `
             <form  enctype="multipart/form-data" action="" id="form-new-category" method="post" class="w-full  h-fit mx-auto  rounded-lg  text-orange-950">
 
@@ -239,7 +239,7 @@ function editCategory() {
             console.log(response);
             Swal.fire(
                 'Editado!',
-                'La categoria se ha editado exitosamente.',
+                'La categoría se ha editado exitosamente.',
                 'success'
             ).then(() => {
                 // Recargar la página después de cerrar el mensaje de éxito
@@ -250,7 +250,7 @@ function editCategory() {
             console.log(error);
             Swal.fire(
                 'Error!',
-                'Ha ocurrido un error al intentar editar la categoria.',
+                'Ha ocurrido un error al intentar editar la categoría.',
                 'error'
             ).then(() => {
                 // Recargar la página después de cerrar el mensaje de éxito
@@ -271,7 +271,7 @@ function deleteCategory(category_id) {
             console.log(response);
             Swal.fire(
                 'Eliminado!',
-                'La categoria se ha sido eliminado exitosamente.',
+                'La categoría se ha sido eliminado exitosamente.',
                 'success'
             ).then(() => {
                 // Recargar la página después de cerrar el mensaje de éxito
@@ -282,7 +282,7 @@ function deleteCategory(category_id) {
             console.log(error);
             Swal.fire(
                 'Error!',
-                'Ha ocurrido un error al intentar eliminar la categoria.',
+                'Ha ocurrido un error al intentar eliminar la categoría.',
                 'error'
             ).then(() => {
                 // Recargar la página después de cerrar el mensaje de éxito

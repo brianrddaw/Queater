@@ -20,7 +20,7 @@
 
             <h2 class="text-2xl mb-6 font-bold bg-orange-500 w-full text-center py-4 rounded-lg text-orange-50">{{ $category }}</h2>
 
-            <div class="w-full flex flex-wrap justify-between gap-10">
+            <div class="w-full flex flex-wrap gap-10">
                 @foreach ($products as  $product)
 
                     <div class="card flex flex-col w-[28rem]  bg-stone-100 border rounded p-4 py-6 gap-6 text-slate-800 sm:mx-auto lg:mx-0">
@@ -40,11 +40,9 @@
                                         </span>
                                     </div>
 
-                                    <span class="w-28 flex flex-col gap-2 justify-between items-start">
-
-                                        <p class="w-full flex justify-center items-center gap-2 text-sm font-bold bg-orange-500 p-2 rounded text-orange-50 ">Categoria</p>
-                                        <p class="font-bold">{{ $product->category->name }}</p>
-
+                                    <span class="w-34 flex flex-col items-start bg-slate-200 rounded">
+                                        <p class="w-full flex justify-center items-center text-sm font-bold bg-slate-600 p-2 rounded text-orange-50 ">Categoría</p>
+                                        <p class="font-bold m-2">{{ $product->category->name }}</p>
                                     </span>
                                 </div>
                             </div>
