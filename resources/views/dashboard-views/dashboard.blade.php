@@ -37,7 +37,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
                     </svg>
 
-                    Categorias
+                    Categorías
                 </a>
                 <a href="{{ route('dashboard.tables') }}" class="flex items-center gap-4 p-4 bg-stone-100 rounded-lg w-full truncate shadow-3">
 
