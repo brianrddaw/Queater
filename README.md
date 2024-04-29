@@ -118,13 +118,23 @@ Ejecutar los test.
     php artisan test
 
 
-Opcional: Crear tu propio admin para queater.
+Opcional: crear tu propio admin para queater.
 
 - Dirígete al archivo DatabaseSeeder.php.(database/seeders/DatabaseSeeder.php)
 
 - Modifica el nombre, el email y la contraseña a tu gusto.
 
 Si no haces este paso, el usuario para acceder a dashboard y kitchen será “admin” , el email “admin@admin.com” y la contraseña “admin”
+
+Ejecuta el siguiente comando para crear el usuario.
+
+	php artisan db:seed
+
+
+Opcional: generar todos los productos, categorías , mesas etc…
+
+	php artisan db:seed --class=ProductsSeeder
+
 
 #### 🚀 Ejecutar el proyecto
 
