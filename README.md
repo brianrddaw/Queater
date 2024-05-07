@@ -178,7 +178,7 @@ Pantallas de diseño: https://t.ly/8iQrz
 
 # 👱🏻‍♂️👦🏻 Autores
 
-[@brianrddaw](https://github.com/brianrddaw)
+[@brianrddev](https://github.com/brianrddev)
 
 [@MiguelAguiarDEV](https://github.com/MiguelAguiarDEV)
 
